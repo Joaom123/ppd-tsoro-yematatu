@@ -8,4 +8,6 @@ module com.ifce.ppd.tsoroyematatu {
 
     opens com.ifce.ppd.tsoroyematatu to javafx.fxml;
     exports com.ifce.ppd.tsoroyematatu;
+    exports com.ifce.ppd.tsoroyematatu.controllers;
+    opens com.ifce.ppd.tsoroyematatu.controllers to javafx.fxml;
 }

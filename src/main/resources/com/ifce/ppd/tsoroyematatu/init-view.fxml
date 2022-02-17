@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="TOP_CENTER" prefHeight="791.0" prefWidth="967.0" style="-fx-spacing: 215; -fx-background-color: fbd11a;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ifce.ppd.tsoroyematatu.controllers.InitController">
+   <children>
+      <SVGPath content="M40,60 C42,48 44,30 25,32" />
+      <Text id="title" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 70;" text="TSORO YEMATATU" textAlignment="CENTER">
+      </Text>
+      <Button mnemonicParsing="false" onAction="#handleClickInitButton" text="Iniciar" />
+      <SVGPath content="M40,60 C42,48 44,30 25,32" />
+   </children>
+</VBox>
