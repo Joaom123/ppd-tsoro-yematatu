@@ -16,6 +16,7 @@ public class InitController {
      * Handle the click event on Init Button ("Iniciar").
      * Start the connection with the server and if the connection is established
      * It change the screen to player enter name. If not, display error message.
+     *
      * @param actionEvent The action's event
      */
     public void handleClickInitButton(ActionEvent actionEvent) throws IOException {
@@ -25,8 +26,8 @@ public class InitController {
         // Try to connect to server
 
         // Go to next screen
-        if (isConnected){
-            Stage actualStage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        if (isConnected) {
+            Stage actualStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             this.goToGameView(actualStage);
             return;
         }
@@ -38,6 +39,7 @@ public class InitController {
 
     /**
      * Change scene to Game View Scene
+     *
      * @param actualStage
      * @throws IOException
      */
@@ -51,6 +53,7 @@ public class InitController {
 
     /**
      * Show a alert error message
+     *
      * @param headerText
      * @param contentText
      */

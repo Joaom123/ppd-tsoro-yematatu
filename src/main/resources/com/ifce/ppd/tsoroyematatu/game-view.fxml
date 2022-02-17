@@ -1,130 +1,154 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.Line?>
 
-<GridPane prefHeight="791.0" prefWidth="967.0" style="-fx-background-color: fbd11a;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ifce.ppd.tsoroyematatu.controllers.GameController">
-  <columnConstraints>
-      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-  </columnConstraints>
-  <rowConstraints>
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <children>
-      <Circle id="piece_b_3" fill="#0b6c40" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="4" GridPane.rowIndex="11">
-         <cursor>
-            <Cursor fx:constant="OPEN_HAND" />
-         </cursor>
-      </Circle>
-      <Circle id="piece_b_2" fill="#0b6c40" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.rowIndex="11">
-         <cursor>
-            <Cursor fx:constant="OPEN_HAND" />
-         </cursor>
-      </Circle>
-      <Line endX="1079.2218017578125" endY="-579.8270263671875" fill="BLACK" opacity="0.8" smooth="false" startX="1346.1507568359375" startY="-943.7664794921875" strokeWidth="10.0" style="-fx-view-order: -1;" GridPane.columnIndex="2" GridPane.rowIndex="6">
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </Line>
-      <Circle id="piece_b_1" fill="#0b6c40" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="11">
-         <cursor>
-            <Cursor fx:constant="OPEN_HAND" />
-         </cursor>
-      </Circle>
-      <Circle id="piece_a_3" fill="#ce1327" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="4" GridPane.rowIndex="1">
-         <cursor>
-            <Cursor fx:constant="OPEN_HAND" />
-         </cursor>
-      </Circle>
-      <Circle id="piece_a_2" fill="#ce1327" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.rowIndex="1">
-         <cursor>
-            <Cursor fx:constant="OPEN_HAND" />
-         </cursor>
-      </Circle>
-      <Circle id="piece_a_1" fill="#ce1327" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="1">
-         <cursor>
-            <Cursor fx:constant="OPEN_HAND" />
-         </cursor>
-      </Circle>
-      <Circle id="space-5" disable="true" fill="#1d1e1c" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.rowIndex="9">
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </Circle>
-      <Circle id="space-4" disable="true" fill="#1d1e1c" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="4" GridPane.rowIndex="6">
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </Circle>
-      <Circle id="space-3" disable="true" fill="#1d1e1c" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.rowIndex="6">
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </Circle>
-      <Circle id="space-2" disable="true" fill="#1d1e1c" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="6">
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </Circle>
-      <Circle id="space-7" disable="true" fill="#1d1e1c" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.rowIndex="9">
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </Circle>
-      <Circle id="space-6" disable="true" fill="#1d1e1c" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.rowIndex="9">
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </Circle>
-      <Circle id="space-1" disable="true" fill="#1d1e1c" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.rowIndex="3">
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </Circle>
-      <Line endX="1079.2218017578125" endY="-579.8270263671875" fill="BLACK" opacity="0.8" smooth="false" startX="803.8099365234375" startY="-951.5533447265625" strokeWidth="10.0" style="-fx-view-order: -1;" GridPane.columnIndex="4" GridPane.rowIndex="6">
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </Line>
-      <Line endX="1079.2218017578125" endY="-579.8270263671875" fill="BLACK" opacity="0.8" smooth="false" startX="1630.2218017578125" startY="-579.8270263671875" strokeWidth="10.0" style="-fx-view-order: -1;" GridPane.columnIndex="3" GridPane.rowIndex="9">
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </Line>
-      <Line endX="1630.2218017578125" endY="-976.5106201171875" fill="BLACK" opacity="0.8" smooth="false" startX="1630.2218017578125" startY="-609.5106201171875" strokeWidth="10.0" style="-fx-view-order: -1;" GridPane.columnIndex="3" GridPane.rowIndex="6">
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </Line>
-      <Line endX="1079.2218017578125" endY="-579.7896728515625" fill="BLACK" opacity="0.8" smooth="false" startX="1356.1507568359375" startY="-579.7896728515625" strokeWidth="10.0" style="-fx-view-order: -1;" GridPane.columnIndex="3" GridPane.rowIndex="6">
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </Line>
-   </children>
-   <cursor>
-      <Cursor fx:constant="DEFAULT" />
-   </cursor>
-</GridPane>
+<?import javafx.scene.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<HBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17"
+      fx:controller="com.ifce.ppd.tsoroyematatu.controllers.GameController">
+    <children>
+        <GridPane prefHeight="768.0" prefWidth="756.0" style="-fx-background-color: fbd11a;">
+            <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <Circle id="piece_b_3" fill="#0b6c40" radius="25.0" stroke="BLACK" strokeType="INSIDE"
+                        GridPane.columnIndex="3" GridPane.rowIndex="11">
+                    <cursor>
+                        <Cursor fx:constant="OPEN_HAND"/>
+                    </cursor>
+                </Circle>
+                <Circle id="piece_b_2" fill="#0b6c40" radius="25.0" stroke="BLACK" strokeType="INSIDE"
+                        GridPane.columnIndex="2" GridPane.rowIndex="11">
+                    <cursor>
+                        <Cursor fx:constant="OPEN_HAND"/>
+                    </cursor>
+                </Circle>
+                <Line endX="1054.5113525390625" endY="-587.8375244140625" fill="BLACK" opacity="0.8" smooth="false"
+                      startX="1346.1507568359375" startY="-943.7664794921875" strokeWidth="10.0"
+                      style="-fx-view-order: -1;" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT"/>
+                    </cursor>
+                </Line>
+                <Circle id="piece_b_1" fill="#0b6c40" radius="25.0" stroke="BLACK" strokeType="INSIDE"
+                        GridPane.columnIndex="1" GridPane.rowIndex="11">
+                    <cursor>
+                        <Cursor fx:constant="OPEN_HAND"/>
+                    </cursor>
+                </Circle>
+                <Circle id="piece_a_3" fill="#ce1327" radius="25.0" stroke="BLACK" strokeType="INSIDE"
+                        GridPane.columnIndex="3" GridPane.rowIndex="1">
+                    <cursor>
+                        <Cursor fx:constant="OPEN_HAND"/>
+                    </cursor>
+                </Circle>
+                <Circle id="piece_a_2" fill="#ce1327" radius="25.0" stroke="BLACK" strokeType="INSIDE"
+                        GridPane.columnIndex="2" GridPane.rowIndex="1">
+                    <cursor>
+                        <Cursor fx:constant="OPEN_HAND"/>
+                    </cursor>
+                </Circle>
+                <Circle id="piece_a_1" fill="#ce1327" radius="25.0" stroke="BLACK" strokeType="INSIDE"
+                        GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <cursor>
+                        <Cursor fx:constant="OPEN_HAND"/>
+                    </cursor>
+                </Circle>
+                <Circle id="space-5" disable="true" fill="#1d1e1c" radius="25.0" stroke="BLACK" strokeType="INSIDE"
+                        GridPane.rowIndex="9">
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT"/>
+                    </cursor>
+                </Circle>
+                <Circle id="space-4" disable="true" fill="#1d1e1c" radius="25.0" stroke="BLACK" strokeType="INSIDE"
+                        GridPane.columnIndex="3" GridPane.rowIndex="6">
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT"/>
+                    </cursor>
+                </Circle>
+                <Circle id="space-3" disable="true" fill="#1d1e1c" radius="25.0" stroke="BLACK" strokeType="INSIDE"
+                        GridPane.columnIndex="2" GridPane.rowIndex="6">
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT"/>
+                    </cursor>
+                </Circle>
+                <Circle id="space-2" disable="true" fill="#1d1e1c" radius="25.0" stroke="BLACK" strokeType="INSIDE"
+                        GridPane.columnIndex="1" GridPane.rowIndex="6">
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT"/>
+                    </cursor>
+                </Circle>
+                <Circle id="space-7" disable="true" fill="#1d1e1c" radius="25.0" stroke="BLACK" strokeType="INSIDE"
+                        GridPane.columnIndex="4" GridPane.rowIndex="9">
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT"/>
+                    </cursor>
+                </Circle>
+                <Circle id="space-6" disable="true" fill="#1d1e1c" radius="25.0" stroke="BLACK" strokeType="INSIDE"
+                        GridPane.columnIndex="2" GridPane.rowIndex="9">
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT"/>
+                    </cursor>
+                </Circle>
+                <Circle id="space-1" disable="true" fill="#1d1e1c" radius="25.0" stroke="BLACK" strokeType="INSIDE"
+                        GridPane.columnIndex="2" GridPane.rowIndex="3">
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT"/>
+                    </cursor>
+                </Circle>
+                <Line endX="1079.2218017578125" endY="-579.8270263671875" fill="BLACK" opacity="0.8" smooth="false"
+                      startX="787.3126220703125" startY="-933.0506591796875" strokeWidth="10.0"
+                      style="-fx-view-order: -1;" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT"/>
+                    </cursor>
+                </Line>
+                <Line endX="1079.2218017578125" endY="-579.8270263671875" fill="BLACK" opacity="0.8" smooth="false"
+                      startX="1630.2218017578125" startY="-579.8270263671875" strokeWidth="10.0"
+                      style="-fx-view-order: -1;" GridPane.columnIndex="2" GridPane.rowIndex="9">
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT"/>
+                    </cursor>
+                </Line>
+                <Line endX="1630.2218017578125" endY="-963.5106201171875" fill="BLACK" opacity="0.8" smooth="false"
+                      startX="1630.2218017578125" startY="-609.5106201171875" strokeWidth="10.0"
+                      style="-fx-view-order: -1;" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT"/>
+                    </cursor>
+                </Line>
+                <Line endX="1079.2218017578125" endY="-579.7896728515625" fill="BLACK" opacity="0.8" smooth="false"
+                      startX="1356.1507568359375" startY="-579.7896728515625" strokeWidth="10.0"
+                      style="-fx-view-order: -1;" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT"/>
+                    </cursor>
+                </Line>
+            </children>
+            <cursor>
+                <Cursor fx:constant="DEFAULT"/>
+            </cursor>
+        </GridPane>
+        <VBox prefHeight="200.0" prefWidth="100.0"/>
+    </children>
+</HBox>

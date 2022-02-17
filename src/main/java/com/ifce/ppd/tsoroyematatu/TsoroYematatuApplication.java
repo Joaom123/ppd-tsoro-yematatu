@@ -10,6 +10,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class TsoroYematatuApplication extends Application {
+    public static void main(String[] args) {
+        launch();
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(TsoroYematatuApplication.class.getResource("init-view.fxml"));
@@ -22,10 +26,6 @@ public class TsoroYematatuApplication extends Application {
         stage.setScene(scene);
 
         stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 
     /***
