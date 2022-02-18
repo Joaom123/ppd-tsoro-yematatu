@@ -5,10 +5,10 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class GameController implements Controller{
+public class GameController implements Controller {
     public TextField chatInput;
     public TextArea chatMessages;
-    private ServerConnection serverConnection;
+    private final ServerConnection serverConnection;
 
     public GameController(ServerConnection serverConnection) {
         this.serverConnection = serverConnection;
@@ -16,7 +16,6 @@ public class GameController implements Controller{
     }
 
     /**
-     *
      * @param actionEvent
      */
     public void handleChatInput(ActionEvent actionEvent) {

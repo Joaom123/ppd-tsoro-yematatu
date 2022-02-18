@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 public class Client implements Serializable {
     private int id;
-    private String name;
+    private final String name;
+    private String roomId;
 
     public Client(String name) {
         this.name = name;

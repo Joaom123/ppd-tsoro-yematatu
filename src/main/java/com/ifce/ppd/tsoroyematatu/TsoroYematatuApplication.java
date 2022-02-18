@@ -1,7 +1,7 @@
 package com.ifce.ppd.tsoroyematatu;
 
-import com.ifce.ppd.tsoroyematatu.controllers.InitController;
 import com.ifce.ppd.tsoroyematatu.client.ServerConnection;
+import com.ifce.ppd.tsoroyematatu.controllers.InitController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

@@ -12,8 +12,8 @@ import java.net.Socket;
  */
 public class ReceiveThread extends Thread {
     private ObjectInputStream inputStream;
-    private ServerConnection serverConnection;
-    private Socket socket;
+    private final ServerConnection serverConnection;
+    private final Socket socket;
 
     public ReceiveThread(Socket socket, ServerConnection serverConnection) {
         this.socket = socket;

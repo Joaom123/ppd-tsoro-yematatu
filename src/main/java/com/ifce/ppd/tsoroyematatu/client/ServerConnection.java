@@ -31,11 +31,12 @@ public class ServerConnection {
      * Start the connection with the server with the following configuration:
      * Host: localhost
      * Port: 12345
+     *
      * @throws IOException
      */
-    public void startConnection() {
+    public void startConnection(String host) {
         try {
-            socket = new Socket("localhost", 12345);
+            socket = new Socket(host, 12345);
 
             receiveThread = new ReceiveThread(socket, this);
             sendThread = new SendThread(socket, this);

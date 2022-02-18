@@ -1,7 +1,7 @@
 package com.ifce.ppd.tsoroyematatu.server;
 
-import com.ifce.ppd.tsoroyematatu.models.Client;
 import com.ifce.ppd.tsoroyematatu.constants.MESSAGE_TYPES;
+import com.ifce.ppd.tsoroyematatu.models.Client;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -13,8 +13,8 @@ import java.net.Socket;
  * can handle multiple clients at the same time
  */
 public class PlayerThread extends Thread {
-    private Server server;
-    private Socket socket;
+    private final Server server;
+    private final Socket socket;
     private Client client;
     private ObjectOutputStream outputStream;
 

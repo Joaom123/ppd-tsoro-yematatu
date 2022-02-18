@@ -12,8 +12,8 @@ import java.util.Set;
  */
 public class Server {
     ServerSocket serverSocket;
-    private Set<String> userNames = new HashSet<>();
-    private Set<PlayerThread> playerThreads = new HashSet<>();
+    private final Set<String> userNames = new HashSet<>();
+    private final Set<PlayerThread> playerThreads = new HashSet<>();
 
     public static void main(String[] args) {
         Server server = new Server();
@@ -52,6 +52,7 @@ public class Server {
 
     /**
      * Broadcast menssage
+     *
      * @param message
      */
     public void broadcastMessageToRoom(String message) {

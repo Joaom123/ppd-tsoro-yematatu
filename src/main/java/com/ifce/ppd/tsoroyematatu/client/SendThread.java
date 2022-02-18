@@ -7,8 +7,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class SendThread extends Thread {
-    private Socket socket;
-    private ServerConnection serverConnection;
+    private final Socket socket;
+    private final ServerConnection serverConnection;
     private ObjectOutputStream outputStream;
 
     public SendThread(Socket socket, ServerConnection serverConnection) {
