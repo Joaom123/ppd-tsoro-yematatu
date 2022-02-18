@@ -1,4 +1,4 @@
-package com.ifce.ppd.tsoroyematatu.services;
+package com.ifce.ppd.tsoroyematatu.constants;
 
 public enum MESSAGE_TYPES {
     INIT(0),
