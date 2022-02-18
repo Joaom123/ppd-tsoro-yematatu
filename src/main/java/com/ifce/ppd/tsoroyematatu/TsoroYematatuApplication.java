@@ -1,5 +1,7 @@
 package com.ifce.ppd.tsoroyematatu;
 
+import com.ifce.ppd.tsoroyematatu.controllers.InitController;
+import com.ifce.ppd.tsoroyematatu.services.ServerConnection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,19 +19,23 @@ public class TsoroYematatuApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(TsoroYematatuApplication.class.getResource("init-view.fxml"));
+        fxmlLoader.setController(new InitController(new ServerConnection()));
 
         Scene scene = new Scene(fxmlLoader.load(), 967, 791);
 
         Text title = (Text) scene.lookup("#title");
         title.setFont(this.getZilapAfricaFont());
+
         stage.setTitle("IFCE - PPD - João Marcus Maia Rocha - Tsoro Yematatu");
         stage.setScene(scene);
 
         stage.show();
     }
 
-    /***
+
+    /**
      * Get ZilapAfrica font
+     *
      * @return The Zilap Africa font
      */
     private Font getZilapAfricaFont() {
