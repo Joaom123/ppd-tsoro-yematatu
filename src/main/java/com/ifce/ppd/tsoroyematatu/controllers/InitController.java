@@ -1,8 +1,8 @@
 package com.ifce.ppd.tsoroyematatu.controllers;
 
 import com.ifce.ppd.tsoroyematatu.TsoroYematatuApplication;
-import com.ifce.ppd.tsoroyematatu.server.Client;
-import com.ifce.ppd.tsoroyematatu.services.ServerConnection;
+import com.ifce.ppd.tsoroyematatu.models.Client;
+import com.ifce.ppd.tsoroyematatu.client.ServerConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class InitController {
+public class InitController implements Controller {
     ServerConnection serverConnection;
 
     public InitController(ServerConnection serverConnection) {
@@ -27,30 +27,25 @@ public class InitController {
      * @param actionEvent The action's event
      */
     public void handleClickInitButton(ActionEvent actionEvent) throws IOException {
-        boolean isConnected;
+        Client clientModel = new Client("João Marcus");
 
-        // Try to connect to server
+        serverConnection.startConnection();
+        serverConnection.setClientModel(clientModel);
         try {
-            Client clientModel = new Client("João Marcus");
-
-            serverConnection.startConnection();
-            serverConnection.setClientModel(clientModel);
             serverConnection.createClientOnServer();
-
-            isConnected = true;
         } catch (Exception e) {
-            isConnected = false;
-            System.out.println("Erro: " + e.getMessage());
+            e.printStackTrace();
         }
 
-        // Go to next screen
-        if (isConnected) {
+
+        // If connected: Go to game screen
+        if (this.serverConnection.isConnected()) {
             Stage actualStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             this.goToGameView(actualStage);
             return;
         }
 
-        // Display error message
+        // If isn't connected: display error message
         this.errorAlert("Conexão não estabelecida",
                 "Não foi possível criar uma conexão com o servidor, tente novamente");
     }
@@ -83,6 +78,10 @@ public class InitController {
         errorAlert.setHeaderText(headerText);
         errorAlert.setContentText(contentText);
         errorAlert.showAndWait();
+    }
+
+    @Override
+    public void addMessageToChat(String author, String message) {
     }
 }
 

@@ -12,34 +12,12 @@ import java.util.Set;
  */
 public class Server {
     ServerSocket serverSocket;
-    private final Set<String> userNames = new HashSet<>();
-    private final Set<PlayerThread> playerThreads = new HashSet<>();
+    private Set<String> userNames = new HashSet<>();
+    private Set<PlayerThread> playerThreads = new HashSet<>();
 
     public static void main(String[] args) {
         Server server = new Server();
         server.start();
-//        try {
-//            while (true) {
-//                ObjectInputStream inputStream = new ObjectInputStream(client.getInputStream());
-//
-//                byte socketTypeFlag = inputStream.readByte();
-//
-//                if (socketTypeFlag == SOCKET_TYPES.INIT.getFlag()) {
-//                    System.out.println("Cliente inicializado no servidor");
-//                    System.out.println(inputStream.readObject());
-//                }
-//                if (socketTypeFlag == SOCKET_TYPES.MESSAGE.getFlag()) {
-//                    System.out.println("Mensagem recebida");
-//                    String message = inputStream.readUTF();
-//                    System.out.println(message);
-//                    //Send message to other player
-//                }
-//
-//
-//            }
-//        } catch (Exception e) {
-//            System.out.println("Error " + e.getMessage());
-//        }
     }
 
     public void start() {
@@ -52,6 +30,7 @@ public class Server {
                 System.out.println("Cliente conectado: " + socket.getInetAddress().getHostAddress());
                 PlayerThread playerThread = new PlayerThread(this, socket);
                 playerThreads.add(playerThread);
+                playerThread.start();
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -62,6 +41,23 @@ public class Server {
      * TODO: Remove client from server
      */
     public void removeClient() {
+    }
+
+    /**
+     * TODO: Save client
+     */
+    public void saveClient() {
+
+    }
+
+    /**
+     * Broadcast menssage
+     * @param message
+     */
+    public void broadcastMessageToRoom(String message) {
+        playerThreads.forEach(playerThread -> {
+            playerThread.sendMessage(message);
+        });
     }
 }
 
