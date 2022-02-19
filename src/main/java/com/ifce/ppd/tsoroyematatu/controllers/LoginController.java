@@ -21,7 +21,9 @@ public class LoginController implements Controller {
     }
 
     /**
-     * @param actionEvent
+     * Start the connection with the server. If is connected and playable, go to game-view. If isn't, show message.
+     * Validate the input from the login and set a default hostName and roomId.
+     * @param actionEvent The action's event
      */
     public void handleLoginButtonClick(ActionEvent actionEvent) {
         String playerName = playerNameTF.getText();
@@ -37,10 +39,10 @@ public class LoginController implements Controller {
 
         if (roomId.isEmpty()) roomId = "IFCE-PPD";
 
-        Client clientModel = new Client(playerName);
+        Client client = new Client(playerName);
 
         serverConnection.startConnection(hostName);
-        serverConnection.setClientModel(clientModel);
+        serverConnection.setClientModel(client);
         try {
             serverConnection.createClientOnServer();
         } catch (Exception e) {
@@ -55,12 +57,14 @@ public class LoginController implements Controller {
             return;
         }
 
+        // If not connected: show error message
         javaFXService.errorAlert("Conexão não estabelecida!",
                 "Não foi possível criar uma conexão com o servidor, tente novamente.");
     }
 
     /**
-     * @param actionEvent
+     * Go to init-view
+     * @param actionEvent The action's event
      */
     public void handleBackButtonClick(ActionEvent actionEvent) {
         Stage actualStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
