@@ -1,10 +1,10 @@
 package com.ifce.ppd.tsoroyematatu.client;
 
 import com.ifce.ppd.tsoroyematatu.controllers.Controller;
-import com.ifce.ppd.tsoroyematatu.exceptions.NoClientModelException;
+import com.ifce.ppd.tsoroyematatu.exceptions.NullClientException;
 import com.ifce.ppd.tsoroyematatu.models.Client;
 
-import java.io.IOException;
+
 import java.net.Socket;
 
 /**
@@ -23,16 +23,10 @@ public class ServerConnection {
         return isConnected;
     }
 
-    public void setConnected(boolean connected) {
-        isConnected = connected;
-    }
-
     /**
-     * Start the connection with the server with the following configuration:
-     * Host: localhost
-     * Port: 12345
-     *
-     * @throws IOException
+     * Start the connection with the server (port 12345) and start ReceiveThread and SendThread.
+     * If the connection cannot be done, set isConnected to false.
+     * @param host The hostname ex.: localhost | 127.0.0.1
      */
     public void startConnection(String host) {
         try {
@@ -45,19 +39,19 @@ public class ServerConnection {
             sendThread.start();
 
             isConnected = true;
-        } catch (IOException e) {
+        } catch (Exception e) {
             isConnected = false;
             e.printStackTrace();
         }
     }
 
-    public void createClientOnServer() throws NoClientModelException {
-        if (clientModel == null) throw new NoClientModelException();
+    /**
+     *
+     * @throws NullClientException Lançada quando não há cliente.
+     */
+    public void createClientOnServer() throws NullClientException {
+        if (clientModel == null) throw new NullClientException();
         sendThread.sendInitFlag();
-    }
-
-    public Socket getSocket() {
-        return socket;
     }
 
     public Client getClientModel() {
@@ -72,11 +66,20 @@ public class ServerConnection {
         this.currentController = currentController;
     }
 
+    /**
+     * Use the sendThread to send message (MESSAGE_TYPES.MESSAGE) to server.
+     * @param inputText The content of the message.
+     */
     public void sendMessage(String inputText) {
         this.sendThread.sendMessage(inputText);
     }
 
+    /**
+     * Used by the ReceiveThread to get the message from the server and send it to the chat.
+     * @param message The content of the message.
+     * @param client The message's author.
+     */
     public void receiveMessage(String message, Client client) {
-        this.currentController.addMessageToChat("From server" + client.getName(), message);
+        this.currentController.addMessageToChat(client.getName(), message);
     }
 }
