@@ -6,6 +6,10 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
+
+/**
+ * The controller of init-view
+ */
 public class InitController implements Controller {
     ServerConnection serverConnection;
     JavaFXService javaFXService = new JavaFXService();
@@ -16,8 +20,7 @@ public class InitController implements Controller {
 
     /**
      * Handle the click event on Init Button ("Iniciar").
-     * Go to Log in View.
-     *
+     * After the click, the user is directed to the Login View.
      * @param actionEvent The action's event
      */
     public void handleClickInitButton(ActionEvent actionEvent) {
@@ -27,7 +30,6 @@ public class InitController implements Controller {
 
 
     @Override
-    public void addMessageToChat(String author, String message) {
-    }
+    public void addMessageToChat(String author, String message) {}
 }
 

@@ -7,24 +7,21 @@ import javafx.scene.control.Alert;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class JavaFXService {
     /**
-     * Change scene to a new View Scene.
-     * Set the controller.
+     * Load a new scene with the controller of that scene.
      *
-     * @param actualStage
-     * @throws IOException
+     * @param resourceName The path to the resource.
+     * @param controller The controller of the new scene.
+     * @param actualStage The actual stage.
      */
     public void goToView(String resourceName, Stage actualStage, Object controller) {
-        FXMLLoader fxmlLoader = new FXMLLoader(TsoroYematatuApplication.class.getResource(resourceName));
-        fxmlLoader.setController(controller);
-
         try {
+            FXMLLoader fxmlLoader = new FXMLLoader(TsoroYematatuApplication.class.getResource(resourceName));
+            fxmlLoader.setController(controller);
             actualStage.setScene(new Scene(fxmlLoader.load(), 967, 791));
             actualStage.show();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             errorAlert("Falha ao carregar nova tela!", "Houve uma falha ao tentar abrir uma nova tela.");
         }
