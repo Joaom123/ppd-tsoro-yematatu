@@ -44,7 +44,7 @@ public class LoginController implements Controller {
         serverConnection.startConnection(hostName);
         serverConnection.setClientModel(client);
         try {
-            serverConnection.createClientOnServer();
+            serverConnection.createClientOnServer(roomId);
         } catch (Exception e) {
             e.printStackTrace();
         }

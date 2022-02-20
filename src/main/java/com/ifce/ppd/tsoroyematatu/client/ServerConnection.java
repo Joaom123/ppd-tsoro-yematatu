@@ -49,9 +49,9 @@ public class ServerConnection {
      *
      * @throws NullClientException Lançada quando não há cliente.
      */
-    public void createClientOnServer() throws NullClientException {
+    public void createClientOnServer(String roomId) throws NullClientException {
         if (clientModel == null) throw new NullClientException();
-        sendThread.sendInitFlag();
+        sendThread.sendInitFlag(roomId);
     }
 
     public Client getClientModel() {

@@ -2,6 +2,7 @@ package com.ifce.ppd.tsoroyematatu.server;
 
 import com.ifce.ppd.tsoroyematatu.constants.MESSAGE_TYPES;
 import com.ifce.ppd.tsoroyematatu.models.Client;
+import com.ifce.ppd.tsoroyematatu.models.Room;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -13,10 +14,10 @@ import java.net.Socket;
  * can handle multiple clients at the same time
  */
 public class PlayerThread extends Thread {
-    private final Server server;
-    private final Socket socket;
-    private Client client;
+    private Server server;
+    private Socket socket;
     private ObjectOutputStream outputStream;
+    private Client client;
 
     public PlayerThread(Server server, Socket socket) {
         this.socket = socket;
@@ -44,16 +45,17 @@ public class PlayerThread extends Thread {
             try {
                 socketTypeFlag = inputStream.readByte();
                 if (socketTypeFlag == MESSAGE_TYPES.INIT.getFlag()) {
-                    System.out.println("Cliente inicializado no servidor");
                     client = (Client) inputStream.readObject();
+                    String roomId = inputStream.readUTF();
+                    Room room = server.createRoom(roomId);
+                    System.out.println(String.format("Cliente %s inicializado no servidor", client.getName()));
                     // TODO Give id to client
-                    // TODO Save client on server client array
                 }
 
                 if (socketTypeFlag == MESSAGE_TYPES.MESSAGE.getFlag()) {
                     String message = inputStream.readUTF();
                     System.out.println(client.getName() + "> " + message);
-                    server.broadcastMessageToRoom(message);
+                    server.sendMessageToRivalPlayer(message);
                 }
 
             } catch (Exception e) {

@@ -1,8 +1,12 @@
 package com.ifce.ppd.tsoroyematatu.server;
 
+import com.ifce.ppd.tsoroyematatu.models.Room;
+
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -12,8 +16,9 @@ import java.util.Set;
  */
 public class Server {
     ServerSocket serverSocket;
-    private final Set<String> userNames = new HashSet<>();
-    private final Set<PlayerThread> playerThreads = new HashSet<>();
+    private Set<String> userNames = new HashSet<>();
+    private Set<Room> rooms = Collections.synchronizedSet(new HashSet<>());
+    private Set<PlayerThread> playerThreads = new HashSet<>();
 
     public static void main(String[] args) {
         Server server = new Server();
@@ -38,27 +43,43 @@ public class Server {
     }
 
     /**
-     * TODO: Remove client from server
+     * Send a message to the rival player in the room
+     * @param message The message to be sent.
      */
-    public void removeClient() {
-    }
-
-    /**
-     * TODO: Save client
-     */
-    public void saveClient() {
-
-    }
-
-    /**
-     * Broadcast menssage
-     *
-     * @param message
-     */
-    public void broadcastMessageToRoom(String message) {
+    public void sendMessageToRivalPlayer(String message) {
         playerThreads.forEach(playerThread -> {
             playerThread.sendMessage(message);
         });
+    }
+
+    /**
+     * If a room with given roomId doesn't exist, create a new one. If it does, return it.
+     * @param roomId The room's id
+     * @return The room
+     */
+    public Room createRoom(String roomId) {
+        // If room already exist, return it
+        for(Room room : rooms)
+            if (room.getId().equals(roomId))
+                return room;
+
+        // Create a new room if it doesn't exist
+        Room room = new Room(roomId);
+        rooms.add(room);
+        System.out.println("Sala " + room.getId() + " foi criada.");
+        return room;
+    }
+
+    /**
+     *
+     * @param roomId
+     * @return
+     */
+    public Room getRoomById(String roomId) {
+        for(Room room : rooms)
+            if (room.getId().equals(roomId))
+                return room;
+        return null;
     }
 }
 

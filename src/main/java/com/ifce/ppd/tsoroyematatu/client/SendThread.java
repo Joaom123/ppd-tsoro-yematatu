@@ -26,10 +26,11 @@ public class SendThread extends Thread {
         // TODO: close outputStream when user disconnect
     }
 
-    public void sendInitFlag() {
+    public void sendInitFlag(String roomId) {
         try {
             outputStream.writeByte(MESSAGE_TYPES.INIT.getFlag());
             outputStream.writeObject(serverConnection.getClientModel());
+            outputStream.writeUTF(roomId);
             outputStream.flush();
         } catch (IOException e) {
             e.printStackTrace();
