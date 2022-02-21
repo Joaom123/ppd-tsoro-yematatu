@@ -14,8 +14,7 @@ import java.util.Set;
  * Since each connection is processed in a separeted thread, the server is able to handle multiple clients.
  */
 public class Server {
-    ServerSocket serverSocket;
-    private final Set<String> userNames = new HashSet<>();
+    private ServerSocket serverSocket;
     private final Set<Room> rooms = Collections.synchronizedSet(new HashSet<>());
     private final Set<PlayerThread> playerThreads = new HashSet<>();
 
@@ -42,17 +41,6 @@ public class Server {
     }
 
     /**
-     * Send a message to the rival player in the room
-     *
-     * @param message The message to be sent.
-     */
-    public void sendMessageToRivalPlayer(String message) {
-        playerThreads.forEach(playerThread -> {
-            playerThread.sendMessage(message);
-        });
-    }
-
-    /**
      * If a room with given roomId doesn't exist, create a new one. If it does, return it.
      *
      * @param roomId The room's id
@@ -69,17 +57,6 @@ public class Server {
         rooms.add(room);
         System.out.println("Sala " + room.getId() + " foi criada.");
         return room;
-    }
-
-    /**
-     * @param roomId
-     * @return
-     */
-    public Room getRoomById(String roomId) {
-        for (Room room : rooms)
-            if (room.getId().equals(roomId))
-                return room;
-        return null;
     }
 }
 

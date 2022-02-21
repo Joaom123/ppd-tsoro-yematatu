@@ -10,14 +10,14 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 /**
- * Handles the connection for each connected client, so the server
- * can handle multiple clients at the same time
+ * Handles the connection for each connected player(client).
  */
 public class PlayerThread extends Thread {
     private final Server server;
     private final Socket socket;
     private ObjectOutputStream outputStream;
     private Client client;
+    private Room room;
 
     public PlayerThread(Server server, Socket socket) {
         this.socket = socket;
@@ -45,17 +45,20 @@ public class PlayerThread extends Thread {
             try {
                 socketTypeFlag = inputStream.readByte();
                 if (socketTypeFlag == MESSAGE_TYPES.INIT.getFlag()) {
-                    client = (Client) inputStream.readObject();
+                    client = (Client) inputStream.readObject(); // set client
+                    System.out.println("Cliente " + client.getName() + " inicializado no servidor");
+
                     String roomId = inputStream.readUTF();
-                    Room room = server.createRoom(roomId);
-                    System.out.println(String.format("Cliente %s inicializado no servidor", client.getName()));
-                    // TODO Give id to client
+                    room = server.createRoom(roomId); // set room
+
+                    room.addPlayer(this); // add player to the room
+                    System.out.println("Cliente " + client.getName() + " entrou na sala " + room.getId());
                 }
 
                 if (socketTypeFlag == MESSAGE_TYPES.MESSAGE.getFlag()) {
                     String message = inputStream.readUTF();
-                    System.out.println(client.getName() + "> " + message);
-                    server.sendMessageToRivalPlayer(message);
+                    System.out.println(client.getName() + ": " + message);
+                    sendMessageToRivalPlayer(message);
                 }
 
             } catch (Exception e) {
@@ -73,6 +76,14 @@ public class PlayerThread extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    /**
+     * Send a message to the rival player in the room
+     *
+     * @param message The message to be sent.
+     */
+    public void sendMessageToRivalPlayer(String message) {
+        room.getRivalPlayerThread(this).sendMessage(message);
     }
 }
