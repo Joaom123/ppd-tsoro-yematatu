@@ -6,9 +6,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class GameController implements Controller {
+    private final ServerConnection serverConnection;
     public TextField chatInput;
     public TextArea chatMessages;
-    private final ServerConnection serverConnection;
 
     public GameController(ServerConnection serverConnection) {
         this.serverConnection = serverConnection;

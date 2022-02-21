@@ -7,8 +7,8 @@ import java.util.Objects;
 import java.util.Set;
 
 public class Room {
-    private String id;
-    private Set<PlayerThread> playersThreads = new HashSet<>();
+    private final String id;
+    private final Set<PlayerThread> playersThreads = new HashSet<>();
 
     public Room(String id) {
         this.id = id;

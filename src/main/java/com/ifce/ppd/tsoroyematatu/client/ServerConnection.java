@@ -4,7 +4,6 @@ import com.ifce.ppd.tsoroyematatu.controllers.Controller;
 import com.ifce.ppd.tsoroyematatu.exceptions.NullClientException;
 import com.ifce.ppd.tsoroyematatu.models.Client;
 
-
 import java.net.Socket;
 
 /**
@@ -26,6 +25,7 @@ public class ServerConnection {
     /**
      * Start the connection with the server (port 12345) and start ReceiveThread and SendThread.
      * If the connection cannot be done, set isConnected to false.
+     *
      * @param host The hostname ex.: localhost | 127.0.0.1
      */
     public void startConnection(String host) {
@@ -46,7 +46,6 @@ public class ServerConnection {
     }
 
     /**
-     *
      * @throws NullClientException Lançada quando não há cliente.
      */
     public void createClientOnServer(String roomId) throws NullClientException {
@@ -68,6 +67,7 @@ public class ServerConnection {
 
     /**
      * Use the sendThread to send message (MESSAGE_TYPES.MESSAGE) to server.
+     *
      * @param inputText The content of the message.
      */
     public void sendMessage(String inputText) {
@@ -76,8 +76,9 @@ public class ServerConnection {
 
     /**
      * Used by the ReceiveThread to get the message from the server and send it to the chat.
+     *
      * @param message The content of the message.
-     * @param client The message's author.
+     * @param client  The message's author.
      */
     public void receiveMessage(String message, Client client) {
         this.currentController.addMessageToChat(client.getName(), message);

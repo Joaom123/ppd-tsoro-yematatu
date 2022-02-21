@@ -11,9 +11,9 @@ import java.net.Socket;
  * This thread is responsible for reading user's input and send it to the server.
  */
 public class ReceiveThread extends Thread {
-    private ObjectInputStream inputStream;
     private final ServerConnection serverConnection;
     private final Socket socket;
+    private ObjectInputStream inputStream;
 
     public ReceiveThread(Socket socket, ServerConnection serverConnection) {
         this.socket = socket;

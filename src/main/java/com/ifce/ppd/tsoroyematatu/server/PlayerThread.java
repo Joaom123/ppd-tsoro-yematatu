@@ -14,8 +14,8 @@ import java.net.Socket;
  * can handle multiple clients at the same time
  */
 public class PlayerThread extends Thread {
-    private Server server;
-    private Socket socket;
+    private final Server server;
+    private final Socket socket;
     private ObjectOutputStream outputStream;
     private Client client;
 

@@ -21,6 +21,7 @@ public class InitController implements Controller {
     /**
      * Handle the click event on Init Button ("Iniciar").
      * After the click, the user is directed to the Login View.
+     *
      * @param actionEvent The action's event
      */
     public void handleClickInitButton(ActionEvent actionEvent) {
@@ -30,6 +31,7 @@ public class InitController implements Controller {
 
 
     @Override
-    public void addMessageToChat(String author, String message) {}
+    public void addMessageToChat(String author, String message) {
+    }
 }
 

@@ -9,11 +9,11 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class LoginController implements Controller {
+    private final ServerConnection serverConnection;
+    private final JavaFXService javaFXService = new JavaFXService();
     public TextField playerNameTF;
     public TextField hostNameTF;
     public TextField roomIdTF;
-    private final ServerConnection serverConnection;
-    private final JavaFXService javaFXService = new JavaFXService();
 
     public LoginController(ServerConnection serverConnection) {
         this.serverConnection = serverConnection;
@@ -23,6 +23,7 @@ public class LoginController implements Controller {
     /**
      * Start the connection with the server. If is connected and playable, go to game-view. If isn't, show message.
      * Validate the input from the login and set a default hostName and roomId.
+     *
      * @param actionEvent The action's event
      */
     public void handleLoginButtonClick(ActionEvent actionEvent) {
@@ -64,6 +65,7 @@ public class LoginController implements Controller {
 
     /**
      * Go to init-view
+     *
      * @param actionEvent The action's event
      */
     public void handleBackButtonClick(ActionEvent actionEvent) {

@@ -12,8 +12,8 @@ public class JavaFXService {
      * Load a new scene with the controller of that scene.
      *
      * @param resourceName The path to the resource.
-     * @param controller The controller of the new scene.
-     * @param actualStage The actual stage.
+     * @param controller   The controller of the new scene.
+     * @param actualStage  The actual stage.
      */
     public void goToView(String resourceName, Stage actualStage, Object controller) {
         try {
