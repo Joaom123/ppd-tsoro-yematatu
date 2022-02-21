@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * Starts the server, listening on a specific port.
  * When a new client is connected, an instace of PlayerThread is created.
- * Since each connection is processed in a separeted thread, the server is able to handle multiple clients.
+ * Since each connection is processed in a separeted thread, the server can handle multiple clients.
  */
 public class Server {
     private final Set<Room> rooms = Collections.synchronizedSet(new HashSet<>());
@@ -44,7 +44,7 @@ public class Server {
      * If a room with given roomId doesn't exist, create a new one. If it does, return it.
      *
      * @param roomId The room's id
-     * @return The room
+     * @return The created room or the one with given roomId
      */
     public Room createRoom(String roomId) {
         // If room already exist, return it

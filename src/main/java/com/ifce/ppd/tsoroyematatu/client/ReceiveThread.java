@@ -1,7 +1,6 @@
 package com.ifce.ppd.tsoroyematatu.client;
 
 import com.ifce.ppd.tsoroyematatu.constants.MESSAGE_TYPES;
-import com.ifce.ppd.tsoroyematatu.models.Client;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -31,9 +30,9 @@ public class ReceiveThread extends Thread {
         while (true) {
             try {
                 if (inputStream.readByte() == MESSAGE_TYPES.MESSAGE.getFlag()) {
+                    String author = inputStream.readUTF();
                     String message = inputStream.readUTF();
-                    Client client = (Client) inputStream.readObject();
-                    this.serverConnection.receiveMessage(message, client);
+                    this.serverConnection.receiveMessage(author, message);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

@@ -1,6 +1,7 @@
 package com.ifce.ppd.tsoroyematatu.server;
 
 import com.ifce.ppd.tsoroyematatu.constants.MESSAGE_TYPES;
+import com.ifce.ppd.tsoroyematatu.exceptions.NoRivalException;
 import com.ifce.ppd.tsoroyematatu.models.Client;
 import com.ifce.ppd.tsoroyematatu.models.Room;
 
@@ -57,8 +58,7 @@ public class PlayerThread extends Thread {
 
                 if (socketTypeFlag == MESSAGE_TYPES.MESSAGE.getFlag()) {
                     String message = inputStream.readUTF();
-                    System.out.println(client.getName() + ": " + message);
-                    sendMessageToRivalPlayer(message);
+                    sendMessageToRivalPlayer(client.getName(), message);
                 }
 
             } catch (Exception e) {
@@ -67,11 +67,11 @@ public class PlayerThread extends Thread {
         }
     }
 
-    public void sendMessage(String message) {
+    public void sendMessage(String author, String message) {
         try {
             outputStream.writeByte(MESSAGE_TYPES.MESSAGE.getFlag());
+            outputStream.writeUTF(author);
             outputStream.writeUTF(message);
-            outputStream.writeObject(client);
             outputStream.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -83,7 +83,11 @@ public class PlayerThread extends Thread {
      *
      * @param message The message to be sent.
      */
-    public void sendMessageToRivalPlayer(String message) {
-        room.getRivalPlayerThread(this).sendMessage(message);
+    public void sendMessageToRivalPlayer(String author, String message) {
+        try {
+            room.getRivalPlayerThread(this).sendMessage(author, message);
+        } catch (NoRivalException e) {
+            e.printStackTrace();
+        }
     }
 }

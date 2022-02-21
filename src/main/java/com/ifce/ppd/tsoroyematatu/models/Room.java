@@ -1,6 +1,7 @@
 package com.ifce.ppd.tsoroyematatu.models;
 
 import com.ifce.ppd.tsoroyematatu.exceptions.MaximumNumberPlayersInTheRoomException;
+import com.ifce.ppd.tsoroyematatu.exceptions.NoRivalException;
 import com.ifce.ppd.tsoroyematatu.server.PlayerThread;
 
 import java.util.HashSet;
@@ -25,12 +26,12 @@ public class Room {
         return id;
     }
 
-    public PlayerThread getRivalPlayerThread(PlayerThread playerThread) {
+    public PlayerThread getRivalPlayerThread(PlayerThread playerThread) throws NoRivalException {
         for (PlayerThread playerThread1 : playersThreads) {
             if (playerThread != playerThread1)
                 return playerThread1;
         }
-        return playerThread;
+        throw new NoRivalException();
     }
 
     public boolean maximumNumberPlayersReached() {

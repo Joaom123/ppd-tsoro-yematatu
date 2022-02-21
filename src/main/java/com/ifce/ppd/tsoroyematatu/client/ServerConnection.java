@@ -77,10 +77,10 @@ public class ServerConnection {
     /**
      * Used by the ReceiveThread to get the message from the server and send it to the chat.
      *
+     * @param author  The message's author.
      * @param message The content of the message.
-     * @param client  The message's author.
      */
-    public void receiveMessage(String message, Client client) {
-        this.currentController.addMessageToChat(client.getName(), message);
+    public void receiveMessage(String author, String message) {
+        this.currentController.addMessageToChat(author, message);
     }
 }

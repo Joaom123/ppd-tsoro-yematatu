@@ -16,7 +16,7 @@ public class GameController implements Controller {
     }
 
     /**
-     * @param actionEvent
+     * @param actionEvent The action's event
      */
     public void handleChatInput(ActionEvent actionEvent) {
         String inputText = chatInput.getText();
