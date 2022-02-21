@@ -11,7 +11,7 @@ import java.net.Socket;
  * Once the connection is made, creates and starts two threads: SendThread and ReceiveThread.
  */
 public class ServerConnection {
-    public Controller currentController;
+    private Controller currentController;
     private Socket socket;
     private Client clientModel;
     private SendThread sendThread;

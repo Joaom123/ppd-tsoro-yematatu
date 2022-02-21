@@ -67,6 +67,12 @@ public class PlayerThread extends Thread {
         }
     }
 
+    /**
+     * Send a message to this plauerThread's client.
+     *
+     * @param author The author of the message, can be the server or another player
+     * @param message The message to be passed
+     */
     public void sendMessage(String author, String message) {
         try {
             outputStream.writeByte(MESSAGE_TYPES.MESSAGE.getFlag());

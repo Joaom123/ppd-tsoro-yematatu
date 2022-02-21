@@ -8,7 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class LoginController implements Controller {
+public class LoginController extends Controller {
     private final ServerConnection serverConnection;
     private final JavaFXService javaFXService = new JavaFXService();
     public TextField playerNameTF;
@@ -71,10 +71,5 @@ public class LoginController implements Controller {
     public void handleBackButtonClick(ActionEvent actionEvent) {
         Stage actualStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         javaFXService.goToView("init-view.fxml", actualStage, new InitController(serverConnection));
-    }
-
-
-    @Override
-    public void addMessageToChat(String author, String message) {
     }
 }

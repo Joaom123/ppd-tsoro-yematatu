@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 /**
  * The controller of init-view
  */
-public class InitController implements Controller {
+public class InitController extends Controller {
     ServerConnection serverConnection;
     JavaFXService javaFXService = new JavaFXService();
 
@@ -27,11 +27,6 @@ public class InitController implements Controller {
     public void handleClickInitButton(ActionEvent actionEvent) {
         Stage actualStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         javaFXService.goToView("login-view.fxml", actualStage, new LoginController(serverConnection));
-    }
-
-
-    @Override
-    public void addMessageToChat(String author, String message) {
     }
 }
 

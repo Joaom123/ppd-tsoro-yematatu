@@ -5,7 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class GameController implements Controller {
+public class GameController extends Controller {
     private final ServerConnection serverConnection;
     public TextField chatInput;
     public TextArea chatMessages;
