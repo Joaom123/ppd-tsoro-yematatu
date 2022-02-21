@@ -14,9 +14,9 @@ import java.util.Set;
  * Since each connection is processed in a separeted thread, the server is able to handle multiple clients.
  */
 public class Server {
-    private ServerSocket serverSocket;
     private final Set<Room> rooms = Collections.synchronizedSet(new HashSet<>());
     private final Set<PlayerThread> playerThreads = new HashSet<>();
+    private ServerSocket serverSocket;
 
     public static void main(String[] args) {
         Server server = new Server();
