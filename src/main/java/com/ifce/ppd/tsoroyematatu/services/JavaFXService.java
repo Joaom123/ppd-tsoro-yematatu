@@ -24,7 +24,7 @@ public class JavaFXService {
             Scene scene = new Scene(fxmlLoader.load(), 967, 791);
 
             Text title = (Text) scene.lookup("#title");
-            if (title != null)  title.setFont(this.getZilapAfricaFont());
+            if (title != null) title.setFont(this.getZilapAfricaFont());
 
             actualStage.setScene(scene);
             actualStage.show();
