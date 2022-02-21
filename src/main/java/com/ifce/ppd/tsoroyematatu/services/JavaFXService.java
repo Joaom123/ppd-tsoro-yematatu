@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class JavaFXService {
@@ -19,7 +20,13 @@ public class JavaFXService {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(TsoroYematatuApplication.class.getResource(resourceName));
             fxmlLoader.setController(controller);
-            actualStage.setScene(new Scene(fxmlLoader.load(), 967, 791));
+
+            Scene scene = new Scene(fxmlLoader.load(), 967, 791);
+
+            Text title = (Text) scene.lookup("#title");
+            if (title != null)  title.setFont(this.getZilapAfricaFont());
+
+            actualStage.setScene(scene);
             actualStage.show();
         } catch (Exception e) {
             e.printStackTrace();
