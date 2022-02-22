@@ -2,6 +2,7 @@ package com.ifce.ppd.tsoroyematatu.models;
 
 import com.ifce.ppd.tsoroyematatu.exceptions.MaximumNumberPlayersInTheRoomException;
 import com.ifce.ppd.tsoroyematatu.exceptions.NoRivalException;
+import com.ifce.ppd.tsoroyematatu.server.Game;
 import com.ifce.ppd.tsoroyematatu.server.PlayerThread;
 
 import java.util.HashSet;
@@ -11,9 +12,11 @@ import java.util.Set;
 public class Room {
     private final String id;
     private final Set<PlayerThread> playersThreads = new HashSet<>();
+    private Game game;
 
     public Room(String id) {
         this.id = id;
+        game = new Game(this);
     }
 
     public void addPlayer(PlayerThread playerThread) throws MaximumNumberPlayersInTheRoomException {

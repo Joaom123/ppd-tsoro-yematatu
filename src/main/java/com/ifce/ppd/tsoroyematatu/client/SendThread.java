@@ -46,4 +46,15 @@ public class SendThread extends Thread {
             e.printStackTrace();
         }
     }
+
+    public void sendMove(String pieceId, String pointId) {
+        try {
+            outputStream.writeByte(MESSAGE_TYPES.MOVE.getFlag());
+            outputStream.writeUTF(pieceId);
+            outputStream.writeUTF(pointId);
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -27,12 +27,19 @@ public class ReceiveThread extends Thread {
 
     @Override
     public void run() {
+        byte inputTypeFlag;
         while (true) {
             try {
-                if (inputStream.readByte() == MESSAGE_TYPES.MESSAGE.getFlag()) {
+                inputTypeFlag = inputStream.readByte();
+
+                if (inputTypeFlag == MESSAGE_TYPES.MESSAGE.getFlag()) {
                     String author = inputStream.readUTF();
                     String message = inputStream.readUTF();
                     this.serverConnection.receiveMessage(author, message);
+                }
+
+                if (inputTypeFlag == MESSAGE_TYPES.MOVE.getFlag()) {
+
                 }
             } catch (Exception e) {
                 e.printStackTrace();

@@ -2,13 +2,30 @@ package com.ifce.ppd.tsoroyematatu.controllers;
 
 import com.ifce.ppd.tsoroyematatu.client.ServerConnection;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Circle;
 
 public class GameController extends Controller {
     private final ServerConnection serverConnection;
-    public TextField chatInput;
-    public TextArea chatMessages;
+
+    @FXML
+    private TextField chatInput;
+
+    @FXML
+    private TextArea chatMessages;
+
+    @FXML
+    private Circle pieceB1;
+
+    @FXML
+    private Circle selectedPiece;
+
+    @FXML
+    private GridPane gameGrid;
 
     public GameController(ServerConnection serverConnection) {
         this.serverConnection = serverConnection;
@@ -28,7 +45,7 @@ public class GameController extends Controller {
 
         addMessageToChat(serverConnection.getClientModel().getName(), inputText);
 
-        //Send inputText to server
+        // Send inputText to server
         try {
             serverConnection.sendMessage(inputText);
         } catch (Exception e) {
@@ -38,5 +55,27 @@ public class GameController extends Controller {
 
     public void addMessageToChat(String author, String message) {
         chatMessages.appendText(author + ": " + message + "\n");
+    }
+
+    public void handleClickOnPiece(MouseEvent mouseEvent) {
+        selectedPiece = (Circle) mouseEvent.getTarget();
+    }
+
+    public void handleClickOnPoint(MouseEvent mouseEvent) {
+        if (selectedPiece == null) return;
+
+        Circle clickedPoint = (Circle) mouseEvent.getTarget();
+        serverConnection.sendMove(selectedPiece.getId(), clickedPoint.getId());
+        movePieceToPoint(selectedPiece, clickedPoint);
+        clickedPoint.setVisible(false);
+        selectedPiece = null;
+    }
+
+    public void movePieceToPoint(Circle selectedPiece, Circle clickedPoint) {
+        int clickedPointRow = GridPane.getRowIndex(clickedPoint);
+        int clickedPointColumn = GridPane.getColumnIndex(clickedPoint);
+
+        GridPane.setRowIndex(selectedPiece, clickedPointRow);
+        GridPane.setColumnIndex(selectedPiece, clickedPointColumn);
     }
 }

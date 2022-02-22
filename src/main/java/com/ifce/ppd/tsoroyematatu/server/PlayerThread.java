@@ -61,6 +61,13 @@ public class PlayerThread extends Thread {
                     sendMessageToRivalPlayer(client.getName(), message);
                 }
 
+                if (socketTypeFlag == MESSAGE_TYPES.MOVE.getFlag()) {
+                    String pieceId = inputStream.readUTF();
+                    String pointId = inputStream.readUTF();
+                    System.out.println(pieceId);
+                    System.out.println(pointId);
+                }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

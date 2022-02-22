@@ -66,7 +66,7 @@ public class ServerConnection {
     }
 
     /**
-     * Use the sendThread to send message (MESSAGE_TYPES.MESSAGE) to server.
+     * Use the sendThread to send message to server.
      *
      * @param inputText The content of the message.
      */
@@ -82,5 +82,25 @@ public class ServerConnection {
      */
     public void receiveMessage(String author, String message) {
         this.currentController.addMessageToChat(author, message);
+    }
+
+    /**
+     * Use the sendThread to send the move to the server.
+     *
+     * @param pieceId The pieceId
+     * @param pointId The pointId
+     */
+    public void sendMove(String pieceId, String pointId) {
+        this.sendThread.sendMove(pieceId, pointId);
+    }
+
+    /**
+     * Use the receiveThread to get the move valitation, and pass it to the current controller.
+     *
+     * @param pieceId The pieceId
+     * @param pointId The pointId
+     */
+    public void receiveMove(String pieceId, String pointId) {
+
     }
 }
