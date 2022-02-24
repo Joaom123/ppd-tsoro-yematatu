@@ -4,8 +4,9 @@ public enum MESSAGE_TYPES {
     INIT(0),
     MESSAGE(1),
     MOVE(2),
-    EXIT(3),
-    ;
+    WAITING(3),
+    PLAYABLE(4),
+    EXIT(5);
 
     private final int flag;
 

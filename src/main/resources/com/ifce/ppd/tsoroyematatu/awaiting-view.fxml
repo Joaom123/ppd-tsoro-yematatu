@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="rootAP" maxHeight="791.0" maxWidth="967.0" minHeight="791.0" minWidth="967.0" prefHeight="791.0" prefWidth="967.0" style="-fx-background-color: fbd11a;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+            <Text id="title" layoutX="187.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 70;" text="TSORO YEMATATU" textAlignment="CENTER">
+                        </Text>
+
+            <Button layoutX="483.0" layoutY="457.0" mnemonicParsing="false" onAction="#handleExitButtonClick" text="Sair" />
+      <Text layoutX="329.0" layoutY="439.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Esperando outro jogador entrar na sala...">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="424.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome do Jogador:" />
+      <Text layoutX="424.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sala ID:" />
+      <Text layoutX="424.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hostname:" />
+      <Text fx:id="playerName" layoutX="557.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text fx:id="roomId" layoutX="486.0" layoutY="356.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text fx:id="host" layoutX="511.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+    </children>
+</AnchorPane>

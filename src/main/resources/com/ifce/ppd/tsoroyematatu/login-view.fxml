@@ -4,32 +4,22 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="791.0" maxWidth="967.0" minHeight="791.0" minWidth="967.0" prefHeight="791.0" prefWidth="967.0" style="-fx-background-color: fbd11a;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-        <SVGPath content="M40,60 C42,48 44,30 25,32" />
-        <HBox prefHeight="100.0" prefWidth="200.0">
-            <children>
-                <AnchorPane minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="969.0">
-                    <children>
-                        <Text id="title" layoutX="159.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 70;" text="TSORO YEMATATU" textAlignment="CENTER">
+
+    <AnchorPane minHeight="791.0" minWidth="967.0" prefHeight="642.0" prefWidth="967.0" style="-fx-background-color: fbd11a;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+        <children>
+      <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#2b8d5e" height="186.0" layoutX="328.0" layoutY="219.0" stroke="BLACK" strokeType="INSIDE" width="367.0" />
+            <Text id="title" layoutX="182.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 70;" text="TSORO YEMATATU" textAlignment="CENTER">
                         </Text>
-                        <Label layoutX="325.0" layoutY="167.0" text="Nome Jogador" />
-                        <Label layoutX="325.0" layoutY="202.0" text="Host" />
-                        <Label layoutX="325.0" layoutY="235.0" text="Sala ID" />
-                        <TextField fx:id="playerNameTF" layoutX="466.0" layoutY="163.0" promptText="João Marcus" />
-                        <TextField fx:id="hostNameTF" layoutX="466.0" layoutY="198.0" promptText="localhost" text="localhost" />
-                        <TextField fx:id="roomIdTF" layoutX="466.0" layoutY="231.0" promptText="IFCE-PPD" text="IFCE-PPD" />
-                        <Button layoutX="506.0" layoutY="276.0" mnemonicParsing="false" onAction="#handleLoginButtonClick" text="Entrar" />
-                        <Button layoutX="390.0" layoutY="276.0" mnemonicParsing="false" onAction="#handleBackButtonClick" text="Voltar" />
-                    </children>
-                </AnchorPane>
-            </children>
-        </HBox>
-        <SVGPath content="M40,60 C42,48 44,30 25,32" />
-    </children>
-</VBox>
+            <Label layoutX="356.0" layoutY="245.0" style="-fx-font-weight: bold;" text="Nome Jogador" textFill="WHITE" />
+            <Label layoutX="356.0" layoutY="280.0" style="-fx-font-weight: bold;" text="Host" textFill="WHITE" />
+            <Label layoutX="356.0" layoutY="313.0" style="-fx-font-weight: bold;" text="Sala ID" textFill="WHITE" />
+            <TextField fx:id="playerNameTF" layoutX="497.0" layoutY="241.0" promptText="João Marcus" />
+            <TextField fx:id="hostNameTF" layoutX="497.0" layoutY="276.0" promptText="localhost" text="localhost" />
+            <TextField fx:id="roomIdTF" layoutX="497.0" layoutY="309.0" promptText="IFCE-PPD" text="IFCE-PPD" />
+            <Button layoutX="537.0" layoutY="354.0" mnemonicParsing="false" onAction="#handleLoginButtonClick" text="Entrar" />
+            <Button layoutX="421.0" layoutY="354.0" mnemonicParsing="false" onAction="#handleBackButtonClick" text="Voltar" />
+        </children>
+    </AnchorPane>

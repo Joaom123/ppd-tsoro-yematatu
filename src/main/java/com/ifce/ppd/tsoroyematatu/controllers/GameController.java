@@ -43,7 +43,7 @@ public class GameController extends Controller {
 
         chatInput.setText("");
 
-        addMessageToChat(serverConnection.getClientModel().getName(), inputText);
+        addMessageToChat(serverConnection.getClient().getName(), inputText);
 
         // Send inputText to server
         try {

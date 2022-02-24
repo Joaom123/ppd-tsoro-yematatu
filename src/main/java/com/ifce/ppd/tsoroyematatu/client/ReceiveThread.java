@@ -41,6 +41,13 @@ public class ReceiveThread extends Thread {
                 if (inputTypeFlag == MESSAGE_TYPES.MOVE.getFlag()) {
 
                 }
+
+                if (inputTypeFlag == MESSAGE_TYPES.WAITING.getFlag()) {
+                }
+
+                if (inputTypeFlag == MESSAGE_TYPES.PLAYABLE.getFlag()) {
+                    serverConnection.goToGame();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

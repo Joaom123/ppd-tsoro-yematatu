@@ -4,6 +4,7 @@ import com.ifce.ppd.tsoroyematatu.client.ServerConnection;
 import com.ifce.ppd.tsoroyematatu.models.Client;
 import com.ifce.ppd.tsoroyematatu.services.JavaFXService;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -11,8 +12,14 @@ import javafx.stage.Stage;
 public class LoginController extends Controller {
     private final ServerConnection serverConnection;
     private final JavaFXService javaFXService = new JavaFXService();
+
+    @FXML
     public TextField playerNameTF;
+
+    @FXML
     public TextField hostNameTF;
+
+    @FXML
     public TextField roomIdTF;
 
     public LoginController(ServerConnection serverConnection) {
@@ -22,7 +29,7 @@ public class LoginController extends Controller {
 
     /**
      * Start the connection with the server. If is connected and playable, go to game-view. If isn't, show message.
-     * Validate the input from the login and set a default hostName and roomId.
+     * Validate the login's input.
      *
      * @param actionEvent The action's event
      */
@@ -36,14 +43,22 @@ public class LoginController extends Controller {
             return;
         }
 
-        if (hostName.isEmpty()) hostName = "localhost";
+        if (hostName.isEmpty()) {
+            javaFXService.errorAlert("Hostname vazio!", "Hostname é necessário!");
+            return;
+        }
 
-        if (roomId.isEmpty()) roomId = "IFCE-PPD";
+        if (roomId.isEmpty()) {
+            javaFXService.errorAlert("Identificação da sala vazia!", "Identificação da sala é necessário!");
+            return;
+        }
 
         Client client = new Client(playerName);
 
         serverConnection.startConnection(hostName);
-        serverConnection.setClientModel(client);
+        serverConnection.setClient(client);
+        serverConnection.setHostname(hostName);
+        serverConnection.setRoomId(roomId);
         try {
             serverConnection.createClientOnServer(roomId);
         } catch (Exception e) {
@@ -51,10 +66,10 @@ public class LoginController extends Controller {
         }
 
 
-        // If connected: Go to game screen
+        // If connected: Go to awaiting view
         if (this.serverConnection.isConnected()) {
             Stage actualStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            javaFXService.goToView("game-view.fxml", actualStage, new GameController(serverConnection));
+            javaFXService.goToView("awaiting-view.fxml", actualStage, new AwaitingController(serverConnection, actualStage));
             return;
         }
 

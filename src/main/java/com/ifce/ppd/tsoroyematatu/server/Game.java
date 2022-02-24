@@ -4,9 +4,9 @@ import com.ifce.ppd.tsoroyematatu.models.Room;
 
 /**
  * The board:
- *       0
- *    1  2  3
- *   4   5   6
+ * 0
+ * 1  2  3
+ * 4   5   6
  *
  * Winner cases:
  * 0 - 1 - 4
@@ -19,15 +19,19 @@ import com.ifce.ppd.tsoroyematatu.models.Room;
  * Player A set one piece is block to set another, then Player B set another one
  */
 public class Game {
-    private PointBoard[] board;
-    private Room room;
+    private final PointBoard[] board;
+    private final Room room;
     private int turn;
 
     public Game(Room room) {
-        board = new PointBoard[]{new PointBoard(0), new PointBoard(1), new PointBoard(2), new PointBoard(3),
-                new PointBoard(4), new PointBoard(5), new PointBoard(6)};
+        board = new PointBoard[]{new PointBoard("point-0"), new PointBoard("point-1"), new PointBoard("point-2"), new PointBoard("point-3"),
+                new PointBoard("point-4"), new PointBoard("point-5"), new PointBoard("point-6")};
         this.room = room;
         turn = 0;
+    }
+
+    private void addTurn() {
+        turn += 1;
     }
 }
 

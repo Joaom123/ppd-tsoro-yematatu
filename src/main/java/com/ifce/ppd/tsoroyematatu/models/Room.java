@@ -12,7 +12,7 @@ import java.util.Set;
 public class Room {
     private final String id;
     private final Set<PlayerThread> playersThreads = new HashSet<>();
-    private Game game;
+    private final Game game;
 
     public Room(String id) {
         this.id = id;
@@ -20,7 +20,7 @@ public class Room {
     }
 
     public void addPlayer(PlayerThread playerThread) throws MaximumNumberPlayersInTheRoomException {
-        if (maximumNumberPlayersReached())
+        if (isFull())
             throw new MaximumNumberPlayersInTheRoomException();
         playersThreads.add(playerThread);
     }
@@ -37,8 +37,18 @@ public class Room {
         throw new NoRivalException();
     }
 
-    public boolean maximumNumberPlayersReached() {
+    public void removePlayerThread(PlayerThread playerThread) {
+        playersThreads.remove(playerThread);
+    }
+
+    public boolean isFull() {
         return playersThreads.size() == 2;
+    }
+
+    public void sendPlayable() {
+        for (PlayerThread playerThread : playersThreads) {
+            playerThread.sendPlayableFlag();
+        }
     }
 
     @Override

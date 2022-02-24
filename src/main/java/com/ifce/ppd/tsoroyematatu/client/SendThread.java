@@ -29,7 +29,7 @@ public class SendThread extends Thread {
     public void sendInitFlag(String roomId) {
         try {
             outputStream.writeByte(MESSAGE_TYPES.INIT.getFlag());
-            outputStream.writeObject(serverConnection.getClientModel());
+            outputStream.writeObject(serverConnection.getClient());
             outputStream.writeUTF(roomId);
             outputStream.flush();
         } catch (IOException e) {
@@ -52,6 +52,15 @@ public class SendThread extends Thread {
             outputStream.writeByte(MESSAGE_TYPES.MOVE.getFlag());
             outputStream.writeUTF(pieceId);
             outputStream.writeUTF(pointId);
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendExit() {
+        try {
+            outputStream.writeByte(MESSAGE_TYPES.EXIT.getFlag());
             outputStream.flush();
         } catch (IOException e) {
             e.printStackTrace();

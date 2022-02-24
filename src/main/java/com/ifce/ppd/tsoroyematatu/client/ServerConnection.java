@@ -14,9 +14,12 @@ public class ServerConnection {
     private Controller currentController;
     private Socket socket;
     private Client clientModel;
+    private String roomId;
+    private String hostname;
     private SendThread sendThread;
     private ReceiveThread receiveThread;
     private boolean isConnected = false;
+    private boolean isPlayable = false;
 
     public boolean isConnected() {
         return isConnected;
@@ -53,12 +56,28 @@ public class ServerConnection {
         sendThread.sendInitFlag(roomId);
     }
 
-    public Client getClientModel() {
+    public Client getClient() {
         return clientModel;
     }
 
-    public void setClientModel(Client clientModel) {
+    public void setClient(Client clientModel) {
         this.clientModel = clientModel;
+    }
+
+    public String getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(String roomId) {
+        this.roomId = roomId;
+    }
+
+    public String getHostname() {
+        return hostname;
+    }
+
+    public void setHostname(String hostname) {
+        this.hostname = hostname;
     }
 
     public void setCurrentController(Controller currentController) {
@@ -102,5 +121,14 @@ public class ServerConnection {
      */
     public void receiveMove(String pieceId, String pointId) {
 
+    }
+
+    public void goToGame() {
+        isPlayable = true;
+        currentController.goToGame();
+    }
+
+    public void sendExit() {
+        sendThread.sendExit();
     }
 }

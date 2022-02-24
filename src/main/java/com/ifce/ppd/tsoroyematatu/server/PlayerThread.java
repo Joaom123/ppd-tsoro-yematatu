@@ -33,7 +33,7 @@ public class PlayerThread extends Thread {
 
     @Override
     public void run() {
-        byte socketTypeFlag = 0;
+        byte inputFlag = 0;
         ObjectInputStream inputStream = null;
         try {
             inputStream = new ObjectInputStream(socket.getInputStream());
@@ -44,8 +44,8 @@ public class PlayerThread extends Thread {
 
         while (true) {
             try {
-                socketTypeFlag = inputStream.readByte();
-                if (socketTypeFlag == MESSAGE_TYPES.INIT.getFlag()) {
+                inputFlag = inputStream.readByte();
+                if (inputFlag == MESSAGE_TYPES.INIT.getFlag()) {
                     client = (Client) inputStream.readObject(); // set client
                     System.out.println("Cliente " + client.getName() + " inicializado no servidor");
 
@@ -54,23 +54,54 @@ public class PlayerThread extends Thread {
 
                     room.addPlayer(this); // add player to the room
                     System.out.println("Cliente " + client.getName() + " entrou na sala " + room.getId());
+
+                    // If the room isn't full, player should wait until another player enter.
+                    if (!room.isFull())
+                        sendWaitingFlag();
+                    else
+                        room.sendPlayable();
                 }
 
-                if (socketTypeFlag == MESSAGE_TYPES.MESSAGE.getFlag()) {
+                if (inputFlag == MESSAGE_TYPES.MESSAGE.getFlag()) {
                     String message = inputStream.readUTF();
                     sendMessageToRivalPlayer(client.getName(), message);
                 }
 
-                if (socketTypeFlag == MESSAGE_TYPES.MOVE.getFlag()) {
+                if (inputFlag == MESSAGE_TYPES.MOVE.getFlag()) {
                     String pieceId = inputStream.readUTF();
                     String pointId = inputStream.readUTF();
                     System.out.println(pieceId);
                     System.out.println(pointId);
                 }
 
+                if (inputFlag == MESSAGE_TYPES.EXIT.getFlag()) {
+                    room.removePlayerThread(this);
+                    socket.close();
+                    inputStream.close();
+                    outputStream.close();
+                }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void sendPlayableFlag() {
+        try {
+            outputStream.writeByte(MESSAGE_TYPES.PLAYABLE.getFlag());
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendWaitingFlag() {
+        try {
+            outputStream.writeByte(MESSAGE_TYPES.WAITING.getFlag());
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
