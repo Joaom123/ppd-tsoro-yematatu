@@ -2,6 +2,7 @@ package com.ifce.ppd.tsoroyematatu.server;
 
 import com.ifce.ppd.tsoroyematatu.models.Room;
 
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Collections;
@@ -9,35 +10,35 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Starts the server, listening on a specific port.
+ * Starts the server, listening to port 12345.
  * When a new client is connected, an instace of PlayerThread is created.
- * Since each connection is processed in a separeted thread, the server can handle multiple clients.
+ * Each connection is processed in a separeted thread.
  */
 public class Server {
     private final Set<Room> rooms = Collections.synchronizedSet(new HashSet<>());
-    private final Set<PlayerThread> playerThreads = new HashSet<>();
-    private ServerSocket serverSocket;
 
     public static void main(String[] args) {
         Server server = new Server();
-        server.start();
+        try {
+            server.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void start() {
-        try {
-            serverSocket = new ServerSocket(12345);
-            System.out.println("Servidor inicializado!");
+    public void start() throws IOException {
+        ServerSocket serverSocket = new ServerSocket(12345);
+        System.out.println("Servidor inicializado na porta 12345!");
 
-            while (true) {
-                Socket socket = serverSocket.accept();
-                System.out.println("Cliente conectado: " + socket.getInetAddress().getHostAddress());
-                PlayerThread playerThread = new PlayerThread(this, socket);
-                playerThreads.add(playerThread);
-                playerThread.start();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        //noinspection InfiniteLoopStatement
+        while (true) {
+            Socket socket = serverSocket.accept();
+            System.out.println("Cliente conectado: " + socket.getInetAddress().getHostAddress());
+
+            PlayerThread playerThread = new PlayerThread(this, socket); // Start player's thread
+            playerThread.start();
         }
+
     }
 
     /**
