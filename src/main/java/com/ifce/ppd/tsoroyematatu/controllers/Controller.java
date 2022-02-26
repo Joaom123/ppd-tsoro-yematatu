@@ -13,4 +13,12 @@ public abstract class Controller {
      * Change the scene to the game one, with the board and chat.
      */
     public void goToGame() {}
+
+    /**
+     * Receive a move from the serve and replicate it in the UI.
+     *
+     * @param selectedPieceId The piece's id.
+     * @param selectedPointId The point's id.
+     */
+    public void receiveMove(String selectedPieceId, String selectedPointId) {}
 }
