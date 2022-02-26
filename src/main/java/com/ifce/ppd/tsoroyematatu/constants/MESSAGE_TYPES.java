@@ -4,9 +4,11 @@ public enum MESSAGE_TYPES {
     INIT(0),
     MESSAGE(1),
     MOVE(2),
-    WAITING(3),
-    PLAYABLE(4),
-    EXIT(5);
+    WAIT_RIVAL_CONNECT(3),
+    WAIT_RIVAL_MAKE_MOVE(4),
+    CAN_PLAY(5),
+    PLAYABLE(6),
+    EXIT(7);
 
     private final int flag;
 
