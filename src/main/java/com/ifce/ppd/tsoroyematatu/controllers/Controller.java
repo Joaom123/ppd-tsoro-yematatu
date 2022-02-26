@@ -21,4 +21,8 @@ public abstract class Controller {
      * @param selectedPointId The point's id.
      */
     public void receiveMove(String selectedPieceId, String selectedPointId) {}
+
+    public void waitRivalMakeMove() {}
+
+    public void canMakeMove() {}
 }
