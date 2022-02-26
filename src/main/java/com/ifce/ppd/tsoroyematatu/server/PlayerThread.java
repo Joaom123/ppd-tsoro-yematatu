@@ -33,33 +33,31 @@ public class PlayerThread extends Thread {
 
     @Override
     public void run() {
-        byte inputFlag = 0;
         ObjectInputStream inputStream = null;
         try {
             inputStream = new ObjectInputStream(socket.getInputStream());
         } catch (IOException e) {
             e.printStackTrace();
-            return;
         }
 
         while (true) {
             try {
-                inputFlag = inputStream.readByte();
+                byte inputFlag = inputStream.readByte();
+
                 if (inputFlag == MESSAGE_TYPES.INIT.getFlag()) {
                     client = (Client) inputStream.readObject(); // set client
                     System.out.println("Cliente " + client.getName() + " inicializado no servidor");
 
                     String roomId = inputStream.readUTF();
                     room = server.createRoom(roomId); // set room
-
                     room.addPlayer(this); // add player to the room
                     System.out.println("Cliente " + client.getName() + " entrou na sala " + room.getId());
 
                     // If the room isn't full, player should wait until another player enter.
-                    if (!room.isFull())
-                        sendWaitingFlag();
-                    else
-                        room.sendPlayable();
+                    if (!room.isFull()) {
+                        sendWaitRivalConnectFlag();
+                        sendIsFirstPlayerFlag();
+                    } else room.sendPlayable();
                 }
 
                 if (inputFlag == MESSAGE_TYPES.MESSAGE.getFlag()) {
@@ -72,6 +70,13 @@ public class PlayerThread extends Thread {
                     String pointId = inputStream.readUTF();
                     System.out.println(pieceId);
                     System.out.println(pointId);
+                    // TODO: Validate in server
+                    // If the move is valid
+                    if (true) {
+                        sendWaitRivalMakeMoveFlag();
+                        room.sendMoveToPlayers(pieceId, pointId);
+                        room.getGame().addTurn();
+                    }
                 }
 
                 if (inputFlag == MESSAGE_TYPES.EXIT.getFlag()) {
@@ -87,22 +92,24 @@ public class PlayerThread extends Thread {
         }
     }
 
-    public void sendPlayableFlag() {
-        try {
-            outputStream.writeByte(MESSAGE_TYPES.PLAYABLE.getFlag());
-            outputStream.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void sendIsFirstPlayerFlag() throws IOException {
+        outputStream.writeByte(MESSAGE_TYPES.IS_FIRST_PLAYER.getFlag());
+        outputStream.flush();
     }
 
-    public void sendWaitingFlag() {
-        try {
-            outputStream.writeByte(MESSAGE_TYPES.WAITING.getFlag());
-            outputStream.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void sendWaitRivalMakeMoveFlag() throws IOException {
+        outputStream.writeByte(MESSAGE_TYPES.WAIT_RIVAL_MAKE_MOVE.getFlag());
+        outputStream.flush();
+    }
+
+    public void sendPlayableFlag() throws IOException {
+        outputStream.writeByte(MESSAGE_TYPES.PLAYABLE.getFlag());
+        outputStream.flush();
+    }
+
+    public void sendWaitRivalConnectFlag() throws IOException {
+        outputStream.writeByte(MESSAGE_TYPES.WAIT_RIVAL_CONNECT.getFlag());
+        outputStream.flush();
     }
 
     /**
@@ -111,15 +118,11 @@ public class PlayerThread extends Thread {
      * @param author  The author of the message, can be the server or another player
      * @param message The message to be passed
      */
-    public void sendMessage(String author, String message) {
-        try {
-            outputStream.writeByte(MESSAGE_TYPES.MESSAGE.getFlag());
-            outputStream.writeUTF(author);
-            outputStream.writeUTF(message);
-            outputStream.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void sendMessage(String author, String message) throws IOException {
+        outputStream.writeByte(MESSAGE_TYPES.MESSAGE.getFlag());
+        outputStream.writeUTF(author);
+        outputStream.writeUTF(message);
+        outputStream.flush();
     }
 
     /**
@@ -127,11 +130,14 @@ public class PlayerThread extends Thread {
      *
      * @param message The message to be sent.
      */
-    public void sendMessageToRivalPlayer(String author, String message) {
-        try {
-            room.getRivalPlayerThread(this).sendMessage(author, message);
-        } catch (NoRivalException e) {
-            e.printStackTrace();
-        }
+    public void sendMessageToRivalPlayer(String author, String message) throws NoRivalException, IOException {
+        room.getRivalPlayerThread(this).sendMessage(author, message);
+    }
+
+    public void sendMoveToPlayer(String pieceId, String pointId) throws IOException {
+        outputStream.writeByte(MESSAGE_TYPES.MOVE.getFlag());
+        outputStream.writeUTF(pieceId);
+        outputStream.writeUTF(pointId);
+        outputStream.flush();
     }
 }

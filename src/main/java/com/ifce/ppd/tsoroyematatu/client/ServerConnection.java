@@ -20,6 +20,8 @@ public class ServerConnection {
     private ReceiveThread receiveThread;
     private boolean isConnected = false;
     private boolean isPlayable = false;
+    private boolean isFirstPlayer = false;
+    private int turn = 0;
 
     public boolean isConnected() {
         return isConnected;
@@ -64,6 +66,14 @@ public class ServerConnection {
         this.clientModel = clientModel;
     }
 
+    public boolean isFirstPlayer() {
+        return isFirstPlayer;
+    }
+
+    public void setFirstPlayer(boolean firstPlayer) {
+        isFirstPlayer = firstPlayer;
+    }
+
     public String getRoomId() {
         return roomId;
     }
@@ -80,6 +90,14 @@ public class ServerConnection {
         this.hostname = hostname;
     }
 
+    public int getTurn() {
+        return turn;
+    }
+
+    public void setTurn(int turn) {
+        this.turn = turn;
+    }
+
     public void setCurrentController(Controller currentController) {
         this.currentController = currentController;
     }
@@ -90,7 +108,7 @@ public class ServerConnection {
      * @param inputText The content of the message.
      */
     public void sendMessage(String inputText) {
-        this.sendThread.sendMessage(inputText);
+        sendThread.sendMessage(inputText);
     }
 
     /**
@@ -100,7 +118,7 @@ public class ServerConnection {
      * @param message The content of the message.
      */
     public void receiveMessage(String author, String message) {
-        this.currentController.addMessageToChat(author, message);
+        currentController.addMessageToChat(author, message);
     }
 
     /**
@@ -110,17 +128,17 @@ public class ServerConnection {
      * @param pointId The pointId
      */
     public void sendMove(String pieceId, String pointId) {
-        this.sendThread.sendMove(pieceId, pointId);
+        sendThread.sendMove(pieceId, pointId);
     }
 
     /**
      * Use the receiveThread to get the move valitation, and pass it to the current controller.
      *
-     * @param pieceId The pieceId
-     * @param pointId The pointId
+     * @param pieceId The piece's id
+     * @param pointId The point's id
      */
     public void receiveMove(String pieceId, String pointId) {
-
+        currentController.receiveMove(pieceId, pointId);
     }
 
     public void goToGame() {
@@ -130,5 +148,9 @@ public class ServerConnection {
 
     public void sendExit() {
         sendThread.sendExit();
+    }
+
+    public void waitRivalMakeMove() {
+        currentController.waitRivalMakeMove();
     }
 }

@@ -27,27 +27,36 @@ public class ReceiveThread extends Thread {
 
     @Override
     public void run() {
-        byte inputTypeFlag;
+        //noinspection InfiniteLoopStatement
         while (true) {
             try {
-                inputTypeFlag = inputStream.readByte();
+                byte inputTypeFlag = inputStream.readByte();
 
                 if (inputTypeFlag == MESSAGE_TYPES.MESSAGE.getFlag()) {
                     String author = inputStream.readUTF();
                     String message = inputStream.readUTF();
-                    this.serverConnection.receiveMessage(author, message);
+                    serverConnection.receiveMessage(author, message);
                 }
 
                 if (inputTypeFlag == MESSAGE_TYPES.MOVE.getFlag()) {
+                    String pieceId = inputStream.readUTF();
+                    String pointId = inputStream.readUTF();
+                    serverConnection.receiveMove(pieceId, pointId);
+                }
+
+                if (inputTypeFlag == MESSAGE_TYPES.WAIT_RIVAL_CONNECT.getFlag()) {
 
                 }
 
-                if (inputTypeFlag == MESSAGE_TYPES.WAITING.getFlag()) {
-                }
-
-                if (inputTypeFlag == MESSAGE_TYPES.PLAYABLE.getFlag()) {
+                if (inputTypeFlag == MESSAGE_TYPES.PLAYABLE.getFlag())
                     serverConnection.goToGame();
-                }
+
+                if (inputTypeFlag == MESSAGE_TYPES.IS_FIRST_PLAYER.getFlag())
+                    serverConnection.setFirstPlayer(true);
+
+                if (inputTypeFlag == MESSAGE_TYPES.WAIT_RIVAL_MAKE_MOVE.getFlag())
+                    serverConnection.waitRivalMakeMove();
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
