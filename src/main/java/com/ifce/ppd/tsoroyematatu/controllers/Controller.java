@@ -30,4 +30,7 @@ public abstract class Controller {
 
     public void canMakeMove() {
     }
+
+    public void updateTurn() {
+    }
 }
