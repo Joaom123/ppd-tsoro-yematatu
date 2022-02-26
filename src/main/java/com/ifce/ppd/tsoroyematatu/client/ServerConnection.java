@@ -96,6 +96,7 @@ public class ServerConnection {
 
     public void setTurn(int turn) {
         this.turn = turn;
+        currentController.updateTurn();
     }
 
     public void setCurrentController(Controller currentController) {
@@ -152,5 +153,9 @@ public class ServerConnection {
 
     public void waitRivalMakeMove() {
         currentController.waitRivalMakeMove();
+    }
+
+    public void canMakeMove() {
+        currentController.canMakeMove();
     }
 }

@@ -47,7 +47,7 @@ public class GameController extends Controller implements Initializable {
         playerName.setText(serverConnection.getClient().getName());
         host.setText(serverConnection.getHostname());
         roomId.setText(serverConnection.getRoomId());
-        turn.setText(String.valueOf(serverConnection.getTurn()));
+        updateTurn();
 
         if (this.serverConnection.isFirstPlayer()) {
             pieces.add(getElementById("piece-first-1"));
@@ -147,5 +147,16 @@ public class GameController extends Controller implements Initializable {
     public void waitRivalMakeMove() {
         for (Circle c1 : pieces)
             c1.setDisable(true);
+    }
+
+    @Override
+    public void canMakeMove() {
+        for (Circle c1 : pieces)
+            c1.setDisable(false);
+    }
+
+    @Override
+    public void updateTurn() {
+        turn.setText(String.valueOf(serverConnection.getTurn()));
     }
 }

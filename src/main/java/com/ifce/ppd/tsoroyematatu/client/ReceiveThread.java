@@ -41,6 +41,8 @@ public class ReceiveThread extends Thread {
                 if (inputTypeFlag == MESSAGE_TYPES.MOVE.getFlag()) {
                     String pieceId = inputStream.readUTF();
                     String pointId = inputStream.readUTF();
+                    int turn = inputStream.readInt();
+                    serverConnection.setTurn(turn);
                     serverConnection.receiveMove(pieceId, pointId);
                 }
 
@@ -56,6 +58,9 @@ public class ReceiveThread extends Thread {
 
                 if (inputTypeFlag == MESSAGE_TYPES.WAIT_RIVAL_MAKE_MOVE.getFlag())
                     serverConnection.waitRivalMakeMove();
+
+                if (inputTypeFlag == MESSAGE_TYPES.CAN_MAKE_MOVE.getFlag())
+                    serverConnection.canMakeMove();
 
             } catch (Exception e) {
                 e.printStackTrace();

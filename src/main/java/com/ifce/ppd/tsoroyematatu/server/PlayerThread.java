@@ -72,10 +72,10 @@ public class PlayerThread extends Thread {
                     System.out.println(pointId);
                     // TODO: Validate in server
                     // If the move is valid
-                    if (true) {
-                        sendWaitRivalMakeMoveFlag();
+                    if (room.getGame().isValidMove(pieceId, pointId)) {
                         room.sendMoveToPlayers(pieceId, pointId);
-                        room.getGame().addTurn();
+                        sendWaitRivalMakeMoveFlag();
+                        room.getRivalPlayerThread(this).sendCanMakeMoveFlag();
                     }
                 }
 
@@ -112,6 +112,11 @@ public class PlayerThread extends Thread {
         outputStream.flush();
     }
 
+    public void sendCanMakeMoveFlag() throws IOException {
+        outputStream.writeByte(MESSAGE_TYPES.CAN_MAKE_MOVE.getFlag());
+        outputStream.flush();
+    }
+
     /**
      * Send a message to this plauerThread's client.
      *
@@ -138,6 +143,7 @@ public class PlayerThread extends Thread {
         outputStream.writeByte(MESSAGE_TYPES.MOVE.getFlag());
         outputStream.writeUTF(pieceId);
         outputStream.writeUTF(pointId);
+        outputStream.writeInt(room.getGame().getTurn());
         outputStream.flush();
     }
 }
