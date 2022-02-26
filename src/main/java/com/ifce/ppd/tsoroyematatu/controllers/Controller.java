@@ -7,12 +7,14 @@ public abstract class Controller {
      * @param author  The message's author.
      * @param message The content of the message.
      */
-    public void addMessageToChat(String author, String message) {}
+    public void addMessageToChat(String author, String message) {
+    }
 
     /**
      * Change the scene to the game one, with the board and chat.
      */
-    public void goToGame() {}
+    public void goToGame() {
+    }
 
     /**
      * Receive a move from the serve and replicate it in the UI.
@@ -20,9 +22,12 @@ public abstract class Controller {
      * @param selectedPieceId The piece's id.
      * @param selectedPointId The point's id.
      */
-    public void receiveMove(String selectedPieceId, String selectedPointId) {}
+    public void receiveMove(String selectedPieceId, String selectedPointId) {
+    }
 
-    public void waitRivalMakeMove() {}
+    public void waitRivalMakeMove() {
+    }
 
-    public void canMakeMove() {}
+    public void canMakeMove() {
+    }
 }

@@ -7,14 +7,14 @@ import com.ifce.ppd.tsoroyematatu.models.Room;
  * 0
  * 1  2  3
  * 4   5   6
- *
+ * <p>
  * Winner cases:
  * 0 - 1 - 4
  * 0 - 2 - 5
  * 0 - 3 - 6
  * 1 - 2 - 3
  * 4 - 5 - 6
- *
+ * <p>
  * The first part of the game is:
  * Player A set one piece is block to set another, then Player B set another one
  */

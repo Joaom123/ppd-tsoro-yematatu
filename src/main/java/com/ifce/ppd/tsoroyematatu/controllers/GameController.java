@@ -18,33 +18,24 @@ import java.util.Set;
 
 public class GameController extends Controller implements Initializable {
     private final ServerConnection serverConnection;
-
-    @FXML
-    private TextField chatInput;
-
-    @FXML
-    private TextArea chatMessages;
-
-    @FXML
-    private Circle selectedPiece;
-
-    @FXML
-    private GridPane gameGrid;
-
     @FXML
     public Text playerName;
-
     @FXML
     public Text host;
-
     @FXML
     public Text roomId;
-
     @FXML
     public Text turn;
-
-    private Set<Circle> pieces = new HashSet<>();
-    private Set<Circle> rivalPieces = new HashSet<>();
+    @FXML
+    private TextField chatInput;
+    @FXML
+    private TextArea chatMessages;
+    @FXML
+    private Circle selectedPiece;
+    @FXML
+    private GridPane gameGrid;
+    private final Set<Circle> pieces = new HashSet<>();
+    private final Set<Circle> rivalPieces = new HashSet<>();
 
     public GameController(ServerConnection serverConnection) {
         this.serverConnection = serverConnection;
@@ -149,7 +140,7 @@ public class GameController extends Controller implements Initializable {
     }
 
     private Circle getElementById(String id) {
-        return (Circle) gameGrid.lookup("#"+ id);
+        return (Circle) gameGrid.lookup("#" + id);
     }
 
     @Override

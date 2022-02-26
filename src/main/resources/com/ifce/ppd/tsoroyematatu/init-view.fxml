@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
-
-
-<VBox alignment="TOP_CENTER" prefHeight="791.0" prefWidth="967.0" style="-fx-spacing: 215; -fx-background-color: fbd11a;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_CENTER" prefHeight="791.0"
+      prefWidth="967.0" style="-fx-spacing: 215; -fx-background-color: fbd11a;"
+      xmlns="http://javafx.com/javafx/17">
     <children>
-      <AnchorPane prefHeight="791.0" prefWidth="967.0">
-         <children>
-              <Text id="title" layoutX="160.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 70;" text="TSORO YEMATATU" textAlignment="CENTER">
-        </Text>
-              <Button layoutX="455.0" layoutY="384.0" mnemonicParsing="false" onAction="#handleClickInitButton" text="Iniciar" />
-         </children>
-      </AnchorPane>
+        <AnchorPane prefHeight="791.0" prefWidth="967.0">
+            <children>
+                <Text id="title" layoutX="160.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      style="-fx-font-size: 70;" text="TSORO YEMATATU" textAlignment="CENTER">
+                </Text>
+                <Button layoutX="455.0" layoutY="384.0" mnemonicParsing="false" onAction="#handleClickInitButton"
+                        text="Iniciar"/>
+            </children>
+        </AnchorPane>
     </children>
 </VBox>

@@ -4,7 +4,7 @@ import com.ifce.ppd.tsoroyematatu.client.ServerConnection;
 import com.ifce.ppd.tsoroyematatu.services.JavaFXService;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.text.Text;
@@ -16,16 +16,13 @@ import java.util.ResourceBundle;
 public class AwaitingController extends Controller implements Initializable {
     private final ServerConnection serverConnection;
     private final JavaFXService javaFXService = new JavaFXService();
-    private Stage stage;
-
     @FXML
     public Text playerName;
-
     @FXML
     public Text host;
-
     @FXML
     public Text roomId;
+    private final Stage stage;
 
     public AwaitingController(ServerConnection serverConnection, Stage actualStage) {
         this.serverConnection = serverConnection;
