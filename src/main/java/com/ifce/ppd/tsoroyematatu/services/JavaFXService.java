@@ -8,6 +8,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 public class JavaFXService {
     /**
      * Load a new scene with the controller of that scene.
@@ -36,7 +38,7 @@ public class JavaFXService {
     }
 
     /**
-     * Show a alert error message
+     * Show error dialog.
      *
      * @param headerText  The header's text
      * @param contentText The content's text
@@ -45,7 +47,20 @@ public class JavaFXService {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setHeaderText(headerText);
         errorAlert.setContentText(contentText);
-        errorAlert.showAndWait();
+        errorAlert.show();
+    }
+
+    /**
+     * Show information dialog.
+     *
+     * @param headerText  The header's text, if null doesn't show the header
+     * @param contentText The content's text
+     */
+    public void infoAlert(String headerText, String contentText) {
+        Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
+        infoAlert.setHeaderText(headerText);
+        infoAlert.setContentText(contentText);
+        infoAlert.show();
     }
 
     /**
@@ -55,7 +70,7 @@ public class JavaFXService {
      */
     public Font getZilapAfricaFont() {
         String fontPath = "fonts/ZilapAfrica.ttf";
-        String fontURL = TsoroYematatuApplication.class.getResource(fontPath).toExternalForm();
+        String fontURL = Objects.requireNonNull(TsoroYematatuApplication.class.getResource(fontPath)).toExternalForm();
         return Font.loadFont(fontURL, 30);
     }
 }
