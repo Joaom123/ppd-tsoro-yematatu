@@ -30,7 +30,7 @@ public class Game {
         turn = 0;
     }
 
-    private void addTurn() {
+    public void addTurn() {
         turn += 1;
     }
 }
