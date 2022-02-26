@@ -1,6 +1,7 @@
 package com.ifce.ppd.tsoroyematatu.controllers;
 
 import com.ifce.ppd.tsoroyematatu.client.ServerConnection;
+import com.ifce.ppd.tsoroyematatu.services.JavaFXService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -36,6 +37,7 @@ public class GameController extends Controller implements Initializable {
     private GridPane gameGrid;
     private final Set<Circle> pieces = new HashSet<>();
     private final Set<Circle> rivalPieces = new HashSet<>();
+    private final JavaFXService javaFXService = new JavaFXService();
 
     public GameController(ServerConnection serverConnection) {
         this.serverConnection = serverConnection;
@@ -56,6 +58,7 @@ public class GameController extends Controller implements Initializable {
             rivalPieces.add(getElementById("piece-second-1"));
             rivalPieces.add(getElementById("piece-second-2"));
             rivalPieces.add(getElementById("piece-second-3"));
+            javaFXService.infoAlert(null, "Você é o primeiro jogador! Pode fazer a sua jogada.");
         } else {
             pieces.add(getElementById("piece-second-1"));
             pieces.add(getElementById("piece-second-2"));
@@ -85,6 +88,7 @@ public class GameController extends Controller implements Initializable {
     /**
      * @param actionEvent The action's event
      */
+    @SuppressWarnings("unused")
     public void handleChatInput(ActionEvent actionEvent) {
         String inputText = chatInput.getText();
 
@@ -107,10 +111,12 @@ public class GameController extends Controller implements Initializable {
         chatMessages.appendText(author + ": " + message + "\n");
     }
 
+    @SuppressWarnings("unused")
     public void handleClickOnPiece(MouseEvent mouseEvent) {
         selectedPiece = (Circle) mouseEvent.getTarget();
     }
 
+    @SuppressWarnings("unused")
     public void handleClickOnPoint(MouseEvent mouseEvent) {
         if (selectedPiece == null) return;
 
@@ -158,5 +164,21 @@ public class GameController extends Controller implements Initializable {
     @Override
     public void updateTurn() {
         turn.setText(String.valueOf(serverConnection.getTurn()));
+    }
+
+    @FXML @SuppressWarnings("unused")
+    public void handleClickOnDrawButton(ActionEvent actionEvent) {
+    }
+
+    @FXML @SuppressWarnings("unused")
+    public void handleClickOnGiveUpButton(ActionEvent actionEvent) {
+    }
+
+    @FXML @SuppressWarnings("unused")
+    public void handleClickOnRuleButton(ActionEvent actionEvent) {
+    }
+
+    @FXML @SuppressWarnings("unused")
+    public void handleClickOnExitButton(ActionEvent actionEvent) {
     }
 }
