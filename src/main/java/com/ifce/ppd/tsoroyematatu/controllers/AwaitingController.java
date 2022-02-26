@@ -34,11 +34,10 @@ public class AwaitingController extends Controller implements Initializable {
     @Override
     public void goToGame() {
         System.out.println("Go to game");
-        Platform.runLater(() -> {
-            javaFXService.goToView("game-view.fxml", stage, new GameController(serverConnection));
-        });
+        Platform.runLater(() -> javaFXService.goToView("game-view.fxml", stage, new GameController(serverConnection)));
     }
 
+    @FXML @SuppressWarnings("unused")
     public void handleExitButtonClick(ActionEvent actionEvent) {
         serverConnection.sendExit();
 

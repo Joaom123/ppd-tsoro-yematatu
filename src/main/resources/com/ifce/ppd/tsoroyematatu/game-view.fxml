@@ -1,186 +1,202 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <HBox>
             <children>
-                <GridPane fx:id="gameGrid" maxHeight="768.0" maxWidth="756.0" minHeight="768.0" minWidth="756.0"
-                          prefHeight="768.0" prefWidth="756.0" style="-fx-background-color: fbd11a;">
+                <GridPane fx:id="gameGrid" maxHeight="768.0" maxWidth="756.0" minHeight="768.0" minWidth="756.0" prefHeight="768.0" prefWidth="756.0" style="-fx-background-color: fbd11a;">
                     <columnConstraints>
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Circle id="piece-first-3" fill="#0b6c40" onMouseClicked="#handleClickOnPiece" radius="25.0"
-                                stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.rowIndex="11">
+                        <Line endX="1079.2218017578125" endY="-579.8270263671875" fill="BLACK" opacity="0.8" smooth="false" startX="814.7496337890625" startY="-900.6136474609375" strokeWidth="10.0" style="-fx-view-order: -1;" GridPane.columnIndex="3" GridPane.rowIndex="6">
                             <cursor>
-                                <Cursor fx:constant="OPEN_HAND"/>
-                            </cursor>
-                        </Circle>
-                        <Circle id="piece-first-2" fill="#0b6c40" onMouseClicked="#handleClickOnPiece" radius="25.0"
-                                stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="11">
-                            <cursor>
-                                <Cursor fx:constant="OPEN_HAND"/>
-                            </cursor>
-                        </Circle>
-                        <Circle id="piece-first-1" fx:id="pieceB1" fill="#0b6c40" onMouseClicked="#handleClickOnPiece"
-                                radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1"
-                                GridPane.rowIndex="11">
-                            <cursor>
-                                <Cursor fx:constant="OPEN_HAND"/>
-                            </cursor>
-                        </Circle>
-                        <Circle id="piece-second-3" fill="#ce1327" onMouseClicked="#handleClickOnPiece" radius="25.0"
-                                stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                            <cursor>
-                                <Cursor fx:constant="OPEN_HAND"/>
-                            </cursor>
-                        </Circle>
-                        <Circle id="piece-second-2" fill="#ce1327" onMouseClicked="#handleClickOnPiece" radius="25.0"
-                                stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                            <cursor>
-                                <Cursor fx:constant="OPEN_HAND"/>
-                            </cursor>
-                        </Circle>
-                        <Circle id="piece-second-1" fill="#ce1327" onMouseClicked="#handleClickOnPiece" radius="25.0"
-                                stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                            <cursor>
-                                <Cursor fx:constant="OPEN_HAND"/>
-                            </cursor>
-                        </Circle>
-                        <Circle id="point-4" fx:id="point4" fill="#1d1e1c" onMouseClicked="#handleClickOnPoint"
-                                radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="0"
-                                GridPane.rowIndex="9">
-                            <cursor>
-                                <Cursor fx:constant="OPEN_HAND"/>
-                            </cursor>
-                        </Circle>
-                        <Circle id="point-3" fx:id="point3" fill="#1d1e1c" onMouseClicked="#handleClickOnPoint"
-                                radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3"
-                                GridPane.rowIndex="6">
-                            <cursor>
-                                <Cursor fx:constant="OPEN_HAND"/>
-                            </cursor>
-                        </Circle>
-                        <Circle id="point-2" fx:id="point2" fill="#1d1e1c" onMouseClicked="#handleClickOnPoint"
-                                radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2"
-                                GridPane.rowIndex="6">
-                            <cursor>
-                                <Cursor fx:constant="OPEN_HAND"/>
-                            </cursor>
-                        </Circle>
-                        <Circle id="point-1" fx:id="point1" fill="#1d1e1c" onMouseClicked="#handleClickOnPoint"
-                                radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1"
-                                GridPane.rowIndex="6">
-                            <cursor>
-                                <Cursor fx:constant="OPEN_HAND"/>
-                            </cursor>
-                        </Circle>
-                        <Circle id="point-6" fx:id="point6" fill="#1d1e1c" onMouseClicked="#handleClickOnPoint"
-                                radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="4"
-                                GridPane.rowIndex="9">
-                            <cursor>
-                                <Cursor fx:constant="OPEN_HAND"/>
-                            </cursor>
-                        </Circle>
-                        <Circle id="point-5" fx:id="point5" fill="#1d1e1c" onMouseClicked="#handleClickOnPoint"
-                                radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2"
-                                GridPane.rowIndex="9">
-                            <cursor>
-                                <Cursor fx:constant="OPEN_HAND"/>
-                            </cursor>
-                        </Circle>
-                        <Circle id="point-0" fx:id="point0" fill="#1d1e1c" onMouseClicked="#handleClickOnPoint"
-                                radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2"
-                                GridPane.rowIndex="3">
-                            <cursor>
-                                <Cursor fx:constant="OPEN_HAND"/>
-                            </cursor>
-                        </Circle>
-                        <Line endX="1079.2218017578125" endY="-579.8270263671875" fill="BLACK" opacity="0.8"
-                              smooth="false" startX="814.7496337890625" startY="-900.6136474609375" strokeWidth="10.0"
-                              style="-fx-view-order: -1;" GridPane.columnIndex="3" GridPane.rowIndex="6">
-                            <cursor>
-                                <Cursor fx:constant="DEFAULT"/>
+                                <Cursor fx:constant="DEFAULT" />
                             </cursor>
                         </Line>
-                        <Line endX="1069.1722412109375" endY="-617.8375244140625" fill="BLACK" opacity="0.8"
-                              smooth="false" startX="1336.1011962890625" startY="-931.8978271484375" strokeWidth="10.0"
-                              style="-fx-view-order: -1;" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                        <Line endX="1069.1722412109375" endY="-617.8375244140625" fill="BLACK" opacity="0.8" smooth="false" startX="1336.1011962890625" startY="-931.8978271484375" strokeWidth="10.0" style="-fx-view-order: -1;" GridPane.columnIndex="1" GridPane.rowIndex="6">
                             <cursor>
-                                <Cursor fx:constant="DEFAULT"/>
+                                <Cursor fx:constant="DEFAULT" />
                             </cursor>
                         </Line>
-                        <Line endX="1079.2218017578125" endY="-579.8270263671875" fill="BLACK" opacity="0.8"
-                              smooth="false" startX="1630.2218017578125" startY="-579.8270263671875" strokeWidth="10.0"
-                              style="-fx-view-order: -1;" GridPane.columnIndex="2" GridPane.rowIndex="9">
+                        <Line endX="1079.2218017578125" endY="-579.8270263671875" fill="BLACK" opacity="0.8" smooth="false" startX="1669.1507568359375" startY="-578.8980712890625" strokeWidth="10.0" style="-fx-view-order: -1;" GridPane.columnIndex="2" GridPane.rowIndex="9">
                             <cursor>
-                                <Cursor fx:constant="DEFAULT"/>
+                                <Cursor fx:constant="DEFAULT" />
                             </cursor>
                         </Line>
-                        <Line endX="1630.2218017578125" endY="-913.5106201171875" fill="BLACK" opacity="0.8"
-                              smooth="false" startX="1630.2218017578125" startY="-609.5106201171875" strokeWidth="10.0"
-                              style="-fx-view-order: -1;" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                        <Line endX="1630.2218017578125" endY="-913.5106201171875" fill="BLACK" opacity="0.8" smooth="false" startX="1630.2218017578125" startY="-609.5106201171875" strokeWidth="10.0" style="-fx-view-order: -1;" GridPane.columnIndex="2" GridPane.rowIndex="6">
                             <cursor>
-                                <Cursor fx:constant="DEFAULT"/>
+                                <Cursor fx:constant="DEFAULT" />
                             </cursor>
                         </Line>
-                        <Line endX="1104.2218017578125" endY="-579.7896728515625" fill="BLACK" opacity="0.8"
-                              smooth="false" startX="1356.1507568359375" startY="-579.7896728515625" strokeWidth="10.0"
-                              style="-fx-view-order: -1;" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                        <Line endX="1104.2218017578125" endY="-579.7896728515625" fill="BLACK" opacity="0.8" smooth="false" startX="1356.1507568359375" startY="-579.7896728515625" strokeWidth="10.0" style="-fx-view-order: -1;" GridPane.columnIndex="2" GridPane.rowIndex="6">
                             <cursor>
-                                <Cursor fx:constant="DEFAULT"/>
+                                <Cursor fx:constant="DEFAULT" />
                             </cursor>
                         </Line>
-                        <Text fx:id="turn" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="2"/>
+                        <Circle id="piece-first-2" fill="#0b6c40" onMouseClicked="#handleClickOnPiece" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="11">
+                            <cursor>
+                                <Cursor fx:constant="OPEN_HAND" />
+                            </cursor>
+                        </Circle>
+                        <Circle id="piece-first-3" fill="#0b6c40" onMouseClicked="#handleClickOnPiece" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.rowIndex="11">
+                            <cursor>
+                                <Cursor fx:constant="OPEN_HAND" />
+                            </cursor>
+                        </Circle>
+                        <Circle id="piece-first-1" fx:id="pieceB1" fill="#0b6c40" onMouseClicked="#handleClickOnPiece" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.rowIndex="11">
+                            <cursor>
+                                <Cursor fx:constant="OPEN_HAND" />
+                            </cursor>
+                        </Circle>
+                        <Circle id="piece-second-3" fill="#ce1327" onMouseClicked="#handleClickOnPiece" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                            <cursor>
+                                <Cursor fx:constant="OPEN_HAND" />
+                            </cursor>
+                        </Circle>
+                        <Circle id="piece-second-2" fill="#ce1327" onMouseClicked="#handleClickOnPiece" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                            <cursor>
+                                <Cursor fx:constant="OPEN_HAND" />
+                            </cursor>
+                        </Circle>
+                        <Circle id="piece-second-1" fill="#ce1327" onMouseClicked="#handleClickOnPiece" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <cursor>
+                                <Cursor fx:constant="OPEN_HAND" />
+                            </cursor>
+                        </Circle>
+                        <Circle id="point-4" fx:id="point4" fill="#1d1e1c" onMouseClicked="#handleClickOnPoint" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.rowIndex="9">
+                            <cursor>
+                                <Cursor fx:constant="OPEN_HAND" />
+                            </cursor>
+                        </Circle>
+                        <Circle id="point-3" fx:id="point3" fill="#1d1e1c" onMouseClicked="#handleClickOnPoint" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                            <cursor>
+                                <Cursor fx:constant="OPEN_HAND" />
+                            </cursor>
+                        </Circle>
+                        <Circle id="point-2" fx:id="point2" fill="#1d1e1c" onMouseClicked="#handleClickOnPoint" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                            <cursor>
+                                <Cursor fx:constant="OPEN_HAND" />
+                            </cursor>
+                        </Circle>
+                        <Circle id="point-1" fx:id="point1" fill="#1d1e1c" onMouseClicked="#handleClickOnPoint" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                            <cursor>
+                                <Cursor fx:constant="OPEN_HAND" />
+                            </cursor>
+                        </Circle>
+                        <Circle id="point-6" fx:id="point6" fill="#1d1e1c" onMouseClicked="#handleClickOnPoint" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="4" GridPane.rowIndex="9">
+                            <cursor>
+                                <Cursor fx:constant="OPEN_HAND" />
+                            </cursor>
+                        </Circle>
+                        <Circle id="point-5" fx:id="point5" fill="#1d1e1c" onMouseClicked="#handleClickOnPoint" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="9">
+                            <cursor>
+                                <Cursor fx:constant="OPEN_HAND" />
+                            </cursor>
+                        </Circle>
+                        <Circle id="point-0" fx:id="point0" fill="#1d1e1c" onMouseClicked="#handleClickOnPoint" radius="25.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                            <cursor>
+                                <Cursor fx:constant="OPEN_HAND" />
+                            </cursor>
+                        </Circle>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+                     <children>
+                              <Text fx:id="turn" layoutX="43.0" layoutY="51.0" smooth="false" stroke="#eb0000" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Text">
+                           <font>
+                              <Font name="Open Sans Bold" size="30.0" />
+                           </font>
+                        </Text>
+                        <Text id="turn-title" layoutX="52.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Turno">
+                           <font>
+                              <Font name="Open Sans" size="16.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
                     </children>
                     <cursor>
-                        <Cursor fx:constant="DEFAULT"/>
+                        <Cursor fx:constant="DEFAULT" />
                     </cursor>
                 </GridPane>
-                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                <AnchorPane prefHeight="768.0" prefWidth="247.0">
                     <children>
-                        <TextArea id="chat-messages" fx:id="chatMessages" disable="true" prefHeight="200.0"
-                                  prefWidth="262.0"/>
-                        <TextField id="chat-input" fx:id="chatInput" layoutY="200.0" onAction="#handleChatInput"
-                                   prefHeight="24.0" prefWidth="262.0" promptText="Insira sua mensagem"/>
-                        <Button layoutX="42.0" layoutY="242.0" mnemonicParsing="false" text="Empate"/>
-                        <Button layoutX="162.0" layoutY="242.0" mnemonicParsing="false" text="Desistir"/>
-                        <Text layoutX="18.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                              text="Nome do Jogador:"/>
-                        <Text layoutX="17.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sala ID:"/>
-                        <Text layoutX="17.0" layoutY="389.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hostname:"/>
-                        <Text fx:id="playerName" layoutX="141.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                              text="Text"/>
-                        <Text fx:id="roomId" layoutX="78.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                              text="Text"/>
-                        <Text fx:id="host" layoutX="99.0" layoutY="389.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                              text="Text"/>
+                        <TextArea id="chat-messages" fx:id="chatMessages" disable="true" layoutY="501.0" prefHeight="242.0" prefWidth="270.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets></TextArea>
+                        <TextField id="chat-input" fx:id="chatInput" layoutX="3.0" layoutY="744.0" onAction="#handleChatInput" prefHeight="24.0" prefWidth="267.0" promptText="Insira sua mensagem" />
+                        <Button layoutX="32.0" layoutY="463.0" mnemonicParsing="false" onAction="#handleClickOnDrawButton" text="Empate">
+                     <font>
+                        <Font name="Open Sans" size="13.0" />
+                     </font></Button>
+                        <Button layoutX="108.0" layoutY="463.0" mnemonicParsing="false" onAction="#handleClickOnGiveUpButton" text="Desistir">
+                     <font>
+                        <Font name="Open Sans" size="13.0" />
+                     </font></Button>
+                        <Text layoutX="20.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome do Jogador:">
+                     <font>
+                        <Font name="Open Sans" size="13.0" />
+                     </font></Text>
+                        <Text layoutX="19.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sala ID:">
+                     <font>
+                        <Font name="Open Sans" size="13.0" />
+                     </font></Text>
+                        <Text layoutX="20.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hostname:">
+                     <font>
+                        <Font name="Open Sans" size="13.0" />
+                     </font></Text>
+                        <Text fx:id="playerName" layoutX="138.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+                     <font>
+                        <Font name="Open Sans" size="13.0" />
+                     </font></Text>
+                        <Text fx:id="roomId" layoutX="73.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+                     <font>
+                        <Font name="Open Sans" size="13.0" />
+                     </font></Text>
+                        <Text fx:id="host" layoutX="98.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+                     <font>
+                        <Font name="Open Sans" size="13.0" />
+                     </font></Text>
+                  <Button layoutX="184.0" layoutY="463.0" mnemonicParsing="false" onAction="#handleClickOnRuleButton" text="Regras">
+                     <font>
+                        <Font name="Open Sans" size="13.0" />
+                     </font>
+                  </Button>
                     </children>
                 </AnchorPane>
             </children>
