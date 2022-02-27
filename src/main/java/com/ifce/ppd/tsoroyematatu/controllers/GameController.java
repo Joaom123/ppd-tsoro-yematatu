@@ -70,13 +70,13 @@ public class GameController extends Controller implements Initializable {
 
             int index = 0;
             for (Circle c : rivalPieces) {
-                setRowAndColumnElement(c, 1, 1 + index);
+                setRowAndColumnElement(c, 1, 2 + index);
                 index++;
             }
 
             index = 0;
             for (Circle c : pieces) {
-                setRowAndColumnElement(c, 11, 1 + index);
+                setRowAndColumnElement(c, 11, 2 + index);
                 index++;
             }
         }
@@ -167,18 +167,18 @@ public class GameController extends Controller implements Initializable {
     }
 
     @FXML @SuppressWarnings("unused")
-    public void handleClickOnDrawButton(ActionEvent actionEvent) {
+    public void handleDrawButtonClick(ActionEvent actionEvent) {
     }
 
     @FXML @SuppressWarnings("unused")
-    public void handleClickOnGiveUpButton(ActionEvent actionEvent) {
+    public void handleGiveUpButtonClick(ActionEvent actionEvent) {
     }
 
     @FXML @SuppressWarnings("unused")
-    public void handleClickOnRuleButton(ActionEvent actionEvent) {
+    public void handleRuleButtonClick(ActionEvent actionEvent) {
     }
 
     @FXML @SuppressWarnings("unused")
-    public void handleClickOnExitButton(ActionEvent actionEvent) {
+    public void handleExitButtonClick(ActionEvent actionEvent) {
     }
 }

@@ -30,7 +30,6 @@ public class AwaitingController extends Controller implements Initializable {
         this.stage = actualStage;
     }
 
-
     @Override
     public void goToGame() {
         System.out.println("Go to game");
