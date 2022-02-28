@@ -9,7 +9,10 @@ public enum MESSAGE_TYPES {
     CAN_MAKE_MOVE(5),
     PLAYABLE(6),
     EXIT(7),
-    IS_FIRST_PLAYER(8);
+    IS_FIRST_PLAYER(8),
+    WINNER(9),
+    LOSER(10),
+    DRAW(11);
 
     private final int flag;
 

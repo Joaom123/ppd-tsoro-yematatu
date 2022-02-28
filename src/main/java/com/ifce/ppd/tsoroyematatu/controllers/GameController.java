@@ -1,10 +1,14 @@
 package com.ifce.ppd.tsoroyematatu.controllers;
 
 import com.ifce.ppd.tsoroyematatu.client.ServerConnection;
+import com.ifce.ppd.tsoroyematatu.models.PieceFront;
 import com.ifce.ppd.tsoroyematatu.services.JavaFXService;
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -35,8 +39,8 @@ public class GameController extends Controller implements Initializable {
     private Circle selectedPiece;
     @FXML
     private GridPane gameGrid;
-    private final Set<Circle> pieces = new HashSet<>();
-    private final Set<Circle> rivalPieces = new HashSet<>();
+    private final Set<PieceFront> pieces = new HashSet<>();
+    private final Set<PieceFront> rivalPieces = new HashSet<>();
     private final JavaFXService javaFXService = new JavaFXService();
 
     public GameController(ServerConnection serverConnection) {
@@ -52,37 +56,36 @@ public class GameController extends Controller implements Initializable {
         updateTurn();
 
         if (this.serverConnection.isFirstPlayer()) {
-            pieces.add(getElementById("piece-first-1"));
-            pieces.add(getElementById("piece-first-2"));
-            pieces.add(getElementById("piece-first-3"));
-            rivalPieces.add(getElementById("piece-second-1"));
-            rivalPieces.add(getElementById("piece-second-2"));
-            rivalPieces.add(getElementById("piece-second-3"));
+            pieces.add(new PieceFront(getElementById("piece-first-1")));
+            pieces.add(new PieceFront(getElementById("piece-first-2")));
+            pieces.add(new PieceFront(getElementById("piece-first-3")));
+            rivalPieces.add(new PieceFront(getElementById("piece-second-1")));
+            rivalPieces.add(new PieceFront(getElementById("piece-second-2")));
+            rivalPieces.add(new PieceFront(getElementById("piece-second-3")));
             javaFXService.infoAlert(null, "Você é o primeiro jogador! Pode fazer a sua jogada.");
+            for (PieceFront pf : rivalPieces) pf.getPiece().setDisable(true);
         } else {
-            pieces.add(getElementById("piece-second-1"));
-            pieces.add(getElementById("piece-second-2"));
-            pieces.add(getElementById("piece-second-3"));
-            rivalPieces.add(getElementById("piece-first-1"));
-            rivalPieces.add(getElementById("piece-first-2"));
-            rivalPieces.add(getElementById("piece-first-3"));
+            pieces.add(new PieceFront(getElementById("piece-second-1")));
+            pieces.add(new PieceFront(getElementById("piece-second-2")));
+            pieces.add(new PieceFront(getElementById("piece-second-3")));
+            rivalPieces.add(new PieceFront(getElementById("piece-first-1")));
+            rivalPieces.add(new PieceFront(getElementById("piece-first-2")));
+            rivalPieces.add(new PieceFront(getElementById("piece-first-3")));
 
 
             int index = 0;
-            for (Circle c : rivalPieces) {
-                setRowAndColumnElement(c, 1, 2 + index);
+            for (PieceFront pf : rivalPieces) {
+                setRowAndColumnElement(pf.getPiece(), 1, 2 + index);
                 index++;
             }
 
             index = 0;
-            for (Circle c : pieces) {
-                setRowAndColumnElement(c, 11, 2 + index);
+            for (PieceFront pf : pieces) {
+                setRowAndColumnElement(pf.getPiece(), 11, 2 + index);
                 index++;
             }
+            setDisableToAllPieces(true);
         }
-
-        for (Circle c : rivalPieces)
-            c.setDisable(true);
     }
 
     /**
@@ -140,30 +143,51 @@ public class GameController extends Controller implements Initializable {
         Circle piece = getElementById(selectedPieceId);
         Circle point = getElementById(selectedPointId);
 
+        PieceFront pf = getPieceFront(piece);
+        if (pf == null) return;
+
+        Circle originPoint = pf.getPoint();
+
+        pf.setPoint(point); // set destiny point
+
         movePieceToPoint(piece, point);
         point.setVisible(false);
         selectedPiece = null;
+        if (originPoint != null) originPoint.setVisible(true);
+        if (serverConnection.getTurn() < 6) piece.setDisable(true);
     }
 
     private Circle getElementById(String id) {
         return (Circle) gameGrid.lookup("#" + id);
     }
 
+    private PieceFront getPieceFront(Circle pieceC) {
+        for (PieceFront pf : pieces)
+            if (pf.getPiece() == pieceC)
+                return pf;
+        for (PieceFront pf : rivalPieces)
+            if (pf.getPiece() == pieceC)
+                return pf;
+        return null;
+    }
+
     @Override
     public void waitRivalMakeMove() {
-        for (Circle c1 : pieces)
-            c1.setDisable(true);
+        for (PieceFront pf : pieces)
+            pf.getPiece().setDisable(true);
     }
 
     @Override
     public void canMakeMove() {
-        for (Circle c1 : pieces)
-            c1.setDisable(false);
+        for (PieceFront pf : pieces)
+            pf.getPiece().setDisable(false);
     }
 
     @Override
     public void updateTurn() {
-        turn.setText(String.valueOf(serverConnection.getTurn()));
+        int turnNumber = serverConnection.getTurn();
+        turn.setText(String.valueOf(turnNumber));
+        if (turnNumber == 6) setDisableToAllPieces(false);
     }
 
     @FXML @SuppressWarnings("unused")
@@ -180,5 +204,27 @@ public class GameController extends Controller implements Initializable {
 
     @FXML @SuppressWarnings("unused")
     public void handleExitButtonClick(ActionEvent actionEvent) {
+    }
+
+    @Override
+    public void loser() {
+        Platform.runLater(() -> {
+            javaFXService.infoAlert("Você perdeu!", "Jogue novamente para tentar vencer!");
+            for (PieceFront pf : pieces) pf.getPiece().setDisable(true);
+            for (PieceFront pf : rivalPieces) pf.getPiece().setDisable(true);
+        });
+    }
+
+    @Override
+    public void winner() {
+        Platform.runLater(() -> {
+            javaFXService.infoAlert("Você ganhou!", "Parabéns, você ganhou. Jogue novamente para tentar vencer!");
+            setDisableToAllPieces(true);
+        });
+    }
+
+    private void setDisableToAllPieces(boolean isDisabled) {
+        for (PieceFront pf : pieces) pf.getPiece().setDisable(isDisabled);
+        for (PieceFront pf : rivalPieces) pf.getPiece().setDisable(isDisabled);
     }
 }

@@ -3,7 +3,6 @@ package com.ifce.ppd.tsoroyematatu.server;
 import com.ifce.ppd.tsoroyematatu.constants.MESSAGE_TYPES;
 import com.ifce.ppd.tsoroyematatu.exceptions.NoRivalException;
 import com.ifce.ppd.tsoroyematatu.models.Client;
-import com.ifce.ppd.tsoroyematatu.models.Room;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -19,6 +18,7 @@ public class PlayerThread extends Thread {
     private ObjectOutputStream outputStream;
     private Client client;
     private Room room;
+    private boolean isFirstPlayer = false;
 
     public PlayerThread(Server server, Socket socket) {
         this.socket = socket;
@@ -53,11 +53,16 @@ public class PlayerThread extends Thread {
                     room.addPlayer(this); // add player to the room
                     System.out.println("Cliente " + client.getName() + " entrou na sala " + room.getId());
 
-                    // If the room isn't full, player should wait until another player enter.
+                    // If room isn't full, player should wait until another player enter.
+                    // If full, create game and send playable flag.
                     if (!room.isFull()) {
                         sendWaitRivalConnectFlag();
                         sendIsFirstPlayerFlag();
-                    } else room.sendPlayable();
+                        isFirstPlayer = true;
+                    } else {
+                        room.createGame();
+                        room.sendPlayable();
+                    };
                 }
 
                 if (inputFlag == MESSAGE_TYPES.MESSAGE.getFlag()) {
@@ -70,8 +75,7 @@ public class PlayerThread extends Thread {
                     String pointId = inputStream.readUTF();
                     System.out.println(pieceId);
                     System.out.println(pointId);
-                    // TODO: Validate in server
-                    // If the move is valid
+                    // If the move is valid, send move
                     if (room.getGame().isValidMove(pieceId, pointId)) {
                         room.sendMoveToPlayers(pieceId, pointId);
                         sendWaitRivalMakeMoveFlag();
@@ -88,6 +92,8 @@ public class PlayerThread extends Thread {
 
             } catch (Exception e) {
                 e.printStackTrace();
+                this.interrupt();
+                return;
             }
         }
     }
@@ -144,6 +150,27 @@ public class PlayerThread extends Thread {
         outputStream.writeUTF(pieceId);
         outputStream.writeUTF(pointId);
         outputStream.writeInt(room.getGame().getTurn());
+        outputStream.flush();
+    }
+
+    public boolean isFirstPlayer() {
+        return isFirstPlayer;
+    }
+
+    public void sendWinnerPlayerFlag(PlayerThread winnerPlayer) {
+        try {
+            if (winnerPlayer == this)
+                outputStream.writeByte(MESSAGE_TYPES.WINNER.getFlag());
+            else
+                outputStream.writeByte(MESSAGE_TYPES.LOSER.getFlag());
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendDrawFlag() throws IOException {
+        outputStream.writeByte(MESSAGE_TYPES.DRAW.getFlag());
         outputStream.flush();
     }
 }

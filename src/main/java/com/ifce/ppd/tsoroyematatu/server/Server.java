@@ -1,7 +1,5 @@
 package com.ifce.ppd.tsoroyematatu.server;
 
-import com.ifce.ppd.tsoroyematatu.models.Room;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;

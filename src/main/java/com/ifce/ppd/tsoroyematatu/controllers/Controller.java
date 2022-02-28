@@ -33,4 +33,10 @@ public abstract class Controller {
 
     public void updateTurn() {
     }
+
+    public void loser() {
+    }
+
+    public void winner() {
+    }
 }

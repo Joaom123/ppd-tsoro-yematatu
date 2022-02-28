@@ -138,7 +138,7 @@
                         </Circle>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
                      <children>
-                              <Text fx:id="turn" layoutX="23.0" layoutY="51.0" smooth="false" stroke="#eb0000" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Text">
+                              <Text fx:id="turn" layoutX="23.0" layoutY="51.0" smooth="false" stroke="#eb0000" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Text" textAlignment="CENTER">
                            <font>
                               <Font name="Open Sans Bold" size="30.0" />
                            </font>

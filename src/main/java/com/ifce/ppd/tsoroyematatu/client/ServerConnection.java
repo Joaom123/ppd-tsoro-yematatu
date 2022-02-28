@@ -158,4 +158,14 @@ public class ServerConnection {
     public void canMakeMove() {
         currentController.canMakeMove();
     }
+
+    public void winner() {
+        System.out.println("Venceu");
+        currentController.winner();
+    }
+
+    public void loser() {
+        System.out.println("Perdeu");
+        currentController.loser();
+    }
 }

@@ -46,10 +46,6 @@ public class ReceiveThread extends Thread {
                     serverConnection.receiveMove(pieceId, pointId);
                 }
 
-                if (inputTypeFlag == MESSAGE_TYPES.WAIT_RIVAL_CONNECT.getFlag()) {
-
-                }
-
                 if (inputTypeFlag == MESSAGE_TYPES.PLAYABLE.getFlag())
                     serverConnection.goToGame();
 
@@ -62,8 +58,16 @@ public class ReceiveThread extends Thread {
                 if (inputTypeFlag == MESSAGE_TYPES.CAN_MAKE_MOVE.getFlag())
                     serverConnection.canMakeMove();
 
+                if (inputTypeFlag == MESSAGE_TYPES.WINNER.getFlag())
+                    serverConnection.winner();
+
+                if (inputTypeFlag == MESSAGE_TYPES.LOSER.getFlag())
+                    serverConnection.loser();
+
             } catch (Exception e) {
                 e.printStackTrace();
+                this.interrupt();
+                return;
             }
         }
     }

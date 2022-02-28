@@ -1,9 +1,7 @@
-package com.ifce.ppd.tsoroyematatu.models;
+package com.ifce.ppd.tsoroyematatu.server;
 
 import com.ifce.ppd.tsoroyematatu.exceptions.MaximumNumberPlayersInTheRoomException;
 import com.ifce.ppd.tsoroyematatu.exceptions.NoRivalException;
-import com.ifce.ppd.tsoroyematatu.server.Game;
-import com.ifce.ppd.tsoroyematatu.server.PlayerThread;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -13,11 +11,15 @@ import java.util.Set;
 public class Room {
     private final String id;
     private final Set<PlayerThread> playersThreads = new HashSet<>();
-    private final Game game;
+    private Game game;
 
     public Room(String id) {
         this.id = id;
+    }
+
+    public Game createGame() {
         game = new Game(this);
+        return game;
     }
 
     public void addPlayer(PlayerThread playerThread) throws MaximumNumberPlayersInTheRoomException {
@@ -71,5 +73,31 @@ public class Room {
     public void sendMoveToPlayers(String pieceId, String pointId) throws IOException {
         for (PlayerThread playerThread : playersThreads)
             playerThread.sendMoveToPlayer(pieceId, pointId);
+    }
+
+    public PlayerThread getFirstPlayer() {
+        for (PlayerThread pt : playersThreads)
+            if (pt.isFirstPlayer())
+                return pt;
+        return null;
+    }
+
+    public PlayerThread getSecondPlayer() {
+        for (PlayerThread pt : playersThreads)
+            if (!pt.isFirstPlayer())
+                return pt;
+        return null;
+    }
+
+    public void sendWinner(PlayerThread winnerPlayer) {
+        System.out.println("Vencedor: " + winnerPlayer.getName());
+        for (PlayerThread playerThread : playersThreads)
+            playerThread.sendWinnerPlayerFlag(winnerPlayer);
+    }
+
+    public void sendDraw() throws IOException {
+        System.out.println("Empate");
+        for (PlayerThread playerThread : playersThreads)
+            playerThread.sendDrawFlag();
     }
 }
