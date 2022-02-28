@@ -17,9 +17,8 @@ public class Room {
         this.id = id;
     }
 
-    public Game createGame() {
+    public void createGame() {
         game = new Game(this);
-        return game;
     }
 
     public void addPlayer(PlayerThread playerThread) throws MaximumNumberPlayersInTheRoomException {
@@ -90,14 +89,28 @@ public class Room {
     }
 
     public void sendWinner(PlayerThread winnerPlayer) {
-        System.out.println("Vencedor: " + winnerPlayer.getName());
         for (PlayerThread playerThread : playersThreads)
             playerThread.sendWinnerPlayerFlag(winnerPlayer);
+        resetGame();
     }
 
     public void sendDraw() throws IOException {
         System.out.println("Empate");
         for (PlayerThread playerThread : playersThreads)
             playerThread.sendDrawFlag();
+    }
+
+    public void resetGame() {
+        PlayerThread pt1 = getFirstPlayer();
+        PlayerThread pt2 = getSecondPlayer();
+        pt1.setFirstPlayer(false);
+        pt2.setFirstPlayer(true);
+        createGame();
+        sendResetFlagToPlayers();
+    }
+
+    public void sendResetFlagToPlayers() {
+        for (PlayerThread playerThread : playersThreads)
+            playerThread.sendResetFlag();
     }
 }

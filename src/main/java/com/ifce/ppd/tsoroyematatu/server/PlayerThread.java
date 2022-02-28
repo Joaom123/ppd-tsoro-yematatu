@@ -90,6 +90,13 @@ public class PlayerThread extends Thread {
                     outputStream.close();
                 }
 
+                if (inputFlag == MESSAGE_TYPES.WITHDRAWAL.getFlag()) {
+                    PlayerThread rivalPlayer = room.getRivalPlayerThread(this);
+                    sendWinnerPlayerFlag(rivalPlayer);
+                    rivalPlayer.sendWinnerPlayerFlag(rivalPlayer);
+                    room.resetGame();
+                }
+
             } catch (Exception e) {
                 e.printStackTrace();
                 this.interrupt();
@@ -172,5 +179,18 @@ public class PlayerThread extends Thread {
     public void sendDrawFlag() throws IOException {
         outputStream.writeByte(MESSAGE_TYPES.DRAW.getFlag());
         outputStream.flush();
+    }
+
+    public void sendResetFlag() {
+        try {
+            outputStream.writeByte(MESSAGE_TYPES.RESET_GAME.getFlag());
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setFirstPlayer(boolean firstPlayer) {
+        isFirstPlayer = firstPlayer;
     }
 }

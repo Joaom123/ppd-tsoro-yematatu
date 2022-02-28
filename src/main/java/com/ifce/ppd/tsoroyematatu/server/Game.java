@@ -133,6 +133,12 @@ public class Game {
 
     private void doMove(PointBoard pointBoard, PieceBoard pieceBoard) {
         addTurn();
+
+        PointBoard pointBoardOrigin = getOccupiedPointBoard(pieceBoard);
+
+        if (pointBoardOrigin != null)
+            pointBoardOrigin.setPieceBoard(null);
+
         pointBoard.setPieceBoard(pieceBoard);
 
         if (isSecondPhase()) checkWinnerSituation();

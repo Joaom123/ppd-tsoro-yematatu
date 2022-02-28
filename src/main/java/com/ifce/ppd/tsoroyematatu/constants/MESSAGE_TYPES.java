@@ -12,7 +12,9 @@ public enum MESSAGE_TYPES {
     IS_FIRST_PLAYER(8),
     WINNER(9),
     LOSER(10),
-    DRAW(11);
+    DRAW(11),
+    WITHDRAWAL(12),
+    RESET_GAME(13);
 
     private final int flag;
 

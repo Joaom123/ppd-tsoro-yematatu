@@ -66,4 +66,13 @@ public class SendThread extends Thread {
             e.printStackTrace();
         }
     }
+
+    public void sendWithdrawalFlag() {
+        try {
+            outputStream.writeByte(MESSAGE_TYPES.WITHDRAWAL.getFlag());
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

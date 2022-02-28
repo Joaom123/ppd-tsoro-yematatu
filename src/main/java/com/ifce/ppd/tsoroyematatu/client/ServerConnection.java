@@ -168,4 +168,14 @@ public class ServerConnection {
         System.out.println("Perdeu");
         currentController.loser();
     }
+
+    public void sendWithdrawalFlag() {
+        sendThread.sendWithdrawalFlag();
+    }
+
+    public void resetGame() {
+        turn = 0;
+        isFirstPlayer = !isFirstPlayer;
+        currentController.resetGame();
+    }
 }

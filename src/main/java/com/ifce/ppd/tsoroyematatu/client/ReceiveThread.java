@@ -64,6 +64,9 @@ public class ReceiveThread extends Thread {
                 if (inputTypeFlag == MESSAGE_TYPES.LOSER.getFlag())
                     serverConnection.loser();
 
+                if (inputTypeFlag == MESSAGE_TYPES.RESET_GAME.getFlag())
+                    serverConnection.resetGame();
+
             } catch (Exception e) {
                 e.printStackTrace();
                 this.interrupt();

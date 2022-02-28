@@ -136,20 +136,20 @@
                                 <Cursor fx:constant="OPEN_HAND" />
                             </cursor>
                         </Circle>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
+                  <VBox alignment="CENTER" GridPane.columnIndex="3">
                      <children>
-                              <Text fx:id="turn" layoutX="23.0" layoutY="51.0" smooth="false" stroke="#eb0000" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Text" textAlignment="CENTER">
-                           <font>
-                              <Font name="Open Sans Bold" size="30.0" />
-                           </font>
-                        </Text>
-                        <Text id="turn-title" layoutX="32.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Turno">
+                        <Text id="turn-title" strokeType="OUTSIDE" strokeWidth="0.0" text="Turno">
                            <font>
                               <Font name="Open Sans" size="16.0" />
                            </font>
                         </Text>
+                              <Text fx:id="turn" smooth="false" stroke="#eb0000" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Text" textAlignment="CENTER">
+                           <font>
+                              <Font name="Open Sans Bold" size="30.0" />
+                           </font>
+                        </Text>
                      </children>
-                  </AnchorPane>
+                  </VBox>
                     </children>
                     <cursor>
                         <Cursor fx:constant="DEFAULT" />
@@ -162,11 +162,11 @@
                         <Insets />
                      </opaqueInsets></TextArea>
                         <TextField id="chat-input" fx:id="chatInput" layoutY="744.0" onAction="#handleChatInput" prefHeight="24.0" prefWidth="270.0" promptText="Insira sua mensagem" />
-                        <Button layoutX="11.0" layoutY="463.0" mnemonicParsing="false" onAction="#handleDrawButtonClick" text="Empate">
+                        <Button layoutX="41.0" layoutY="463.0" mnemonicParsing="false" onAction="#handleDrawButtonClick" text="Empate">
                      <font>
                         <Font name="Open Sans" size="13.0" />
                      </font></Button>
-                        <Button layoutX="81.0" layoutY="463.0" mnemonicParsing="false" onAction="#handleGiveUpButtonClick" text="Desistir">
+                        <Button layoutX="116.0" layoutY="463.0" mnemonicParsing="false" onAction="#handleGiveUpButtonClick" text="Desistir">
                      <font>
                         <Font name="Open Sans" size="13.0" />
                      </font></Button>
@@ -194,12 +194,7 @@
                      <font>
                         <Font name="Open Sans" size="13.0" />
                      </font></Text>
-                  <Button layoutX="198.0" layoutY="463.0" mnemonicParsing="false" onAction="#handleRuleButtonClick" text="Regras">
-                     <font>
-                        <Font name="Open Sans" size="13.0" />
-                     </font>
-                  </Button>
-                  <Button layoutX="152.0" layoutY="463.0" mnemonicParsing="false" onAction="#handleExitButtonClick" text="Sair">
+                  <Button layoutX="191.0" layoutY="463.0" mnemonicParsing="false" onAction="#handleExitButtonClick" text="Sair">
                      <font>
                         <Font name="Open Sans" size="13.0" />
                      </font>

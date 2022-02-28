@@ -39,4 +39,7 @@ public abstract class Controller {
 
     public void winner() {
     }
+
+    public void resetGame() {
+    }
 }
