@@ -17,7 +17,8 @@ public enum MESSAGE_TYPES {
     RESET_GAME(13),
     DRAW_CONFIRMATION(14),
     DRAW_DENIED(15),
-    DRAW_ACCEPTED(16);
+    DRAW_ACCEPTED(16),
+    ROOM_IS_FULL(17);
 
     private final int flag;
 
