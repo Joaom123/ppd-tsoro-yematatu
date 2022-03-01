@@ -3,6 +3,7 @@ package com.ifce.ppd.tsoroyematatu.controllers;
 import com.ifce.ppd.tsoroyematatu.client.ServerConnection;
 import com.ifce.ppd.tsoroyematatu.models.Client;
 import com.ifce.ppd.tsoroyematatu.services.JavaFXService;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -33,6 +34,7 @@ public class LoginController extends Controller {
      *
      * @param actionEvent The action's event
      */
+    @SuppressWarnings("unused")
     public void handleLoginButtonClick(ActionEvent actionEvent) {
         String playerName = playerNameTF.getText();
         String hostName = hostNameTF.getText();
@@ -83,8 +85,17 @@ public class LoginController extends Controller {
      *
      * @param actionEvent The action's event
      */
+    @SuppressWarnings("unused")
     public void handleBackButtonClick(ActionEvent actionEvent) {
         Stage actualStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         javaFXService.goToView("init-view.fxml", actualStage, new InitController(serverConnection));
+    }
+
+    @Override
+    public void roomIsFull() {
+        Platform.runLater(() -> {
+            javaFXService.errorAlert("Sala cheia!", "A sala está cheia, tente outra sala!");
+            javaFXService.goToView("init-view.fxml", (Stage) hostNameTF.getScene().getWindow(), new InitController(serverConnection));
+        });
     }
 }
