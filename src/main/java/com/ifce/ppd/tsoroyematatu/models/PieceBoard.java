@@ -11,10 +11,20 @@ public class PieceBoard {
         this.ownerPlayer = ownerPlayer;
     }
 
+    /**
+     * Id's getter.
+     *
+     * @return The id.
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * OwnerPlayer's getter.
+     *
+     * @return The player.
+     */
     public PlayerThread getOwnerPlayer() {
         return ownerPlayer;
     }
