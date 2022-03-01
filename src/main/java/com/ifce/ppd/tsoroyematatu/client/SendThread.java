@@ -75,4 +75,31 @@ public class SendThread extends Thread {
             e.printStackTrace();
         }
     }
+
+    public void sendDrawFlag() {
+        try {
+            outputStream.writeByte(MESSAGE_TYPES.DRAW.getFlag());
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendDrawDeniedFlag() {
+        try {
+            outputStream.writeByte(MESSAGE_TYPES.DRAW_DENIED.getFlag());
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendDrawAcceptedFlag() {
+        try {
+            outputStream.writeByte(MESSAGE_TYPES.DRAW_ACCEPTED.getFlag());
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

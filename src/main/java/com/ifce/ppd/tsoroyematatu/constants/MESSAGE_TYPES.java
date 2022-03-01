@@ -14,7 +14,10 @@ public enum MESSAGE_TYPES {
     LOSER(10),
     DRAW(11),
     WITHDRAWAL(12),
-    RESET_GAME(13);
+    RESET_GAME(13),
+    DRAW_CONFIRMATION(14),
+    DRAW_DENIED(15),
+    DRAW_ACCEPTED(16);
 
     private final int flag;
 

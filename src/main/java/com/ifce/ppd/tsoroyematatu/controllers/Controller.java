@@ -42,4 +42,13 @@ public abstract class Controller {
 
     public void resetGame() {
     }
+
+    public void drawConfirmation() {
+    }
+
+    public void drawAccepted() {
+    }
+
+    public void drawDenied() {
+    }
 }

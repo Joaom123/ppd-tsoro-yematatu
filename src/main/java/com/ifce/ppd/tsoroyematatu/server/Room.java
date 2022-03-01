@@ -95,9 +95,9 @@ public class Room {
     }
 
     public void sendDraw() throws IOException {
-        System.out.println("Empate");
         for (PlayerThread playerThread : playersThreads)
             playerThread.sendDrawFlag();
+        resetGame();
     }
 
     public void resetGame() {

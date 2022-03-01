@@ -67,6 +67,15 @@ public class ReceiveThread extends Thread {
                 if (inputTypeFlag == MESSAGE_TYPES.RESET_GAME.getFlag())
                     serverConnection.resetGame();
 
+                if (inputTypeFlag == MESSAGE_TYPES.DRAW_CONFIRMATION.getFlag())
+                    serverConnection.drawConfirmation();
+
+                if (inputTypeFlag == MESSAGE_TYPES.DRAW_ACCEPTED.getFlag())
+                    serverConnection.drawAccepted();
+
+                if (inputTypeFlag == MESSAGE_TYPES.DRAW_DENIED.getFlag())
+                    serverConnection.drawDenied();
+
             } catch (Exception e) {
                 e.printStackTrace();
                 this.interrupt();

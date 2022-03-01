@@ -4,11 +4,9 @@ import com.ifce.ppd.tsoroyematatu.client.ServerConnection;
 import com.ifce.ppd.tsoroyematatu.models.PieceFront;
 import com.ifce.ppd.tsoroyematatu.services.JavaFXService;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -168,6 +166,7 @@ public class GameController extends Controller implements Initializable {
 
     @FXML @SuppressWarnings("unused")
     public void handleDrawButtonClick(ActionEvent actionEvent) {
+        serverConnection.sendDrawFlag();
     }
 
     @FXML @SuppressWarnings("unused")
@@ -252,5 +251,29 @@ public class GameController extends Controller implements Initializable {
             setRowAndColumnElement(pf.getPiece(), 11, 2 + index);
             index++;
         }
+    }
+
+    @Override
+    public void drawConfirmation() {
+        Platform.runLater(() -> {
+            boolean drawResponse = javaFXService.drawConfirmationAlert();
+
+            if (drawResponse)
+                serverConnection.sendDrawAcceptedFlag();
+            else
+                serverConnection.sendDrawDeniedFlag();
+        });
+    }
+
+    @Override
+    public void drawAccepted() {
+        Platform.runLater(() ->
+                javaFXService.infoAlert("Empate aceito!", "O empate foi aceito. Jogue outra vez!"));
+    }
+
+    @Override
+    public void drawDenied() {
+        Platform.runLater(() ->
+                javaFXService.infoAlert("Empate negado!", "O empate foi negado. Tente vencer!"));
     }
 }

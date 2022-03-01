@@ -4,11 +4,14 @@ import com.ifce.ppd.tsoroyematatu.TsoroYematatuApplication;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public class JavaFXService {
     /**
@@ -61,6 +64,21 @@ public class JavaFXService {
         infoAlert.setHeaderText(headerText);
         infoAlert.setContentText(contentText);
         infoAlert.show();
+    }
+
+    public boolean drawConfirmationAlert() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmação do empate");
+        alert.setHeaderText("O jogador rival deseja empata! ");
+        alert.setContentText("Deseja confirmar o empate? Selecione a opção abaixo");
+
+        ButtonType buttonYes = new ButtonType("Sim", ButtonBar.ButtonData.YES);
+        ButtonType buttonNo = new ButtonType("Não", ButtonBar.ButtonData.NO);
+
+        alert.getButtonTypes().setAll(buttonYes, buttonNo);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.get() == buttonYes;
     }
 
     /**

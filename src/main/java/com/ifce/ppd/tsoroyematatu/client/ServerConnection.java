@@ -178,4 +178,28 @@ public class ServerConnection {
         isFirstPlayer = !isFirstPlayer;
         currentController.resetGame();
     }
+
+    public void sendDrawFlag() {
+        sendThread.sendDrawFlag();
+    }
+
+    public void drawConfirmation() {
+        currentController.drawConfirmation();
+    }
+
+    public void sendDrawDeniedFlag() {
+        sendThread.sendDrawDeniedFlag();
+    }
+
+    public void sendDrawAcceptedFlag() {
+        sendThread.sendDrawAcceptedFlag();
+    }
+
+    public void drawAccepted() {
+        currentController.drawAccepted();
+    }
+
+    public void drawDenied() {
+        currentController.drawDenied();
+    }
 }

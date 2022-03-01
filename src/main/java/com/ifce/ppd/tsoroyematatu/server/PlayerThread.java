@@ -97,12 +97,26 @@ public class PlayerThread extends Thread {
                     room.resetGame();
                 }
 
+                if (inputFlag == MESSAGE_TYPES.DRAW.getFlag())
+                    room.getRivalPlayerThread(this).sendDrawConfirmationFlag();
+
+                if (inputFlag == MESSAGE_TYPES.DRAW_ACCEPTED.getFlag())
+                    room.sendDraw();
+
+                if (inputFlag == MESSAGE_TYPES.DRAW_DENIED.getFlag())
+                    room.getRivalPlayerThread(this).sendDrawDeniedFlag();
+
             } catch (Exception e) {
                 e.printStackTrace();
                 this.interrupt();
                 return;
             }
         }
+    }
+
+    private void sendDrawDeniedFlag() throws IOException {
+        outputStream.writeByte(MESSAGE_TYPES.DRAW_DENIED.getFlag());
+        outputStream.flush();
     }
 
     private void sendIsFirstPlayerFlag() throws IOException {
@@ -177,7 +191,12 @@ public class PlayerThread extends Thread {
     }
 
     public void sendDrawFlag() throws IOException {
-        outputStream.writeByte(MESSAGE_TYPES.DRAW.getFlag());
+        outputStream.writeByte(MESSAGE_TYPES.DRAW_ACCEPTED.getFlag());
+        outputStream.flush();
+    }
+
+    public void sendDrawConfirmationFlag() throws IOException {
+        outputStream.writeByte(MESSAGE_TYPES.DRAW_CONFIRMATION.getFlag());
         outputStream.flush();
     }
 
