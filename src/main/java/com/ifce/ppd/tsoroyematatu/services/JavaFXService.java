@@ -66,6 +66,11 @@ public class JavaFXService {
         infoAlert.show();
     }
 
+    /**
+     * Open dialog of draw confirmation with options yes and no.
+     *
+     * @return True if draw accepted. False if denied.
+     */
     public boolean drawConfirmationAlert() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmação do empate");
