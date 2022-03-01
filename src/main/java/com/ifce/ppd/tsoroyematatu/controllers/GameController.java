@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.HashSet;
@@ -39,7 +40,7 @@ public class GameController extends Controller implements Initializable {
     private GridPane gameGrid;
     private Set<PieceFront> pieces;
     private Set<PieceFront> rivalPieces;
-    private Set<Circle> points = new HashSet<>();
+    private final Set<Circle> points = new HashSet<>();
     private final JavaFXService javaFXService = new JavaFXService();
 
     public GameController(ServerConnection serverConnection) {
@@ -58,6 +59,8 @@ public class GameController extends Controller implements Initializable {
     }
 
     /**
+     * Handles the input's event of chat.
+     *
      * @param actionEvent The action's event
      */
     @SuppressWarnings("unused")
@@ -79,15 +82,31 @@ public class GameController extends Controller implements Initializable {
         }
     }
 
+    /**
+     * Add message to chat.
+     *
+     * @param author  The message's author.
+     * @param message The content of the message.
+     */
     public void addMessageToChat(String author, String message) {
         chatMessages.appendText(author + ": " + message + "\n");
     }
 
+    /**
+     * Handles the mouse's event of Piece.
+     *
+     * @param mouseEvent The action's event
+     */
     @SuppressWarnings("unused")
     public void handleClickOnPiece(MouseEvent mouseEvent) {
         selectedPiece = (Circle) mouseEvent.getTarget();
     }
 
+    /**
+     * Handles the mouse's event of Point.
+     *
+     * @param mouseEvent The action's event
+     */
     @SuppressWarnings("unused")
     public void handleClickOnPoint(MouseEvent mouseEvent) {
         if (selectedPiece == null) return;
@@ -96,12 +115,25 @@ public class GameController extends Controller implements Initializable {
         serverConnection.sendMove(selectedPiece.getId(), clickedPoint.getId());
     }
 
+    /**
+     * Move piece to given point location.
+     *
+     * @param selectedPiece The selected piece.
+     * @param clickedPoint The selected point.
+     */
     public void movePieceToPoint(Circle selectedPiece, Circle clickedPoint) {
         int clickedPointRow = GridPane.getRowIndex(clickedPoint);
         int clickedPointColumn = GridPane.getColumnIndex(clickedPoint);
         setRowAndColumnElement(selectedPiece, clickedPointRow, clickedPointColumn);
     }
 
+    /**
+     * Set the row and column of an element in the GridPane.
+     *
+     * @param selectedPiece The element.
+     * @param rowIndex The row index to be set.
+     * @param columnIndex The column index to be set.
+     */
     private void setRowAndColumnElement(Circle selectedPiece, int rowIndex, int columnIndex) {
         GridPane.setRowIndex(selectedPiece, rowIndex);
         GridPane.setColumnIndex(selectedPiece, columnIndex);
@@ -126,10 +158,21 @@ public class GameController extends Controller implements Initializable {
         if (serverConnection.getTurn() < 6) piece.setDisable(true);
     }
 
+    /**
+     * Get element by id.
+     * @param id The id of an element.
+     * @return The element.
+     */
     private Circle getElementById(String id) {
         return (Circle) gameGrid.lookup("#" + id);
     }
 
+    /**
+     * Get PieceFront for given element.
+     *
+     * @param pieceC Given element.
+     * @return The PieceFront of that element.
+     */
     private PieceFront getPieceFront(Circle pieceC) {
         for (PieceFront pf : pieces)
             if (pf.getPiece() == pieceC)
@@ -147,7 +190,7 @@ public class GameController extends Controller implements Initializable {
     }
 
     @Override
-    public void canMakeMove() { //executada após update turn
+    public void canMakeMove() {
         for (PieceFront pf : rivalPieces) pf.getPiece().setDisable(true);
         for (PieceFront pf : pieces) pf.getPiece().setDisable(false);
 
@@ -164,18 +207,34 @@ public class GameController extends Controller implements Initializable {
         turn.setText(String.valueOf(turnNumber));
     }
 
+    /**
+     * Handles the click's event of Draw button.
+     *
+     * @param actionEvent The action's event
+     */
     @FXML @SuppressWarnings("unused")
     public void handleDrawButtonClick(ActionEvent actionEvent) {
         serverConnection.sendDrawFlag();
     }
 
+    /**
+     * Handles the click's event of Give up button.
+     *
+     * @param actionEvent The action's event
+     */
     @FXML @SuppressWarnings("unused")
     public void handleGiveUpButtonClick(ActionEvent actionEvent) {
         serverConnection.sendWithdrawalFlag();
     }
 
+    /**
+     * Handles the click's event of Exit button.
+     *
+     * @param actionEvent The action's event
+     */
     @FXML @SuppressWarnings("unused")
     public void handleExitButtonClick(ActionEvent actionEvent) {
+        serverConnection.sendExit();
     }
 
     @Override
@@ -191,18 +250,13 @@ public class GameController extends Controller implements Initializable {
     public void winner() {
         Platform.runLater(() -> {
             javaFXService.infoAlert("Você ganhou!", "Parabéns, você ganhou. Jogue novamente para tentar vencer!");
-            setDisableToAllPieces(true);
+            for (PieceFront pf : pieces) pf.getPiece().setDisable(true);
+            for (PieceFront pf : rivalPieces) pf.getPiece().setDisable(true);
         });
-    }
-
-    private void setDisableToAllPieces(boolean isDisabled) {
-        for (PieceFront pf : pieces) pf.getPiece().setDisable(isDisabled);
-        for (PieceFront pf : rivalPieces) pf.getPiece().setDisable(isDisabled);
     }
 
     @Override
     public void resetGame() {
-        System.out.println("Game reiniciado!");
         Platform.runLater(() -> {
             updateTurn();
             initGame();
@@ -211,11 +265,14 @@ public class GameController extends Controller implements Initializable {
         });
     }
 
+    /**
+     * Set the init game config. Set the pieces on the board and enable pieces of the first player.
+     */
     private void initGame() {
         pieces = new HashSet<>();
         rivalPieces = new HashSet<>();
 
-        if (this.serverConnection.isFirstPlayer()) {
+        if (serverConnection.isFirstPlayer()) {
             pieces.add(new PieceFront(getElementById("piece-first-1")));
             pieces.add(new PieceFront(getElementById("piece-first-2")));
             pieces.add(new PieceFront(getElementById("piece-first-3")));
@@ -223,6 +280,7 @@ public class GameController extends Controller implements Initializable {
             rivalPieces.add(new PieceFront(getElementById("piece-second-2")));
             rivalPieces.add(new PieceFront(getElementById("piece-second-3")));
             javaFXService.infoAlert(null, "Você é o primeiro jogador! Pode fazer a sua jogada.");
+
             setPiecesOnBoard();
             for (PieceFront pf : rivalPieces) pf.getPiece().setDisable(true);
             for (PieceFront pf : pieces) pf.getPiece().setDisable(false);
@@ -235,10 +293,14 @@ public class GameController extends Controller implements Initializable {
             rivalPieces.add(new PieceFront(getElementById("piece-first-3")));
 
             setPiecesOnBoard();
-            setDisableToAllPieces(true);
+            for (PieceFront pf : pieces) pf.getPiece().setDisable(true);
+            for (PieceFront pf : rivalPieces) pf.getPiece().setDisable(true);
         }
     }
 
+    /**
+     * Set the pieces in they rigth positions. The player's pieces are below the board and the opponent's pieces are above.
+     */
     private void setPiecesOnBoard() {
         int index = 0;
         for (PieceFront pf : rivalPieces) {
@@ -275,5 +337,11 @@ public class GameController extends Controller implements Initializable {
     public void drawDenied() {
         Platform.runLater(() ->
                 javaFXService.infoAlert("Empate negado!", "O empate foi negado. Tente vencer!"));
+    }
+
+    @Override
+    public void exit() {
+        Platform.runLater(() ->
+                javaFXService.goToView("init-view.fxml", (Stage) gameGrid.getScene().getWindow(), new InitController(new ServerConnection())));
     }
 }
