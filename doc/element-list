@@ -1,0 +1,9 @@
+module:com.ifce.ppd.tsoroyematatu
+com.ifce.ppd.tsoroyematatu
+com.ifce.ppd.tsoroyematatu.client
+com.ifce.ppd.tsoroyematatu.constants
+com.ifce.ppd.tsoroyematatu.controllers
+com.ifce.ppd.tsoroyematatu.exceptions
+com.ifce.ppd.tsoroyematatu.models
+com.ifce.ppd.tsoroyematatu.server
+com.ifce.ppd.tsoroyematatu.services

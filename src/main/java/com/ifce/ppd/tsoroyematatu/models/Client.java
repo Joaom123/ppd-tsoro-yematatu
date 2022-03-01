@@ -3,7 +3,13 @@ package com.ifce.ppd.tsoroyematatu.models;
 import java.io.Serializable;
 
 public class Client implements Serializable {
+    /**
+     * The name of the client.
+     */
     private final String name;
+    /**
+     * The id of the client.
+     */
     private int id;
 
     public Client(String name) {
