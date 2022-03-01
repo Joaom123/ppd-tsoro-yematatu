@@ -9,9 +9,9 @@ import com.ifce.ppd.tsoroyematatu.models.PointBoard;
 public class Game {
     private final PointBoard[] board;
     private final Room room;
-    private int turn = 0;
     private final PieceBoard[] firstPlayerPieces;
     private final PieceBoard[] secondPlayerPieces;
+    private int turn = 0;
     private boolean isFinished = false;
 
     public Game(Room room) {
@@ -75,7 +75,7 @@ public class Game {
      * Verify if the move can be done, following the given rules.
      *
      * @param pointBoardDest The destination point
-     * @param pieceBoard The PieceBoard.
+     * @param pieceBoard     The PieceBoard.
      * @return True if the move can be done. False otherwise.
      */
     private boolean canMove(PointBoard pointBoardDest, PieceBoard pieceBoard) {
@@ -143,9 +143,7 @@ public class Game {
         // 4 <-> 6, 5 must be occupied
         if (originId.equals("point-4") && destinyId.equals("point-6") && !getPointBoardById("point-5").isOccupied())
             return false;
-        if (originId.equals("point-6") && destinyId.equals("point-4") && !getPointBoardById("point-5").isOccupied())
-            return false;
-        return true;
+        return !originId.equals("point-6") || !destinyId.equals("point-4") || getPointBoardById("point-5").isOccupied();
     }
 
     /**
@@ -182,7 +180,7 @@ public class Game {
      * @return The PointBoard representation of the point.
      */
     private PointBoard getPointBoardById(String pointId) {
-        for(PointBoard pb : board)
+        for (PointBoard pb : board)
             if (pb.getId().equals(pointId))
                 return pb;
         return null;
@@ -286,7 +284,7 @@ public class Game {
      * @return The PointBoard occupied by given pieceBoard.
      */
     private PointBoard getOccupiedPointBoard(PieceBoard pieceBoard) {
-        for(PointBoard pb : board)
+        for (PointBoard pb : board)
             if (pb.getPieceBoard() == pieceBoard)
                 return pb;
         return null;
