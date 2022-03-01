@@ -159,7 +159,7 @@ public class Room {
     }
 
     /**
-     * Reset the game and change playerOne <-> playerTwo
+     * Reset the game and change playerOne to playerTwo and vice-versa.
      */
     public void resetGame() {
         PlayerThread pt1 = getFirstPlayer();
