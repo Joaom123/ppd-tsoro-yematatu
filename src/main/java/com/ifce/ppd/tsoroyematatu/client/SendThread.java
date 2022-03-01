@@ -24,9 +24,14 @@ public class SendThread extends Thread {
     }
 
     public void run() {
-        // TODO: close outputStream when user disconnect
+
     }
 
+    /**
+     * Send INIT flag to server.
+     *
+     * @param roomId The room to be used.
+     */
     public void sendInitFlag(String roomId) {
         try {
             outputStream.writeByte(MESSAGE_TYPES.INIT.getFlag());
@@ -38,6 +43,11 @@ public class SendThread extends Thread {
         }
     }
 
+    /**
+     * Send MESSAGE flag to server.
+     *
+     * @param message The message to be sent.
+     */
     public void sendMessage(String message) {
         try {
             outputStream.writeByte(MESSAGE_TYPES.MESSAGE.getFlag());
@@ -48,6 +58,12 @@ public class SendThread extends Thread {
         }
     }
 
+    /**
+     * Send MOVE flag to server.
+     *
+     * @param pieceId The pieceId to be sent.
+     * @param pointId The pointId to be sent.
+     */
     public void sendMove(String pieceId, String pointId) {
         try {
             outputStream.writeByte(MESSAGE_TYPES.MOVE.getFlag());
@@ -59,6 +75,9 @@ public class SendThread extends Thread {
         }
     }
 
+    /**
+     * Send EXIT flag to server.
+     */
     public void sendExit() {
         try {
             outputStream.writeByte(MESSAGE_TYPES.EXIT.getFlag());
@@ -68,6 +87,9 @@ public class SendThread extends Thread {
         }
     }
 
+    /**
+     * Send WITHDRAWAL flag to server.
+     */
     public void sendWithdrawalFlag() {
         try {
             outputStream.writeByte(MESSAGE_TYPES.WITHDRAWAL.getFlag());
@@ -77,6 +99,9 @@ public class SendThread extends Thread {
         }
     }
 
+    /**
+     * Send DRAW flag to server.
+     */
     public void sendDrawFlag() {
         try {
             outputStream.writeByte(MESSAGE_TYPES.DRAW.getFlag());
@@ -86,6 +111,9 @@ public class SendThread extends Thread {
         }
     }
 
+    /**
+     * Send DRAW_DENIED flag to server.
+     */
     public void sendDrawDeniedFlag() {
         try {
             outputStream.writeByte(MESSAGE_TYPES.DRAW_DENIED.getFlag());
@@ -95,6 +123,9 @@ public class SendThread extends Thread {
         }
     }
 
+    /**
+     * Send DRAW_ACCEPTED flag to server.
+     */
     public void sendDrawAcceptedFlag() {
         try {
             outputStream.writeByte(MESSAGE_TYPES.DRAW_ACCEPTED.getFlag());
