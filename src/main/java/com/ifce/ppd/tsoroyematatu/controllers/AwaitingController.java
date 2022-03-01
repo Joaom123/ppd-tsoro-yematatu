@@ -16,13 +16,13 @@ import java.util.ResourceBundle;
 public class AwaitingController extends Controller implements Initializable {
     private final ServerConnection serverConnection;
     private final JavaFXService javaFXService = new JavaFXService();
+    private final Stage stage;
     @FXML
     public Text playerName;
     @FXML
     public Text host;
     @FXML
     public Text roomId;
-    private final Stage stage;
 
     public AwaitingController(ServerConnection serverConnection, Stage actualStage) {
         this.serverConnection = serverConnection;
@@ -40,7 +40,8 @@ public class AwaitingController extends Controller implements Initializable {
      *
      * @param actionEvent The event.
      */
-    @FXML @SuppressWarnings("unused")
+    @FXML
+    @SuppressWarnings("unused")
     public void handleExitButtonClick(ActionEvent actionEvent) {
         serverConnection.sendExit();
 

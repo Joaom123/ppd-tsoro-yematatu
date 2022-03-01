@@ -21,6 +21,7 @@ public class Client implements Serializable {
 
     /**
      * Id's setter.
+     *
      * @param id ID to be set.
      */
     public void setId(int id) {

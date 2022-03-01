@@ -22,6 +22,8 @@ import java.util.Set;
 
 public class GameController extends Controller implements Initializable {
     private final ServerConnection serverConnection;
+    private final Set<Circle> points = new HashSet<>();
+    private final JavaFXService javaFXService = new JavaFXService();
     @FXML
     public Text playerName;
     @FXML
@@ -40,8 +42,6 @@ public class GameController extends Controller implements Initializable {
     private GridPane gameGrid;
     private Set<PieceFront> pieces;
     private Set<PieceFront> rivalPieces;
-    private final Set<Circle> points = new HashSet<>();
-    private final JavaFXService javaFXService = new JavaFXService();
 
     public GameController(ServerConnection serverConnection) {
         this.serverConnection = serverConnection;
@@ -53,7 +53,7 @@ public class GameController extends Controller implements Initializable {
         playerName.setText(serverConnection.getClient().getName());
         host.setText(serverConnection.getHostname());
         roomId.setText(serverConnection.getRoomId());
-        for (int i = 0; i < 7; i++) points.add(getElementById("point-"+i));
+        for (int i = 0; i < 7; i++) points.add(getElementById("point-" + i));
         updateTurn();
         initGame();
     }
@@ -119,7 +119,7 @@ public class GameController extends Controller implements Initializable {
      * Move piece to given point location.
      *
      * @param selectedPiece The selected piece.
-     * @param clickedPoint The selected point.
+     * @param clickedPoint  The selected point.
      */
     public void movePieceToPoint(Circle selectedPiece, Circle clickedPoint) {
         int clickedPointRow = GridPane.getRowIndex(clickedPoint);
@@ -131,8 +131,8 @@ public class GameController extends Controller implements Initializable {
      * Set the row and column of an element in the GridPane.
      *
      * @param selectedPiece The element.
-     * @param rowIndex The row index to be set.
-     * @param columnIndex The column index to be set.
+     * @param rowIndex      The row index to be set.
+     * @param columnIndex   The column index to be set.
      */
     private void setRowAndColumnElement(Circle selectedPiece, int rowIndex, int columnIndex) {
         GridPane.setRowIndex(selectedPiece, rowIndex);
@@ -160,6 +160,7 @@ public class GameController extends Controller implements Initializable {
 
     /**
      * Get element by id.
+     *
      * @param id The id of an element.
      * @return The element.
      */
@@ -212,7 +213,8 @@ public class GameController extends Controller implements Initializable {
      *
      * @param actionEvent The action's event
      */
-    @FXML @SuppressWarnings("unused")
+    @FXML
+    @SuppressWarnings("unused")
     public void handleDrawButtonClick(ActionEvent actionEvent) {
         serverConnection.sendDrawFlag();
     }
@@ -222,7 +224,8 @@ public class GameController extends Controller implements Initializable {
      *
      * @param actionEvent The action's event
      */
-    @FXML @SuppressWarnings("unused")
+    @FXML
+    @SuppressWarnings("unused")
     public void handleGiveUpButtonClick(ActionEvent actionEvent) {
         serverConnection.sendWithdrawalFlag();
     }
@@ -232,7 +235,8 @@ public class GameController extends Controller implements Initializable {
      *
      * @param actionEvent The action's event
      */
-    @FXML @SuppressWarnings("unused")
+    @FXML
+    @SuppressWarnings("unused")
     public void handleExitButtonClick(ActionEvent actionEvent) {
         serverConnection.sendExit();
     }
