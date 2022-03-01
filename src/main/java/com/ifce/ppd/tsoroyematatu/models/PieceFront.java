@@ -11,15 +11,6 @@ public class PieceFront {
     }
 
     /**
-     * Point's setter.
-     *
-     * @param point Point to be set.
-     */
-    public void setPoint(Circle point) {
-        this.point = point;
-    }
-
-    /**
      * Piece's getter.
      *
      * @return The piece.
@@ -35,5 +26,14 @@ public class PieceFront {
      */
     public Circle getPoint() {
         return point;
+    }
+
+    /**
+     * Point's setter.
+     *
+     * @param point Point to be set.
+     */
+    public void setPoint(Circle point) {
+        this.point = point;
     }
 }

@@ -4,6 +4,7 @@ import com.ifce.ppd.tsoroyematatu.constants.MESSAGE_TYPES;
 import com.ifce.ppd.tsoroyematatu.exceptions.MaximumNumberPlayersInTheRoomException;
 import com.ifce.ppd.tsoroyematatu.exceptions.NoRivalException;
 import com.ifce.ppd.tsoroyematatu.models.Client;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -245,6 +246,7 @@ public class PlayerThread extends Thread {
 
     /**
      * FirstPlayer's setter.
+     *
      * @param firstPlayer First player flag to be set.
      */
     public void setFirstPlayer(boolean firstPlayer) {

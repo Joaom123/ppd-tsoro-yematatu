@@ -68,6 +68,7 @@ public class ServerConnection {
 
     /**
      * Client's Setter.
+     *
      * @param clientModel Client to be set.
      */
     public void setClient(Client clientModel) {
@@ -85,6 +86,7 @@ public class ServerConnection {
 
     /**
      * FirstPlayer's setter.
+     *
      * @param firstPlayer FirstPlayer to be set.
      */
     public void setFirstPlayer(boolean firstPlayer) {
@@ -102,6 +104,7 @@ public class ServerConnection {
 
     /**
      * RoomId's setter.
+     *
      * @param roomId RoomId to be set.
      */
     public void setRoomId(String roomId) {
@@ -119,6 +122,7 @@ public class ServerConnection {
 
     /**
      * Hostname's setter.
+     *
      * @param hostname Hostname to be set.
      */
     public void setHostname(String hostname) {
@@ -146,6 +150,7 @@ public class ServerConnection {
 
     /**
      * CurrectController's setter.
+     *
      * @param currentController The controller to be set.
      */
     public void setCurrentController(Controller currentController) {
