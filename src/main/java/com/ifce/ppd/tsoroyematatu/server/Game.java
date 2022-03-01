@@ -4,12 +4,7 @@ import com.ifce.ppd.tsoroyematatu.models.PieceBoard;
 import com.ifce.ppd.tsoroyematatu.models.PointBoard;
 
 /**
- * The board:
- * 0
- * 1  2  3
- * 4   5   6
- * The first part of the game is:
- * Player A set one piece is block to set another, then Player B set another one
+ * This class represent the game's logic.
  */
 public class Game {
     private final PointBoard[] board;
@@ -38,14 +33,29 @@ public class Game {
         };
     }
 
+    /**
+     * Add one to turn number.
+     */
     public void addTurn() {
         turn += 1;
     }
 
+    /**
+     * Turn's getter.
+     *
+     * @return The turn's number.
+     */
     public int getTurn() {
         return turn;
     }
 
+    /**
+     * Check if the move is valid. If it is,execute the move.
+     *
+     * @param pieceId The pieceId
+     * @param pointId The pointId
+     * @return True if the move is valid. False otherwise.
+     */
     public boolean isValidMove(String pieceId, String pointId) {
         PlayerThread playerThread = getOwnerOfPiece(pieceId);
         PointBoard pointBoard = getPointBoardById(pointId);
@@ -61,6 +71,13 @@ public class Game {
         return true;
     }
 
+    /**
+     * Verify if the move can be done, following the given rules.
+     *
+     * @param pointBoardDest The destination point
+     * @param pieceBoard The PieceBoard.
+     * @return True if the move can be done. False otherwise.
+     */
     private boolean canMove(PointBoard pointBoardDest, PieceBoard pieceBoard) {
         if (!isSecondPhase()) return true;
         if (isFinished) return false;
@@ -131,6 +148,12 @@ public class Game {
         return true;
     }
 
+    /**
+     * Execute the move.
+     *
+     * @param pointBoard The point board.
+     * @param pieceBoard The piece board.
+     */
     private void doMove(PointBoard pointBoard, PieceBoard pieceBoard) {
         addTurn();
 
@@ -144,12 +167,20 @@ public class Game {
         if (isSecondPhase()) checkWinnerSituation();
     }
 
+    /**
+     * @param pieceId The piece's id.
+     * @return The player owner of the piece.
+     */
     private PlayerThread getOwnerOfPiece(String pieceId) {
         if (pieceId.contains("first")) return room.getFirstPlayer(); // The move is from the first player
         if (pieceId.contains("second")) return room.getSecondPlayer(); // The move is from the second player
         return null;
     }
 
+    /**
+     * @param pointId The point's id.
+     * @return The PointBoard representation of the point.
+     */
     private PointBoard getPointBoardById(String pointId) {
         for(PointBoard pb : board)
             if (pb.getId().equals(pointId))
@@ -157,6 +188,11 @@ public class Game {
         return null;
     }
 
+    /**
+     * @param playerThread The player owner of the piece.
+     * @param pieceBoardId The piece's id.
+     * @return The PieceBoard representation of the piece.
+     */
     private PieceBoard getPieceBoard(PlayerThread playerThread, String pieceBoardId) {
         if (playerThread.isFirstPlayer())
             for (PieceBoard pb : firstPlayerPieces)
@@ -171,6 +207,11 @@ public class Game {
         return null;
     }
 
+    /**
+     * Check if the game is in the second phase.
+     *
+     * @return If turn > 6, then it is the second phase of the game.
+     */
     private boolean isSecondPhase() {
         return turn >= 6;
     }
@@ -218,12 +259,19 @@ public class Game {
         return null;
     }
 
+    /**
+     * @param pointBoard The pointBoard.
+     * @return The player who occupies the given point.
+     */
     private PlayerThread getPlayerWhoOccupiesPoint(PointBoard pointBoard) {
         if (pointBoard == null) return null;
         if (pointBoard.getPieceBoard() == null) return null;
         return pointBoard.getPieceBoard().getOwnerPlayer();
     }
 
+    /**
+     * Check if there is any winner. If so, call server to send winner/loser.
+     */
     private void checkWinnerSituation() {
         PlayerThread winnerPlayer = getWinnerPlayer();
 
@@ -233,13 +281,10 @@ public class Game {
         room.sendWinner(winnerPlayer);
     }
 
-    private PointBoard getNonOccupiedPointBoard() {
-        for(PointBoard pb : board)
-            if (pb.getPieceBoard() == null)
-                return pb;
-        return null;
-    }
-
+    /**
+     * @param pieceBoard The pieceBoard.
+     * @return The PointBoard occupied by given pieceBoard.
+     */
     private PointBoard getOccupiedPointBoard(PieceBoard pieceBoard) {
         for(PointBoard pb : board)
             if (pb.getPieceBoard() == pieceBoard)
