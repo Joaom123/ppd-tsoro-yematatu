@@ -6,13 +6,14 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+/**
+ * This thread is responsible for reading user's input and send it to the server.
+ */
 public class SendThread extends Thread {
-    private final Socket socket;
     private final ServerConnection serverConnection;
     private ObjectOutputStream outputStream;
 
     public SendThread(Socket socket, ServerConnection serverConnection) {
-        this.socket = socket;
         this.serverConnection = serverConnection;
 
         try {

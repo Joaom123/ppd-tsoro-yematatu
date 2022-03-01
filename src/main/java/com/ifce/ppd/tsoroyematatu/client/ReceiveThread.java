@@ -7,15 +7,13 @@ import java.io.ObjectInputStream;
 import java.net.Socket;
 
 /**
- * This thread is responsible for reading user's input and send it to the server.
+ * This thread is responsible for reading server's output and trigger serverConnection's funtions.
  */
 public class ReceiveThread extends Thread {
     private final ServerConnection serverConnection;
-    private final Socket socket;
     private ObjectInputStream inputStream;
 
     public ReceiveThread(Socket socket, ServerConnection serverConnection) {
-        this.socket = socket;
         this.serverConnection = serverConnection;
 
         try {
@@ -27,7 +25,6 @@ public class ReceiveThread extends Thread {
 
     @Override
     public void run() {
-        //noinspection InfiniteLoopStatement
         while (true) {
             try {
                 byte inputTypeFlag = inputStream.readByte();
@@ -76,9 +73,15 @@ public class ReceiveThread extends Thread {
                 if (inputTypeFlag == MESSAGE_TYPES.DRAW_DENIED.getFlag())
                     serverConnection.drawDenied();
 
+                if (inputTypeFlag == MESSAGE_TYPES.EXIT.getFlag())
+                    serverConnection.exit();
+
+                if (inputTypeFlag == MESSAGE_TYPES.ROOM_IS_FULL.getFlag())
+                    serverConnection.roomIsFull();
+
             } catch (Exception e) {
                 e.printStackTrace();
-                this.interrupt();
+                interrupt();
                 return;
             }
         }
