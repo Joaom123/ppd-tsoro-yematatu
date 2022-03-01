@@ -162,11 +162,11 @@
                         <Insets />
                      </opaqueInsets></TextArea>
                         <TextField id="chat-input" fx:id="chatInput" layoutY="744.0" onAction="#handleChatInput" prefHeight="24.0" prefWidth="270.0" promptText="Insira sua mensagem" />
-                        <Button layoutX="41.0" layoutY="463.0" mnemonicParsing="false" onAction="#handleDrawButtonClick" text="Empate">
+                        <Button layoutX="55.0" layoutY="464.0" mnemonicParsing="false" onAction="#handleDrawButtonClick" text="Empate">
                      <font>
                         <Font name="Open Sans" size="13.0" />
                      </font></Button>
-                        <Button layoutX="116.0" layoutY="463.0" mnemonicParsing="false" onAction="#handleGiveUpButtonClick" text="Desistir">
+                        <Button layoutX="152.0" layoutY="464.0" mnemonicParsing="false" onAction="#handleGiveUpButtonClick" text="Desistir">
                      <font>
                         <Font name="Open Sans" size="13.0" />
                      </font></Button>
@@ -194,11 +194,6 @@
                      <font>
                         <Font name="Open Sans" size="13.0" />
                      </font></Text>
-                  <Button layoutX="191.0" layoutY="463.0" mnemonicParsing="false" onAction="#handleExitButtonClick" text="Sair">
-                     <font>
-                        <Font name="Open Sans" size="13.0" />
-                     </font>
-                  </Button>
                     </children>
                 </AnchorPane>
             </children>
