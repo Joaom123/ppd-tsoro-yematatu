@@ -26,7 +26,7 @@ public class JavaFXService {
             FXMLLoader fxmlLoader = new FXMLLoader(TsoroYematatuApplication.class.getResource(resourceName));
             fxmlLoader.setController(controller);
 
-            Scene scene = new Scene(fxmlLoader.load(), 967, 791);
+            Scene scene = new Scene(fxmlLoader.load(), 1024, 768);
 
             Text title = (Text) scene.lookup("#title");
             if (title != null) title.setFont(this.getZilapAfricaFont());
