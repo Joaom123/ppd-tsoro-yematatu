@@ -8,18 +8,12 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Represents the room where two players play.
+ */
 public class Room {
-    /**
-     * The room'id.
-     */
     private final String id;
-    /**
-     * The players in the room.
-     */
     private final Set<PlayerThread> playersThreads = new HashSet<>();
-    /**
-     * The room's game.
-     */
     private Game game;
 
     public Room(String id) {
