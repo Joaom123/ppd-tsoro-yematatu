@@ -46,27 +46,27 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Line endX="1079.2218017578125" endY="-579.8270263671875" fill="BLACK" opacity="0.8" smooth="false" startX="862.8260498046875" startY="-932.5372314453125" strokeWidth="10.0" style="-fx-view-order: -1;" GridPane.columnIndex="4" GridPane.rowIndex="6">
+                        <Line endX="1069.1722412109375" endY="-617.8375244140625" fill="BLACK" opacity="0.8" smooth="false" startX="1263.1011962890625" startY="-935.0733642578125" strokeWidth="10.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
                             <cursor>
                                 <Cursor fx:constant="DEFAULT" />
                             </cursor>
                         </Line>
-                        <Line endX="1069.1722412109375" endY="-617.8375244140625" fill="BLACK" opacity="0.8" smooth="false" startX="1285.1011962890625" startY="-969.2261962890625" strokeWidth="10.0" style="-fx-view-order: -1;" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                        <Line endX="1055.7550048828125" endY="-609.6082763671875" fill="BLACK" opacity="0.8" smooth="false" startX="862.8260498046875" startY="-932.5372314453125" strokeWidth="10.0" GridPane.columnIndex="4" GridPane.rowIndex="6">
                             <cursor>
                                 <Cursor fx:constant="DEFAULT" />
                             </cursor>
                         </Line>
-                        <Line endX="1236.1507568359375" endY="-578.8980712890625" fill="BLACK" opacity="0.8" smooth="false" startX="1669.1507568359375" startY="-578.8980712890625" strokeWidth="10.0" style="-fx-view-order: -1;" GridPane.columnIndex="3" GridPane.rowIndex="9">
+                        <Line endX="1236.1507568359375" endY="-578.8980712890625" fill="BLACK" opacity="0.8" smooth="false" startX="1669.1507568359375" startY="-578.8980712890625" strokeWidth="10.0" GridPane.columnIndex="3" GridPane.rowIndex="9">
                             <cursor>
                                 <Cursor fx:constant="DEFAULT" />
                             </cursor>
                         </Line>
-                        <Line endX="1630.2218017578125" endY="-913.5106201171875" fill="BLACK" opacity="0.8" smooth="false" startX="1630.2218017578125" startY="-609.5106201171875" strokeWidth="10.0" style="-fx-view-order: -1;" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                        <Line endX="1630.2218017578125" endY="-913.5106201171875" fill="BLACK" opacity="0.8" smooth="false" startX="1630.2218017578125" startY="-609.5106201171875" strokeWidth="10.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
                             <cursor>
                                 <Cursor fx:constant="DEFAULT" />
                             </cursor>
                         </Line>
-                        <Line endX="1104.2218017578125" endY="-579.7896728515625" fill="BLACK" opacity="0.8" smooth="false" startX="1270.2218017578125" startY="-579.7896728515625" strokeWidth="10.0" style="-fx-view-order: -1;" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                        <Line endX="1104.2218017578125" endY="-579.7896728515625" fill="BLACK" opacity="0.8" smooth="false" startX="1270.2218017578125" startY="-579.7896728515625" strokeWidth="10.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
                             <cursor>
                                 <Cursor fx:constant="DEFAULT" />
                             </cursor>
