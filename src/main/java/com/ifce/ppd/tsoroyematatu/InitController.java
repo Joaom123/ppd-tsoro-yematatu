@@ -1,7 +1,5 @@
-package com.ifce.ppd.tsoroyematatu.controllers;
+package com.ifce.ppd.tsoroyematatu;
 
-import com.ifce.ppd.tsoroyematatu.client.ServerConnection;
-import com.ifce.ppd.tsoroyematatu.services.JavaFXService;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.stage.Stage;

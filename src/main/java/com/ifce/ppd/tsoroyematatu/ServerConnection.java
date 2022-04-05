@@ -1,8 +1,4 @@
-package com.ifce.ppd.tsoroyematatu.client;
-
-import com.ifce.ppd.tsoroyematatu.controllers.Controller;
-import com.ifce.ppd.tsoroyematatu.exceptions.NullClientException;
-import com.ifce.ppd.tsoroyematatu.models.Client;
+package com.ifce.ppd.tsoroyematatu;
 
 import java.net.Socket;
 

@@ -1,6 +1,6 @@
-package com.ifce.ppd.tsoroyematatu.models;
+package com.ifce.ppd.tsoroyematatu;
 
-import com.ifce.ppd.tsoroyematatu.server.PlayerThread;
+import com.ifce.ppd.tsoroyematatu.PlayerThread;
 
 public class PieceBoard {
     private final String id;

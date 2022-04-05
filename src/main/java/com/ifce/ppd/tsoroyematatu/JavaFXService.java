@@ -1,4 +1,4 @@
-package com.ifce.ppd.tsoroyematatu.services;
+package com.ifce.ppd.tsoroyematatu;
 
 import com.ifce.ppd.tsoroyematatu.TsoroYematatuApplication;
 import javafx.fxml.FXMLLoader;

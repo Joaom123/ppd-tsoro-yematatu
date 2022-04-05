@@ -1,7 +1,4 @@
-package com.ifce.ppd.tsoroyematatu.server;
-
-import com.ifce.ppd.tsoroyematatu.models.PieceBoard;
-import com.ifce.ppd.tsoroyematatu.models.PointBoard;
+package com.ifce.ppd.tsoroyematatu;
 
 /**
  * This class represent the game's logic.

@@ -1,4 +1,4 @@
-package com.ifce.ppd.tsoroyematatu.models;
+package com.ifce.ppd.tsoroyematatu;
 
 import javafx.scene.shape.Circle;
 

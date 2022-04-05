@@ -1,4 +1,4 @@
-package com.ifce.ppd.tsoroyematatu.models;
+package com.ifce.ppd.tsoroyematatu;
 
 public class PointBoard {
     private final String id;

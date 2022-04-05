@@ -1,6 +1,4 @@
-package com.ifce.ppd.tsoroyematatu.client;
-
-import com.ifce.ppd.tsoroyematatu.constants.MESSAGE_TYPES;
+package com.ifce.ppd.tsoroyematatu;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;

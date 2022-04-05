@@ -1,4 +1,4 @@
-package com.ifce.ppd.tsoroyematatu.exceptions;
+package com.ifce.ppd.tsoroyematatu;
 
 public class NullClientException extends Exception {
     /**

@@ -1,4 +1,4 @@
-package com.ifce.ppd.tsoroyematatu.controllers;
+package com.ifce.ppd.tsoroyematatu;
 
 public abstract class Controller {
     /**

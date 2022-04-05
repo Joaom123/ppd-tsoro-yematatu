@@ -1,7 +1,4 @@
-package com.ifce.ppd.tsoroyematatu.server;
-
-import com.ifce.ppd.tsoroyematatu.exceptions.MaximumNumberPlayersInTheRoomException;
-import com.ifce.ppd.tsoroyematatu.exceptions.NoRivalException;
+package com.ifce.ppd.tsoroyematatu;
 
 import java.io.IOException;
 import java.util.HashSet;

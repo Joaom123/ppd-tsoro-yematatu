@@ -1,9 +1,4 @@
-package com.ifce.ppd.tsoroyematatu.server;
-
-import com.ifce.ppd.tsoroyematatu.constants.MESSAGE_TYPES;
-import com.ifce.ppd.tsoroyematatu.exceptions.MaximumNumberPlayersInTheRoomException;
-import com.ifce.ppd.tsoroyematatu.exceptions.NoRivalException;
-import com.ifce.ppd.tsoroyematatu.models.Client;
+package com.ifce.ppd.tsoroyematatu;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

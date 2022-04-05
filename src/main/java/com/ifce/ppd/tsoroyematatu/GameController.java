@@ -1,8 +1,5 @@
-package com.ifce.ppd.tsoroyematatu.controllers;
+package com.ifce.ppd.tsoroyematatu;
 
-import com.ifce.ppd.tsoroyematatu.client.ServerConnection;
-import com.ifce.ppd.tsoroyematatu.models.PieceFront;
-import com.ifce.ppd.tsoroyematatu.services.JavaFXService;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
