@@ -1,165 +1,131 @@
 package com.ifce.ppd.tsoroyematatu;
 
-import java.net.Socket;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
- * Start the client, connects to a server with a hostname/ipAdress and port.
- * Once the connection is made, creates and starts two threads: SendThread and ReceiveThread.
+ * Start the client, connects to a server.
  */
-public class ServerConnection {
+public class ServerConnection implements ClientCallback{
     private Controller currentController;
     private Client clientModel;
     private String roomId;
     private String hostname;
+    private RMIInterface rmiInterfaceStub;
     private SendThread sendThread;
     private boolean isConnected = false;
     private boolean isFirstPlayer = false;
     private int turn = 0;
 
+    public ServerConnection() {
+
+    }
+
     public boolean isConnected() {
         return isConnected;
     }
 
-    /**
-     * Start the connection with the server (port 12345) and start ReceiveThread and SendThread.
-     * If the connection cannot be done, set isConnected to false.
-     *
-     * @param host The hostname ex.: localhost | 127.0.0.1
-     */
-    public void startConnection(String host) {
-        try {
-            Socket socket = new Socket(host, 12345);
-
-            ReceiveThread receiveThread = new ReceiveThread(socket, this);
-            sendThread = new SendThread(socket, this);
-
-            receiveThread.start();
-            sendThread.start();
-
-            isConnected = true;
-        } catch (Exception e) {
-            isConnected = false;
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Send init flag.
-     *
-     * @throws NullClientException Lançada quando não há cliente.
-     */
-    public void createClientOnServer(String roomId) throws NullClientException {
-        if (clientModel == null) throw new NullClientException();
-        sendThread.sendInitFlag(roomId);
-    }
-
-    /**
-     * Client's getter.
-     *
-     * @return The Client.
-     */
     public Client getClient() {
         return clientModel;
     }
 
-    /**
-     * Client's Setter.
-     *
-     * @param clientModel Client to be set.
-     */
     public void setClient(Client clientModel) {
         this.clientModel = clientModel;
     }
 
-    /**
-     * FirstPlayer's getter.
-     *
-     * @return FirstPlayer
-     */
     public boolean isFirstPlayer() {
         return isFirstPlayer;
     }
 
-    /**
-     * FirstPlayer's setter.
-     *
-     * @param firstPlayer FirstPlayer to be set.
-     */
     public void setFirstPlayer(boolean firstPlayer) {
         isFirstPlayer = firstPlayer;
     }
 
-    /**
-     * RoomId's getter.
-     *
-     * @return RoomId.
-     */
     public String getRoomId() {
         return roomId;
     }
 
-    /**
-     * RoomId's setter.
-     *
-     * @param roomId RoomId to be set.
-     */
     public void setRoomId(String roomId) {
         this.roomId = roomId;
     }
 
-    /**
-     * Hostname's getter.
-     *
-     * @return Hostname.
-     */
     public String getHostname() {
         return hostname;
     }
 
-    /**
-     * Hostname's setter.
-     *
-     * @param hostname Hostname to be set.
-     */
     public void setHostname(String hostname) {
         this.hostname = hostname;
     }
 
-    /**
-     * Turn's getter.
-     *
-     * @return Turn number.
-     */
     public int getTurn() {
         return turn;
     }
 
-    /**
-     * Setter of turn. Update the turn on the controller.
-     *
-     * @param turn Turn number.
-     */
     public void setTurn(int turn) {
         this.turn = turn;
         currentController.updateTurn();
     }
 
-    /**
-     * CurrectController's setter.
-     *
-     * @param currentController The controller to be set.
-     */
     public void setCurrentController(Controller currentController) {
         this.currentController = currentController;
     }
 
+    public void startConnection() {
+        try {
+            ClientCallback client = (ClientCallback) this;
+
+            UnicastRemoteObject.exportObject(client, 0);
+            Registry registry = LocateRegistry.getRegistry(null, 2002);
+            rmiInterfaceStub = (RMIInterface) registry.lookup("RMIInterface");
+            rmiInterfaceStub.register(client);
+            isConnected = true;
+        } catch (Exception e) {
+            isConnected = false;
+            System.err.println("Client exception: " + e.toString());
+            e.printStackTrace();
+        }
+    }
+
+    public void createClientOnServer(String roomId) throws NullClientException, RemoteException {
+        if (clientModel == null) throw new NullClientException();
+
+        MESSAGE_TYPES messageTypes = rmiInterfaceStub.createClient(getClient(), roomId);
+
+        // The room is full and the game isn't possible
+        if (messageTypes == MESSAGE_TYPES.ROOM_IS_FULL) {
+            roomIsFull();
+        }
+
+        // Is the first player and must wait rival to connect
+        if (messageTypes == MESSAGE_TYPES.WAIT_RIVAL_CONNECT) {
+            setFirstPlayer(true);
+        }
+
+        // Isn't the first player and the game is playable
+        if (messageTypes == MESSAGE_TYPES.PLAYABLE) {
+            goToGame();
+        }
+    }
+
+    @Override
+    public void ping() throws RemoteException {
+        System.out.println("Function called by the server");
+    }
+
     /**
-     * Use the sendThread to send message to server.
+     * Send message to server.
      *
      * @param inputText The content of the message.
      */
     public void sendMessage(String inputText) {
-        sendThread.sendMessage(inputText);
+        try {
+            rmiInterfaceStub.receiveMessageFromClient(inputText);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+//        sendThread.sendMessage(inputText); //DEPRECATED
     }
 
     /**

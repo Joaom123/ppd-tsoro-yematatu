@@ -1,38 +1,27 @@
 package com.ifce.ppd.tsoroyematatu;
 
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Starts the server, listening to port 12345.
- * When a new client is connected, an instace of PlayerThread is created.
- * Each connection is processed in a separeted thread.
+ * Starts the server.
  */
 public class Server implements RMIInterface {
-    private final Set<Room> rooms = Collections.synchronizedSet(new HashSet<>());
+    private final Set<Room> rooms = new HashSet<>();
+    private Set<Player> players = new HashSet<>();
 
     public static void main(String[] args) {
-        /*Server server = new Server();
-        try {
-            server.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
         try {
             Server obj = new Server();
             RMIInterface stub = (RMIInterface) UnicastRemoteObject.exportObject(obj, 0);
 
             // Bind the remote object's stub in the registry
-            Registry registry = LocateRegistry.getRegistry();
-            registry.bind("RMIInterface", stub);
+            Registry registry = LocateRegistry.getRegistry(2002);
+            registry.rebind("RMIInterface", stub);
 
             System.err.println("Server ready");
         } catch (Exception e) {
@@ -41,19 +30,49 @@ public class Server implements RMIInterface {
         }
     }
 
-    public void start() throws IOException {
-        ServerSocket serverSocket = new ServerSocket(12345);
-        System.out.println("Servidor inicializado na porta 12345!");
+    @Override
+    public MESSAGE_TYPES createClient(Client client, String roomId) throws RemoteException {
+        System.out.println("Cliente " + client.getName() + " inicializado no servidor");
+        Room room = createRoom(roomId); // the reference of the room of the player
+        Player newPlayer = new Player(this, client, room);
 
-        //noinspection InfiniteLoopStatement
-        while (true) {
-            Socket socket = serverSocket.accept();
-            System.out.println("Cliente conectado: " + socket.getInetAddress().getHostAddress());
-
-            PlayerThread playerThread = new PlayerThread(this, socket); // Start player's thread
-            playerThread.start();
+        try {
+            room.addPlayer(newPlayer); // add player to the room
+        } catch (MaximumNumberPlayersInTheRoomException e) {
+            System.out.println("Sala " + room.getId() + " está lotada!");
+            newPlayer.setRoom(null); // remove the reference of room from the player
+            return MESSAGE_TYPES.ROOM_IS_FULL;
         }
 
+        System.out.println("Cliente " + client.getName() + " entrou na sala " + room.getId());
+
+        // If room isn't full, player should wait until another player enter.
+        // If full, create game and send playable flag.
+        if (!room.isFull()) {
+            newPlayer.setFirstPlayer(true);
+            return MESSAGE_TYPES.WAIT_RIVAL_CONNECT;
+        } else {
+            room.createGame();
+            return MESSAGE_TYPES.PLAYABLE;
+             /*TODO: Send playable to all players, as RMI turn impossible to send from the server to client,
+             the client must ask to the server every 3 seconds if the game is playable*/
+//            room.sendPlayable(); // DEṔRECATED
+        }
+    }
+
+    @Override
+    public void receiveMessageFromClient(String message) {
+
+    }
+
+    @Override
+    public void register(ClientCallback client) {
+        try {
+            client.ping();
+        } catch (RemoteException e) {
+            System.out.println("erro to execute ping");
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -73,11 +92,6 @@ public class Server implements RMIInterface {
         rooms.add(room);
         System.out.println("Sala " + room.getId() + " foi criada.");
         return room;
-    }
-
-    @Override
-    public String sayHello() throws RemoteException {
-        return "Hello, world!";
     }
 }
 

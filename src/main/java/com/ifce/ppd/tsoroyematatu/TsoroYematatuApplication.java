@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class TsoroYematatuApplication extends Application {
@@ -26,10 +25,8 @@ public class TsoroYematatuApplication extends Application {
 
         stage.setTitle("IFCE - PPD - João Marcus Maia Rocha - Tsoro Yematatu");
         stage.setScene(scene);
-
         stage.show();
     }
-
 
     /**
      * Get ZilapAfrica font

@@ -21,10 +21,6 @@ public class SendThread extends Thread {
         }
     }
 
-    public void run() {
-
-    }
-
     /**
      * Send INIT flag to server.
      *

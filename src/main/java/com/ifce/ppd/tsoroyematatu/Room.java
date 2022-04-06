@@ -11,10 +11,36 @@ import java.util.Set;
 public class Room {
     private final String id;
     private final Set<PlayerThread> playersThreads = new HashSet<>();
+    private Set<Player> players = new HashSet<>();
     private Game game;
 
     public Room(String id) {
         this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public boolean isFull() {
+        return playersThreads.size() == 2;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Room)) return false;
+        Room room = (Room) o;
+        return id.equals(room.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     /**
@@ -25,6 +51,7 @@ public class Room {
     }
 
     /**
+     * DEPRECATED
      * Add player to the room. If full thrown exception.
      * @param playerThread Player to be added.
      * @throws MaximumNumberPlayersInTheRoomException If room is full, throw exception.
@@ -36,19 +63,14 @@ public class Room {
     }
 
     /**
-     * Id's getter.
-     * @return The id  of the room.
+     * Add player to the room. If full thrown exception.
+     * @param player Player to be added.
+     * @throws MaximumNumberPlayersInTheRoomException If room is full, throw exception.
      */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * The game's getter.
-     * @return The game.
-     */
-    public Game getGame() {
-        return game;
+    public void addPlayer(Player player) throws MaximumNumberPlayersInTheRoomException {
+        if (isFull())
+            throw new MaximumNumberPlayersInTheRoomException();
+        players.add(player);
     }
 
     /**
@@ -73,31 +95,11 @@ public class Room {
     }
 
     /**
-     * @return True if the server is full. False otherwise.
-     */
-    public boolean isFull() {
-        return playersThreads.size() == 2;
-    }
-
-    /**
      * Send playable flag to players.
      */
     public void sendPlayable() throws IOException {
         for (PlayerThread playerThread : playersThreads)
             playerThread.sendPlayableFlag();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Room)) return false;
-        Room room = (Room) o;
-        return id.equals(room.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 
     /**

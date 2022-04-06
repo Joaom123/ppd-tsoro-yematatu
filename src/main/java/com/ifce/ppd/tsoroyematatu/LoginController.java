@@ -54,13 +54,14 @@ public class LoginController extends Controller {
 
         Client client = new Client(playerName);
 
-        serverConnection.startConnection(hostName);
+        serverConnection.startConnection();
         serverConnection.setClient(client);
         serverConnection.setHostname(hostName);
         serverConnection.setRoomId(roomId);
         try {
             serverConnection.createClientOnServer(roomId);
         } catch (Exception e) {
+            System.out.println("Erro ao criar cliente no servidor");
             e.printStackTrace();
         }
 
