@@ -8,31 +8,29 @@ import java.rmi.server.UnicastRemoteObject;
 /**
  * Start the client, connects to a server.
  */
-public class ServerConnection implements ClientCallback{
+public class ServerConnection implements ClientCallback {
     private Controller currentController;
-    private Client clientModel;
+    private Client client;
     private String roomId;
     private String hostname;
     private RMIInterface rmiInterfaceStub;
-    private SendThread sendThread;
     private boolean isConnected = false;
     private boolean isFirstPlayer = false;
     private int turn = 0;
+    ClientCallback clientCallback;
 
-    public ServerConnection() {
-
-    }
+    public ServerConnection() {}
 
     public boolean isConnected() {
         return isConnected;
     }
 
     public Client getClient() {
-        return clientModel;
+        return client;
     }
 
     public void setClient(Client clientModel) {
-        this.clientModel = clientModel;
+        this.client = clientModel;
     }
 
     public boolean isFirstPlayer() {
@@ -74,24 +72,23 @@ public class ServerConnection implements ClientCallback{
 
     public void startConnection() {
         try {
-            ClientCallback client = (ClientCallback) this;
-
-            UnicastRemoteObject.exportObject(client, 0);
+            clientCallback = this;
+            UnicastRemoteObject.exportObject(clientCallback, 0);
             Registry registry = LocateRegistry.getRegistry(null, 2002);
             rmiInterfaceStub = (RMIInterface) registry.lookup("RMIInterface");
-            rmiInterfaceStub.register(client);
+
             isConnected = true;
         } catch (Exception e) {
             isConnected = false;
-            System.err.println("Client exception: " + e.toString());
+            System.err.println("Client exception: " + e);
             e.printStackTrace();
         }
     }
 
     public void createClientOnServer(String roomId) throws NullClientException, RemoteException {
-        if (clientModel == null) throw new NullClientException();
+        if (client == null) throw new NullClientException();
 
-        MESSAGE_TYPES messageTypes = rmiInterfaceStub.createClient(getClient(), roomId);
+        MESSAGE_TYPES messageTypes = rmiInterfaceStub.createClient(getClient(), roomId, clientCallback);
 
         // The room is full and the game isn't possible
         if (messageTypes == MESSAGE_TYPES.ROOM_IS_FULL) {
@@ -107,45 +104,6 @@ public class ServerConnection implements ClientCallback{
         if (messageTypes == MESSAGE_TYPES.PLAYABLE) {
             goToGame();
         }
-    }
-
-    @Override
-    public void ping() throws RemoteException {
-        System.out.println("Function called by the server");
-    }
-
-    /**
-     * Send message to server.
-     *
-     * @param inputText The content of the message.
-     */
-    public void sendMessage(String inputText) {
-        try {
-            rmiInterfaceStub.receiveMessageFromClient(inputText);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-//        sendThread.sendMessage(inputText); //DEPRECATED
-    }
-
-    /**
-     * Used by the ReceiveThread to get the message from the server and send it to the chat.
-     *
-     * @param author  The message's author.
-     * @param message The content of the message.
-     */
-    public void receiveMessage(String author, String message) {
-        currentController.addMessageToChat(author, message);
-    }
-
-    /**
-     * Use the sendThread to send the move to the server.
-     *
-     * @param pieceId The pieceId
-     * @param pointId The pointId
-     */
-    public void sendMove(String pieceId, String pointId) {
-        sendThread.sendMove(pieceId, pointId);
     }
 
     /**
@@ -166,112 +124,152 @@ public class ServerConnection implements ClientCallback{
     }
 
     /**
-     * Send exit flag.
+     * Send message to server.
+     * @param inputText The content of the message.
+     */
+    public void sendMessage(String inputText) {
+        try {
+            rmiInterfaceStub.receiveMessageFromClient(inputText, client);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Use the sendThread to send the move to the server.
+     * @param pieceId The pieceId
+     * @param pointId The pointId
+     */
+    public void sendMove(String pieceId, String pointId) {
+        try {
+            rmiInterfaceStub.move(pieceId, pointId);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Call exit function on server.
      */
     public void sendExit() {
-        sendThread.sendExit();
+        try {
+            rmiInterfaceStub.exit();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
-     * Execute waitRivalMakeMove in controller.
-     */
-    public void waitRivalMakeMove() {
-        currentController.waitRivalMakeMove();
-    }
-
-    /**
-     * Execute canMakeMove in controller.
-     */
-    public void canMakeMove() {
-        currentController.canMakeMove();
-    }
-
-    /**
-     * Execute winner fuction in controller.
-     */
-    public void winner() {
-        System.out.println("Venceu");
-        currentController.winner();
-    }
-
-    /**
-     * Execute loser funtion in controller.
-     */
-    public void loser() {
-        System.out.println("Perdeu");
-        currentController.loser();
-    }
-
-    /**
-     * Send withdrawal flag.
+     * Call withdrawal function on server.
      */
     public void sendWithdrawalFlag() {
-        sendThread.sendWithdrawalFlag();
+        try {
+            rmiInterfaceStub.withdrawal();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
-     * Execute resetGame in controller. Set turn to 0. Change firstPlayer.
+     * Call draw function on server.
      */
+    public void sendDrawFlag() {
+        try {
+            rmiInterfaceStub.draw();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Call draw denied function on server.
+     */
+    public void sendDrawDeniedFlag() {
+        try {
+            rmiInterfaceStub.drawDenied();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Call draw accepted on server.
+     */
+    public void sendDrawAcceptedFlag() {
+        try {
+            rmiInterfaceStub.drawAccepted();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void drawAccepted() throws RemoteException {
+        currentController.drawAccepted();
+    }
+
+    @Override
+    public void drawDenied() throws RemoteException {
+        currentController.drawDenied();
+    }
+
+    @Override
+    public void exit() throws RemoteException {
+        currentController.exit();
+    }
+
+    @Override
+    public void sendPlayable() throws RemoteException {
+        goToGame();
+    }
+
+    @Override
+    public void roomIsFull() throws RemoteException {
+        currentController.roomIsFull();
+    }
+
+    @Override
+    public void move(String pieceId, String pointId, int turn) throws RemoteException {
+        setTurn(turn);
+        receiveMove(pieceId, pointId);
+    }
+
+    @Override
+    public void drawConfirmation() {
+        currentController.drawConfirmation();
+    }
+
+    @Override
     public void resetGame() {
         turn = 0;
         isFirstPlayer = !isFirstPlayer;
         currentController.resetGame();
     }
 
-    /**
-     * Send draw flag.
-     */
-    public void sendDrawFlag() {
-        sendThread.sendDrawFlag();
+    @Override
+    public void waitRivalMakeMove() {
+        currentController.waitRivalMakeMove();
     }
 
-    /**
-     * Execute drawConfirmation in controller.
-     */
-    public void drawConfirmation() {
-        currentController.drawConfirmation();
+    @Override
+    public void canMakeMove() {
+        currentController.canMakeMove();
     }
 
-    /**
-     * Send draw denied flag.
-     */
-    public void sendDrawDeniedFlag() {
-        sendThread.sendDrawDeniedFlag();
+    @Override
+    public void winner() {
+        System.out.println("Venceu");
+        currentController.winner();
     }
 
-    /**
-     * Send draw accepted flag.
-     */
-    public void sendDrawAcceptedFlag() {
-        sendThread.sendDrawAcceptedFlag();
+    @Override
+    public void loser() {
+        System.out.println("Perdeu");
+        currentController.loser();
     }
 
-    /**
-     * Execute drawAccpeted in controller.
-     */
-    public void drawAccepted() {
-        currentController.drawAccepted();
-    }
-
-    /**
-     * Execute drawDenied in controller.
-     */
-    public void drawDenied() {
-        currentController.drawDenied();
-    }
-
-    /**
-     * Execute exit in controller.
-     */
-    public void exit() {
-        // destroy connection
-        currentController.exit();
-    }
-
-    /**
-     * Execute roomIsFull in controller.
-     */
-    public void roomIsFull() {
-        currentController.roomIsFull();
+    @Override
+    public void receiveMessage(String author, String message) {
+        currentController.addMessageToChat(author, message);
     }
 }

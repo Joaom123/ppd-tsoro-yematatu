@@ -170,4 +170,17 @@ public class Room {
         for (PlayerThread playerThread : playersThreads)
             playerThread.sendResetFlag();
     }
+
+    /**
+     * @param player A player.
+     * @return The rival of given player.
+     * @throws NoRivalException If there is no rival, thrown exception.
+     */
+    public Player getRival(Player player) throws NoRivalException {
+        for (Player player1 : players) {
+            if (player != player1)
+                return player1;
+        }
+        throw new NoRivalException();
+    }
 }

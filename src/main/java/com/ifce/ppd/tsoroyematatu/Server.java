@@ -25,52 +25,7 @@ public class Server implements RMIInterface {
 
             System.err.println("Server ready");
         } catch (Exception e) {
-            System.err.println("Server exception: " + e.toString());
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public MESSAGE_TYPES createClient(Client client, String roomId) throws RemoteException {
-        System.out.println("Cliente " + client.getName() + " inicializado no servidor");
-        Room room = createRoom(roomId); // the reference of the room of the player
-        Player newPlayer = new Player(this, client, room);
-
-        try {
-            room.addPlayer(newPlayer); // add player to the room
-        } catch (MaximumNumberPlayersInTheRoomException e) {
-            System.out.println("Sala " + room.getId() + " está lotada!");
-            newPlayer.setRoom(null); // remove the reference of room from the player
-            return MESSAGE_TYPES.ROOM_IS_FULL;
-        }
-
-        System.out.println("Cliente " + client.getName() + " entrou na sala " + room.getId());
-
-        // If room isn't full, player should wait until another player enter.
-        // If full, create game and send playable flag.
-        if (!room.isFull()) {
-            newPlayer.setFirstPlayer(true);
-            return MESSAGE_TYPES.WAIT_RIVAL_CONNECT;
-        } else {
-            room.createGame();
-            return MESSAGE_TYPES.PLAYABLE;
-             /*TODO: Send playable to all players, as RMI turn impossible to send from the server to client,
-             the client must ask to the server every 3 seconds if the game is playable*/
-//            room.sendPlayable(); // DEṔRECATED
-        }
-    }
-
-    @Override
-    public void receiveMessageFromClient(String message) {
-
-    }
-
-    @Override
-    public void register(ClientCallback client) {
-        try {
-            client.ping();
-        } catch (RemoteException e) {
-            System.out.println("erro to execute ping");
+            System.err.println("Server exception: " + e);
             e.printStackTrace();
         }
     }
@@ -92,6 +47,83 @@ public class Server implements RMIInterface {
         rooms.add(room);
         System.out.println("Sala " + room.getId() + " foi criada.");
         return room;
+    }
+
+    private Player getPlayerByClient(Client client) {
+        for (Player player : players)
+            if (player.getClient() == client)
+                return player;
+        return null;
+    }
+
+    @Override
+    public MESSAGE_TYPES createClient(Client client, String roomId, ClientCallback clientCallback) throws RemoteException {
+        System.out.println("Cliente " + client.getName() + " inicializado no servidor");
+        Room room = createRoom(roomId); // the reference of the room of the player
+        Player newPlayer = new Player(this, client, room, clientCallback);
+        players.add(newPlayer);
+
+        try {
+            room.addPlayer(newPlayer); // add player to the room
+        } catch (MaximumNumberPlayersInTheRoomException e) {
+            System.out.println("Sala " + room.getId() + " está lotada!");
+            newPlayer.setRoom(null); // remove the reference of room from the player
+            return MESSAGE_TYPES.ROOM_IS_FULL;
+        }
+
+        System.out.println("Cliente " + client.getName() + " entrou na sala " + room.getId());
+
+        // If room isn't full, player should wait until another player enter.
+        // If full, create game and send playable flag.
+        if (!room.isFull()) {
+            newPlayer.setFirstPlayer(true);
+            return MESSAGE_TYPES.WAIT_RIVAL_CONNECT;
+        } else {
+            room.createGame();
+            try {
+                room.getRival(newPlayer).sendPlayable();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return MESSAGE_TYPES.PLAYABLE;
+        }
+    }
+
+    @Override
+    public void receiveMessageFromClient(String message, Client client) throws RemoteException {
+        Player player = getPlayerByClient(client);
+        if (player == null) return;
+        player.getClientCallback().receiveMessage(client.getName(), message);
+    }
+
+    @Override
+    public void move(String pieceId, String pointId) throws RemoteException {
+
+    }
+
+    @Override
+    public void exit() throws RemoteException {
+
+    }
+
+    @Override
+    public void withdrawal() throws RemoteException {
+
+    }
+
+    @Override
+    public void draw() throws RemoteException {
+
+    }
+
+    @Override
+    public void drawDenied() throws RemoteException {
+
+    }
+
+    @Override
+    public void drawAccepted() throws RemoteException {
+
     }
 }
 
