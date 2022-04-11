@@ -1,6 +1,7 @@
 package com.ifce.ppd.tsoroyematatu;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -10,8 +11,7 @@ import java.util.Set;
  */
 public class Room {
     private final String id;
-    private final Set<PlayerThread> playersThreads = new HashSet<>();
-    private Set<Player> players = new HashSet<>();
+    private final Set<Player> players = new HashSet<>();
     private Game game;
 
     public Room(String id) {
@@ -27,7 +27,7 @@ public class Room {
     }
 
     public boolean isFull() {
-        return playersThreads.size() == 2;
+        return players.size() == 2;
     }
 
     @Override
@@ -51,18 +51,6 @@ public class Room {
     }
 
     /**
-     * DEPRECATED
-     * Add player to the room. If full thrown exception.
-     * @param playerThread Player to be added.
-     * @throws MaximumNumberPlayersInTheRoomException If room is full, throw exception.
-     */
-    public void addPlayer(PlayerThread playerThread) throws MaximumNumberPlayersInTheRoomException {
-        if (isFull())
-            throw new MaximumNumberPlayersInTheRoomException();
-        playersThreads.add(playerThread);
-    }
-
-    /**
      * Add player to the room. If full thrown exception.
      * @param player Player to be added.
      * @throws MaximumNumberPlayersInTheRoomException If room is full, throw exception.
@@ -73,33 +61,27 @@ public class Room {
         players.add(player);
     }
 
-    /**
-     * @param playerThread A player.
-     * @return The rival of given player.
-     * @throws NoRivalException If there is no rival, thrown exception.
-     */
-    public PlayerThread getRivalPlayerThread(PlayerThread playerThread) throws NoRivalException {
-        for (PlayerThread playerThread1 : playersThreads) {
-            if (playerThread != playerThread1)
-                return playerThread1;
-        }
-        throw new NoRivalException();
+    public Player getRivalPlayer(Player player) {
+        for (Player player1 : players)
+            if (player != player1)
+                return player1;
+        return null;
     }
 
     /**
      * Remove the given player of the room.
-     * @param playerThread Player to be removed.
+     * @param player Player to be removed.
      */
-    public void removePlayerThread(PlayerThread playerThread) {
-        playersThreads.remove(playerThread);
+    public void removePlayer(Player player) {
+        players.remove(player);
     }
 
     /**
      * Send playable flag to players.
      */
     public void sendPlayable() throws IOException {
-        for (PlayerThread playerThread : playersThreads)
-            playerThread.sendPlayableFlag();
+        for (Player player : players)
+            player.getClientCallback().sendPlayable();
     }
 
     /**
@@ -107,28 +89,28 @@ public class Room {
      * @param pieceId The piece's id.
      * @param pointId The point's id.
      */
-    public void sendMoveToPlayers(String pieceId, String pointId) throws IOException {
-        for (PlayerThread playerThread : playersThreads)
-            playerThread.sendMoveToPlayer(pieceId, pointId);
+    public void sendMoveToPlayers(String pieceId, String pointId) throws RemoteException {
+        for (Player player : players)
+            player.getClientCallback().move(pieceId, pointId, game.getTurn());
     }
 
     /**
      * @return The first player.
      */
-    public PlayerThread getFirstPlayer() {
-        for (PlayerThread pt : playersThreads)
-            if (pt.isFirstPlayer())
-                return pt;
+    public Player getFirstPlayer() {
+        for (Player player : players)
+            if (player.isFirstPlayer())
+                return player;
         return null;
     }
 
     /**
      * @return The second player.
      */
-    public PlayerThread getSecondPlayer() {
-        for (PlayerThread pt : playersThreads)
-            if (!pt.isFirstPlayer())
-                return pt;
+    public Player getSecondPlayer() {
+        for (Player player : players)
+            if (!player.isFirstPlayer())
+                return player;
         return null;
     }
 
@@ -136,29 +118,29 @@ public class Room {
      * Send winner to players and reset the game.
      * @param winnerPlayer The winner player.
      */
-    public void sendWinner(PlayerThread winnerPlayer) {
-        for (PlayerThread playerThread : playersThreads)
-            playerThread.sendWinnerPlayerFlag(winnerPlayer);
+    public void sendWinner(Player winnerPlayer) throws RemoteException {
+        winnerPlayer.getClientCallback().winner();
+        winnerPlayer.getRivalClientCallback().loser();
         resetGame();
     }
 
     /**
      * Send draw to players and reset the game.
      */
-    public void sendDraw() throws IOException {
-        for (PlayerThread playerThread : playersThreads)
-            playerThread.sendDrawFlag();
+    public void sendDraw() throws RemoteException {
+        for (Player player : players)
+            player.getClientCallback().drawAccepted();
         resetGame();
     }
 
     /**
      * Reset the game and change playerOne to playerTwo and vice-versa.
      */
-    public void resetGame() {
-        PlayerThread pt1 = getFirstPlayer();
-        PlayerThread pt2 = getSecondPlayer();
-        pt1.setFirstPlayer(false);
-        pt2.setFirstPlayer(true);
+    public void resetGame() throws RemoteException {
+        Player player1 = getFirstPlayer();
+        Player player2 = getSecondPlayer();
+        player1.setFirstPlayer(false);
+        player2.setFirstPlayer(true);
         createGame();
         sendResetFlagToPlayers();
     }
@@ -166,9 +148,9 @@ public class Room {
     /**
      * Send reset flag to players in the room.
      */
-    public void sendResetFlagToPlayers() {
-        for (PlayerThread playerThread : playersThreads)
-            playerThread.sendResetFlag();
+    public void sendResetFlagToPlayers() throws RemoteException {
+        for (Player player : players)
+            player.getClientCallback().resetGame();
     }
 
     /**

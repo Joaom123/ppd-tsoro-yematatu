@@ -12,7 +12,7 @@ import java.util.Set;
  */
 public class Server implements RMIInterface {
     private final Set<Room> rooms = new HashSet<>();
-    private Set<Player> players = new HashSet<>();
+    private final Set<Player> players = new HashSet<>();
 
     public static void main(String[] args) {
         try {
@@ -90,40 +90,71 @@ public class Server implements RMIInterface {
     }
 
     @Override
-    public void receiveMessageFromClient(String message, Client client) throws RemoteException {
+    public void messageToRival(String message, Client client) throws RemoteException {
         Player player = getPlayerByClient(client);
         if (player == null) return;
-        player.getClientCallback().receiveMessage(client.getName(), message);
+        player.getRivalClientCallback().receiveMessage(client.getName(), message);
     }
 
     @Override
-    public void move(String pieceId, String pointId) throws RemoteException {
+    public void move(String pieceId, String pointId, Client client) throws RemoteException {
+        Player player = getPlayerByClient(client);
+        if (player == null) return;
+        Room room = player.getRoom();
 
+        // If the move is valid, send move
+        if (room.getGame().isValidMove(pieceId, pointId)) {
+            room.sendMoveToPlayers(pieceId, pointId);
+            player.getClientCallback().waitRivalMakeMove();
+            room.getRivalPlayer(player).getClientCallback().canMakeMove();
+        }
     }
 
     @Override
-    public void exit() throws RemoteException {
-
+    public void exit(Client client) throws RemoteException {
+        Player player = getPlayerByClient(client);
+        if (player == null) return;
+        Room room = player.getRoom();
+        if (!room.isFull()) {
+            player.getClientCallback().exit();
+            room.removePlayer(player);
+        } else {
+            player.getClientCallback().exit();
+            player.getRivalClientCallback().exit();
+            room.removePlayer(player);
+            room.removePlayer(room.getRivalPlayer(player));
+        }
     }
 
     @Override
-    public void withdrawal() throws RemoteException {
-
+    public void withdrawal(Client client) throws RemoteException {
+        Player player = getPlayerByClient(client);
+        if (player == null) return;
+        Room room = player.getRoom();
+        player.getClientCallback().loser();
+        player.getRivalClientCallback().winner();
+        room.resetGame();
     }
 
     @Override
-    public void draw() throws RemoteException {
-
+    public void draw(Client client) throws RemoteException {
+        Player player = getPlayerByClient(client);
+        if (player == null) return;
+        player.getRivalClientCallback().drawConfirmation();
     }
 
     @Override
-    public void drawDenied() throws RemoteException {
-
+    public void drawDenied(Client client) throws RemoteException {
+        Player player = getPlayerByClient(client);
+        if (player == null) return;
+        player.getRivalClientCallback().drawDenied();
     }
 
     @Override
-    public void drawAccepted() throws RemoteException {
-
+    public void drawAccepted(Client client) throws RemoteException {
+        Player player = getPlayerByClient(client);
+        if (player == null) return;
+        player.getRoom().sendDraw();
     }
 }
 

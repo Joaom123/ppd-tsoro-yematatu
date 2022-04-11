@@ -19,6 +19,10 @@ public class Player {
         this.clientCallback = clientCallback;
     }
 
+    public Room getRoom() {
+        return room;
+    }
+
     public void setRoom(Room room) {
         this.room = room;
     }
@@ -41,5 +45,9 @@ public class Player {
 
     public ClientCallback getClientCallback() {
         return clientCallback;
+    }
+
+    public ClientCallback getRivalClientCallback() {
+        return room.getRivalPlayer(this).getClientCallback();
     }
 }

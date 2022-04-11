@@ -129,7 +129,7 @@ public class ServerConnection implements ClientCallback {
      */
     public void sendMessage(String inputText) {
         try {
-            rmiInterfaceStub.receiveMessageFromClient(inputText, client);
+            rmiInterfaceStub.messageToRival(inputText, client);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -142,7 +142,7 @@ public class ServerConnection implements ClientCallback {
      */
     public void sendMove(String pieceId, String pointId) {
         try {
-            rmiInterfaceStub.move(pieceId, pointId);
+            rmiInterfaceStub.move(pieceId, pointId, client);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -153,7 +153,7 @@ public class ServerConnection implements ClientCallback {
      */
     public void sendExit() {
         try {
-            rmiInterfaceStub.exit();
+            rmiInterfaceStub.exit(client);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -164,7 +164,7 @@ public class ServerConnection implements ClientCallback {
      */
     public void sendWithdrawalFlag() {
         try {
-            rmiInterfaceStub.withdrawal();
+            rmiInterfaceStub.withdrawal(client);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -175,7 +175,7 @@ public class ServerConnection implements ClientCallback {
      */
     public void sendDrawFlag() {
         try {
-            rmiInterfaceStub.draw();
+            rmiInterfaceStub.draw(client);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -186,7 +186,7 @@ public class ServerConnection implements ClientCallback {
      */
     public void sendDrawDeniedFlag() {
         try {
-            rmiInterfaceStub.drawDenied();
+            rmiInterfaceStub.drawDenied(client);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -197,7 +197,7 @@ public class ServerConnection implements ClientCallback {
      */
     public void sendDrawAcceptedFlag() {
         try {
-            rmiInterfaceStub.drawAccepted();
+            rmiInterfaceStub.drawAccepted(client);
         } catch (RemoteException e) {
             e.printStackTrace();
         }

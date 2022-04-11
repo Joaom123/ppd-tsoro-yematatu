@@ -1,5 +1,7 @@
 package com.ifce.ppd.tsoroyematatu;
 
+import java.rmi.RemoteException;
+
 /**
  * This class represent the game's logic.
  */
@@ -53,14 +55,14 @@ public class Game {
      * @param pointId The pointId
      * @return True if the move is valid. False otherwise.
      */
-    public boolean isValidMove(String pieceId, String pointId) {
-        PlayerThread playerThread = getOwnerOfPiece(pieceId);
+    public boolean isValidMove(String pieceId, String pointId) throws RemoteException {
+        Player player = getOwnerOfPiece(pieceId);
         PointBoard pointBoard = getPointBoardById(pointId);
 
         if (pointBoard == null) return false; // If point not found, the move is invalid
-        if (playerThread == null) return false; // If player not found, the move is invalid
+        if (player == null) return false; // If player not found, the move is invalid
 
-        PieceBoard pieceBoard = getPieceBoard(playerThread, pieceId);
+        PieceBoard pieceBoard = getPieceBoard(player, pieceId);
 
         if (!canMove(pointBoard, pieceBoard)) return false;
 
@@ -149,7 +151,7 @@ public class Game {
      * @param pointBoard The point board.
      * @param pieceBoard The piece board.
      */
-    private void doMove(PointBoard pointBoard, PieceBoard pieceBoard) {
+    private void doMove(PointBoard pointBoard, PieceBoard pieceBoard) throws RemoteException {
         addTurn();
 
         PointBoard pointBoardOrigin = getOccupiedPointBoard(pieceBoard);
@@ -166,7 +168,7 @@ public class Game {
      * @param pieceId The piece's id.
      * @return The player owner of the piece.
      */
-    private PlayerThread getOwnerOfPiece(String pieceId) {
+    private Player getOwnerOfPiece(String pieceId) {
         if (pieceId.contains("first")) return room.getFirstPlayer(); // The move is from the first player
         if (pieceId.contains("second")) return room.getSecondPlayer(); // The move is from the second player
         return null;
@@ -184,17 +186,17 @@ public class Game {
     }
 
     /**
-     * @param playerThread The player owner of the piece.
+     * @param player The player owner of the piece.
      * @param pieceBoardId The piece's id.
      * @return The PieceBoard representation of the piece.
      */
-    private PieceBoard getPieceBoard(PlayerThread playerThread, String pieceBoardId) {
-        if (playerThread.isFirstPlayer())
+    private PieceBoard getPieceBoard(Player player, String pieceBoardId) {
+        if (player.isFirstPlayer())
             for (PieceBoard pb : firstPlayerPieces)
                 if (pb.getId().equals(pieceBoardId))
                     return pb;
 
-        if (!playerThread.isFirstPlayer())
+        if (!player.isFirstPlayer())
             for (PieceBoard pb : secondPlayerPieces)
                 if (pb.getId().equals(pieceBoardId))
                     return pb;
@@ -216,14 +218,14 @@ public class Game {
      *
      * @return The winner player. If no player won, return null.
      */
-    private PlayerThread getWinnerPlayer() {
-        PlayerThread pt0 = getPlayerWhoOccupiesPoint(getPointBoardById("point-0"));
-        PlayerThread pt1 = getPlayerWhoOccupiesPoint(getPointBoardById("point-1"));
-        PlayerThread pt2 = getPlayerWhoOccupiesPoint(getPointBoardById("point-2"));
-        PlayerThread pt3 = getPlayerWhoOccupiesPoint(getPointBoardById("point-3"));
-        PlayerThread pt4 = getPlayerWhoOccupiesPoint(getPointBoardById("point-4"));
-        PlayerThread pt5 = getPlayerWhoOccupiesPoint(getPointBoardById("point-5"));
-        PlayerThread pt6 = getPlayerWhoOccupiesPoint(getPointBoardById("point-6"));
+    private Player getWinnerPlayer() {
+        Player pt0 = getPlayerWhoOccupiesPoint(getPointBoardById("point-0"));
+        Player pt1 = getPlayerWhoOccupiesPoint(getPointBoardById("point-1"));
+        Player pt2 = getPlayerWhoOccupiesPoint(getPointBoardById("point-2"));
+        Player pt3 = getPlayerWhoOccupiesPoint(getPointBoardById("point-3"));
+        Player pt4 = getPlayerWhoOccupiesPoint(getPointBoardById("point-4"));
+        Player pt5 = getPlayerWhoOccupiesPoint(getPointBoardById("point-5"));
+        Player pt6 = getPlayerWhoOccupiesPoint(getPointBoardById("point-6"));
 
         //0-1-4
         if (pt0 == room.getFirstPlayer() && pt1 == room.getFirstPlayer() && pt4 == room.getFirstPlayer())
@@ -258,7 +260,7 @@ public class Game {
      * @param pointBoard The pointBoard.
      * @return The player who occupies the given point.
      */
-    private PlayerThread getPlayerWhoOccupiesPoint(PointBoard pointBoard) {
+    private Player getPlayerWhoOccupiesPoint(PointBoard pointBoard) {
         if (pointBoard == null) return null;
         if (pointBoard.getPieceBoard() == null) return null;
         return pointBoard.getPieceBoard().getOwnerPlayer();
@@ -267,8 +269,8 @@ public class Game {
     /**
      * Check if there is any winner. If so, call server to send winner/loser.
      */
-    private void checkWinnerSituation() {
-        PlayerThread winnerPlayer = getWinnerPlayer();
+    private void checkWinnerSituation() throws RemoteException {
+        Player winnerPlayer = getWinnerPlayer();
 
         if (winnerPlayer == null) return;
 

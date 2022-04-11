@@ -1,12 +1,10 @@
 package com.ifce.ppd.tsoroyematatu;
 
-import com.ifce.ppd.tsoroyematatu.PlayerThread;
-
 public class PieceBoard {
     private final String id;
-    private final PlayerThread ownerPlayer;
+    private final Player ownerPlayer;
 
-    public PieceBoard(String id, PlayerThread ownerPlayer) {
+    public PieceBoard(String id, Player ownerPlayer) {
         this.id = id;
         this.ownerPlayer = ownerPlayer;
     }
@@ -25,7 +23,7 @@ public class PieceBoard {
      *
      * @return The player.
      */
-    public PlayerThread getOwnerPlayer() {
+    public Player getOwnerPlayer() {
         return ownerPlayer;
     }
 }

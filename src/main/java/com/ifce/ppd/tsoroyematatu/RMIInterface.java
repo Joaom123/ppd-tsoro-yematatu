@@ -14,17 +14,17 @@ public interface RMIInterface extends Remote {
      */
     MESSAGE_TYPES createClient(Client client, String roomId, ClientCallback clientCallback) throws RemoteException;
 
-    void receiveMessageFromClient(String message, Client client) throws RemoteException;
+    void messageToRival(String message, Client client) throws RemoteException;
 
-    void move(String pieceId, String pointId) throws RemoteException;
+    void move(String pieceId, String pointId, Client client) throws RemoteException;
 
-    void exit() throws RemoteException;
+    void exit(Client client) throws RemoteException;
 
-    void withdrawal() throws RemoteException;
+    void withdrawal(Client client) throws RemoteException;
 
-    void draw() throws RemoteException;
+    void draw(Client client) throws RemoteException;
 
-    void drawDenied() throws RemoteException;
+    void drawDenied(Client client) throws RemoteException;
 
-    void drawAccepted() throws RemoteException;
+    void drawAccepted(Client client) throws RemoteException;
 }
