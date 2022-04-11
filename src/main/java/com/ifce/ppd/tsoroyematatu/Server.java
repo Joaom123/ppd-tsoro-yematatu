@@ -57,7 +57,7 @@ public class Server implements RMIInterface {
     }
 
     @Override
-    public MESSAGE_TYPES createClient(Client client, String roomId, ClientCallback clientCallback) throws RemoteException {
+    public void createClient(Client client, String roomId, ClientCallback clientCallback) throws RemoteException {
         System.out.println("Cliente " + client.getName() + " inicializado no servidor");
         Room room = createRoom(roomId); // the reference of the room of the player
         Player newPlayer = new Player(this, client, room, clientCallback);
@@ -68,7 +68,7 @@ public class Server implements RMIInterface {
         } catch (MaximumNumberPlayersInTheRoomException e) {
             System.out.println("Sala " + room.getId() + " está lotada!");
             newPlayer.setRoom(null); // remove the reference of room from the player
-            return MESSAGE_TYPES.ROOM_IS_FULL;
+            newPlayer.getClientCallback().roomIsFull();
         }
 
         System.out.println("Cliente " + client.getName() + " entrou na sala " + room.getId());
@@ -77,15 +77,11 @@ public class Server implements RMIInterface {
         // If full, create game and send playable flag.
         if (!room.isFull()) {
             newPlayer.setFirstPlayer(true);
-            return MESSAGE_TYPES.WAIT_RIVAL_CONNECT;
+            newPlayer.getClientCallback().waitRivalConnect();
         } else {
             room.createGame();
-            try {
-                room.getRival(newPlayer).sendPlayable();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return MESSAGE_TYPES.PLAYABLE;
+            newPlayer.getClientCallback().sendPlayable();
+            newPlayer.getRivalClientCallback().sendPlayable();
         }
     }
 

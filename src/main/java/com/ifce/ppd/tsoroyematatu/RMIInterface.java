@@ -9,10 +9,9 @@ public interface RMIInterface extends Remote {
     /**
      * @param client The client's model.
      * @param roomId The room's id.
-     * @return ROOM_IS_FULL, WAIT_RIVAL_CONNECT or PLAYABLE
      * @throws RemoteException When there is a failure to connect to the server.
      */
-    MESSAGE_TYPES createClient(Client client, String roomId, ClientCallback clientCallback) throws RemoteException;
+    void createClient(Client client, String roomId, ClientCallback clientCallback) throws RemoteException;
 
     void messageToRival(String message, Client client) throws RemoteException;
 

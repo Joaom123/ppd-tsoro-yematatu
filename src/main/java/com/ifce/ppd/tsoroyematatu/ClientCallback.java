@@ -84,4 +84,6 @@ public interface ClientCallback extends Remote {
      * @throws RemoteException When there is a failure to connect to the server.
      */
     void roomIsFull() throws RemoteException;
+
+    void waitRivalConnect() throws RemoteException;
 }

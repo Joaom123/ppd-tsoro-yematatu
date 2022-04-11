@@ -88,22 +88,7 @@ public class ServerConnection implements ClientCallback {
     public void createClientOnServer(String roomId) throws NullClientException, RemoteException {
         if (client == null) throw new NullClientException();
 
-        MESSAGE_TYPES messageTypes = rmiInterfaceStub.createClient(getClient(), roomId, clientCallback);
-
-        // The room is full and the game isn't possible
-        if (messageTypes == MESSAGE_TYPES.ROOM_IS_FULL) {
-            roomIsFull();
-        }
-
-        // Is the first player and must wait rival to connect
-        if (messageTypes == MESSAGE_TYPES.WAIT_RIVAL_CONNECT) {
-            setFirstPlayer(true);
-        }
-
-        // Isn't the first player and the game is playable
-        if (messageTypes == MESSAGE_TYPES.PLAYABLE) {
-            goToGame();
-        }
+        rmiInterfaceStub.createClient(getClient(), roomId, clientCallback);
     }
 
     /**
@@ -226,6 +211,11 @@ public class ServerConnection implements ClientCallback {
     @Override
     public void roomIsFull() throws RemoteException {
         currentController.roomIsFull();
+    }
+
+    @Override
+    public void waitRivalConnect() {
+        setFirstPlayer(true);
     }
 
     @Override
