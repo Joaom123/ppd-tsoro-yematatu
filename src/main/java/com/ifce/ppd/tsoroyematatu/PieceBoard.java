@@ -1,5 +1,8 @@
 package com.ifce.ppd.tsoroyematatu;
 
+/**
+ * The representation of the board's piece. The piece can be owned by a player.
+ */
 public class PieceBoard {
     private final String id;
     private final Player ownerPlayer;

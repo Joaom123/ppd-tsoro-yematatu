@@ -1,9 +1,8 @@
 package com.ifce.ppd.tsoroyematatu;
 
-import java.rmi.RemoteException;
-
 /**
- * Handles the connection for each connected player(client).
+ * The representation of the Player. It has a Client, useful to differentiate one player from another.
+ * The clientCallback is useful for the server execute functions on the client-side.
  */
 public class Player {
     private final Server server;
@@ -33,10 +32,6 @@ public class Player {
 
     public void setFirstPlayer(boolean firstPlayer) {
         isFirstPlayer = firstPlayer;
-    }
-
-    public void sendPlayable() throws RemoteException {
-        clientCallback.sendPlayable();
     }
 
     public Client getClient() {

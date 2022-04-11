@@ -216,7 +216,6 @@ public class ServerConnection implements ClientCallback {
     @Override
     public void ping(String message) throws RemoteException {
         System.out.println(message);
-        System.out.println(client.getName());
     }
 
     @Override

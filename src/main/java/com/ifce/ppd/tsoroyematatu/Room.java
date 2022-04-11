@@ -1,6 +1,5 @@
 package com.ifce.ppd.tsoroyematatu;
 
-import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.HashSet;
 import java.util.Objects;
@@ -8,6 +7,7 @@ import java.util.Set;
 
 /**
  * Represents the room where two players play.
+ * Every Room has a Game, which contains the game's logic.
  */
 public class Room {
     private final String id;
@@ -77,14 +77,6 @@ public class Room {
     }
 
     /**
-     * Send playable flag to players.
-     */
-    public void sendPlayable() throws IOException {
-        for (Player player : players)
-            player.getClientCallback().sendPlayable();
-    }
-
-    /**
      * Send move to players.
      * @param pieceId The piece's id.
      * @param pointId The point's id.
@@ -151,18 +143,5 @@ public class Room {
     public void sendResetFlagToPlayers() throws RemoteException {
         for (Player player : players)
             player.getClientCallback().resetGame();
-    }
-
-    /**
-     * @param player A player.
-     * @return The rival of given player.
-     * @throws NoRivalException If there is no rival, thrown exception.
-     */
-    public Player getRival(Player player) throws NoRivalException {
-        for (Player player1 : players) {
-            if (player != player1)
-                return player1;
-        }
-        throw new NoRivalException();
     }
 }

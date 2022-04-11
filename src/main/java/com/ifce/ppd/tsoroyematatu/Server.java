@@ -49,6 +49,11 @@ public class Server implements RMIInterface {
         return room;
     }
 
+    /**
+     * Get a player by its client;
+     * @param client The client.
+     * @return The player which has the cliente. Null if none have.
+     */
     private Player getPlayerByClient(Client client) {
         for (Player player : players)
             if (player.getClient().getId().equals(client.getId()))

@@ -36,7 +36,7 @@ public class LoginController extends Controller {
      * @param actionEvent The action's event
      */
     @SuppressWarnings("unused")
-    public void handleLoginButtonClick(ActionEvent actionEvent) throws NullClientException, RemoteException {
+    public void handleLoginButtonClick(ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         String playerName = playerNameTF.getText();
         String hostName = hostNameTF.getText();
@@ -61,18 +61,16 @@ public class LoginController extends Controller {
         serverConnection.setClient(client);
         serverConnection.setHostname(hostName);
         serverConnection.setRoomId(roomId);
-        serverConnection.createClientOnServer(roomId);
-//        try {
-//
-//        } catch (Exception e) {
-//            System.out.println("Erro ao criar cliente no servidor");
-//            e.printStackTrace();
-//            // If not connected: show error message
-//            javaFXService.errorAlert("Conexão não estabelecida!",
-//                    "Não foi possível criar uma conexão com o servidor, tente novamente.");
-//            return;
-//        }
-
+        try {
+            serverConnection.createClientOnServer(roomId);
+        } catch (NullClientException | RemoteException e) {
+            System.out.println("Erro ao criar cliente no servidor");
+            e.printStackTrace();
+            // If not connected: show error message
+            javaFXService.errorAlert("Conexão não estabelecida!",
+                    "Não foi possível criar uma conexão com o servidor, tente novamente.");
+            return;
+        }
 
         // If connected: Go to awaiting view
         if (serverConnection.isConnected())

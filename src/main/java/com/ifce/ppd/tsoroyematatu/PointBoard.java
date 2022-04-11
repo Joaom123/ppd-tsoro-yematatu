@@ -1,5 +1,8 @@
 package com.ifce.ppd.tsoroyematatu;
 
+/**
+ * The representation of the board's point (hole). The point can be "filled" by a piece.
+ */
 public class PointBoard {
     private final String id;
     private PieceBoard pieceBoard = null;

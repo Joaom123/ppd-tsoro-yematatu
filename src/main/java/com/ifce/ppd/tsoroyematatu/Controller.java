@@ -14,7 +14,6 @@ public abstract class Controller {
      * Change the scene to the game one, with the board and chat.
      */
     public void goToGame() {
-        System.out.println("void");
     }
 
     /**

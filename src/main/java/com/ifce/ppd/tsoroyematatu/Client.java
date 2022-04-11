@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.UUID;
 
 public class Client implements Serializable {
-    private final String name;
     private final String id;
+    private final String name;
 
     public Client(String name) {
         this.name = name;

@@ -6,8 +6,8 @@ import java.rmi.RemoteException;
  * This class represent the game's logic.
  */
 public class Game {
-    private final PointBoard[] board;
     private final Room room;
+    private final PointBoard[] board;
     private final PieceBoard[] firstPlayerPieces;
     private final PieceBoard[] secondPlayerPieces;
     private int turn = 0;

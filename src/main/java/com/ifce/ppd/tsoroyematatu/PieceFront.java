@@ -2,6 +2,9 @@ package com.ifce.ppd.tsoroyematatu;
 
 import javafx.scene.shape.Circle;
 
+/**
+ * The representation of the board's piece on the client-side (JavaFx).
+ */
 public class PieceFront {
     private final Circle piece;
     private Circle point = null;

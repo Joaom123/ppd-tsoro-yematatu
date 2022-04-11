@@ -23,6 +23,13 @@ public interface ClientCallback extends Remote {
      */
     void receiveMessage(String author, String message) throws RemoteException;
 
+    /**
+     * Move a piece to a point.
+     * @param pieceId The piece to be moved.
+     * @param pointId The point of destiny of the piece.
+     * @param turn The current turn in the server.
+     * @throws RemoteException When there is a failure to connect to the server.
+     */
     void move(String pieceId, String pointId, int turn) throws RemoteException;
 
     /**
@@ -85,7 +92,16 @@ public interface ClientCallback extends Remote {
      */
     void roomIsFull() throws RemoteException;
 
+    /**
+     * Execute the function 'ping' in the ServerConnection. Useful for debugging.
+     * @param message The message to be printed.
+     * @throws RemoteException When there is a failure to connect to the server.
+     */
     void ping(String message) throws RemoteException;
 
+    /**
+     * Set first player flag in ServerConnection's object to true.
+     * @throws RemoteException When there is a failure to connect to the server.
+     */
     void firstPlayer() throws RemoteException;
 }
