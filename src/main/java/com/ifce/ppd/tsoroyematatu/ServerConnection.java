@@ -205,6 +205,7 @@ public class ServerConnection implements ClientCallback {
 
     @Override
     public void sendPlayable() throws RemoteException {
+        System.out.println("Go to game");
         goToGame();
     }
 
@@ -214,7 +215,13 @@ public class ServerConnection implements ClientCallback {
     }
 
     @Override
-    public void waitRivalConnect() {
+    public void ping(String message) throws RemoteException {
+        System.out.println(message);
+        System.out.println(client.getName());
+    }
+
+    @Override
+    public void firstPlayer() throws RemoteException {
         setFirstPlayer(true);
     }
 

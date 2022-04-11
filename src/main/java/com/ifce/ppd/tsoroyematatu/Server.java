@@ -57,7 +57,7 @@ public class Server implements RMIInterface {
     }
 
     @Override
-    public void createClient(Client client, String roomId, ClientCallback clientCallback) throws RemoteException {
+    public synchronized void createClient(Client client, String roomId, ClientCallback clientCallback) throws RemoteException {
         System.out.println("Cliente " + client.getName() + " inicializado no servidor");
         Room room = createRoom(roomId); // the reference of the room of the player
         Player newPlayer = new Player(this, client, room, clientCallback);
@@ -77,7 +77,7 @@ public class Server implements RMIInterface {
         // If full, create game and send playable flag.
         if (!room.isFull()) {
             newPlayer.setFirstPlayer(true);
-            newPlayer.getClientCallback().waitRivalConnect();
+            newPlayer.getClientCallback().firstPlayer();
         } else {
             room.createGame();
             newPlayer.getClientCallback().sendPlayable();
@@ -88,14 +88,12 @@ public class Server implements RMIInterface {
     @Override
     public void messageToRival(String message, Client client) throws RemoteException {
         Player player = getPlayerByClient(client);
-        if (player == null) return;
         player.getRivalClientCallback().receiveMessage(client.getName(), message);
     }
 
     @Override
     public void move(String pieceId, String pointId, Client client) throws RemoteException {
         Player player = getPlayerByClient(client);
-        if (player == null) return;
         Room room = player.getRoom();
 
         // If the move is valid, send move
@@ -109,7 +107,6 @@ public class Server implements RMIInterface {
     @Override
     public void exit(Client client) throws RemoteException {
         Player player = getPlayerByClient(client);
-        if (player == null) return;
         Room room = player.getRoom();
         if (!room.isFull()) {
             player.getClientCallback().exit();
@@ -125,7 +122,6 @@ public class Server implements RMIInterface {
     @Override
     public void withdrawal(Client client) throws RemoteException {
         Player player = getPlayerByClient(client);
-        if (player == null) return;
         Room room = player.getRoom();
         player.getClientCallback().loser();
         player.getRivalClientCallback().winner();
@@ -135,21 +131,18 @@ public class Server implements RMIInterface {
     @Override
     public void draw(Client client) throws RemoteException {
         Player player = getPlayerByClient(client);
-        if (player == null) return;
         player.getRivalClientCallback().drawConfirmation();
     }
 
     @Override
     public void drawDenied(Client client) throws RemoteException {
         Player player = getPlayerByClient(client);
-        if (player == null) return;
         player.getRivalClientCallback().drawDenied();
     }
 
     @Override
     public void drawAccepted(Client client) throws RemoteException {
         Player player = getPlayerByClient(client);
-        if (player == null) return;
         player.getRoom().sendDraw();
     }
 }

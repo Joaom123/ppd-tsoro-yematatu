@@ -85,5 +85,7 @@ public interface ClientCallback extends Remote {
      */
     void roomIsFull() throws RemoteException;
 
-    void waitRivalConnect() throws RemoteException;
+    void ping(String message) throws RemoteException;
+
+    void firstPlayer() throws RemoteException;
 }
