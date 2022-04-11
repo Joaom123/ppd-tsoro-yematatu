@@ -94,7 +94,7 @@ public class LoginController extends Controller {
     public void roomIsFull() {
         Platform.runLater(() -> {
             javaFXService.errorAlert("Sala cheia!", "A sala está cheia, tente outra sala!");
-            javaFXService.goToView("init-view.fxml", (Stage) hostNameTF.getScene().getWindow(), new InitController(serverConnection));
+            javaFXService.goToView("init-view.fxml", stage, new InitController(serverConnection));
         });
     }
 }

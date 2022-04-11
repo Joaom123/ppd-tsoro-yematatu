@@ -68,6 +68,7 @@ public class Server implements RMIInterface {
         Room room = createRoom(roomId); // the reference of the room of the player
         Player newPlayer = new Player(this, client, room, clientCallback);
         players.add(newPlayer);
+        boolean hasMaxPlayersInTheRoom = false;
 
         try {
             room.addPlayer(newPlayer); // add player to the room
@@ -75,8 +76,9 @@ public class Server implements RMIInterface {
             System.out.println("Sala " + room.getId() + " está lotada!");
             newPlayer.setRoom(null); // remove the reference of room from the player
             newPlayer.getClientCallback().roomIsFull();
+            hasMaxPlayersInTheRoom = true;
         }
-
+        if (hasMaxPlayersInTheRoom) return;
         System.out.println("Cliente " + client.getName() + " entrou na sala " + room.getId());
 
         // If room isn't full, player should wait until another player enter.
