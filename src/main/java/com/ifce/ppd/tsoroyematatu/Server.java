@@ -51,6 +51,7 @@ public class Server implements RMIInterface {
 
     /**
      * Get a player by its client;
+     *
      * @param client The client.
      * @return The player which has the cliente. Null if none have.
      */

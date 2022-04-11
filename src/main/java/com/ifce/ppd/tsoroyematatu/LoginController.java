@@ -12,16 +12,13 @@ import java.rmi.RemoteException;
 public class LoginController extends Controller {
     private final ServerConnection serverConnection;
     private final JavaFXService javaFXService = new JavaFXService();
-    private Stage stage;
-
     @FXML
     public TextField playerNameTF;
-
     @FXML
     public TextField hostNameTF;
-
     @FXML
     public TextField roomIdTF;
+    private Stage stage;
 
     public LoginController(ServerConnection serverConnection) {
         this.serverConnection = serverConnection;

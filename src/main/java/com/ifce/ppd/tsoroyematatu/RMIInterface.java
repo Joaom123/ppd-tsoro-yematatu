@@ -1,4 +1,5 @@
 package com.ifce.ppd.tsoroyematatu;
+
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -16,7 +17,7 @@ public interface RMIInterface extends Remote {
 
     /**
      * @param message The message to be sent.
-     * @param client The message's owner.
+     * @param client  The message's owner.
      * @throws RemoteException When there is a failure to connect to the server.
      */
     void messageToRival(String message, Client client) throws RemoteException;
@@ -24,7 +25,7 @@ public interface RMIInterface extends Remote {
     /**
      * @param pieceId Piece to be moved.
      * @param pointId The destiny of the piece.
-     * @param client The move's owner.
+     * @param client  The move's owner.
      * @throws RemoteException When there is a failure to connect to the server.
      */
     void move(String pieceId, String pointId, Client client) throws RemoteException;
@@ -54,7 +55,6 @@ public interface RMIInterface extends Remote {
     void drawDenied(Client client) throws RemoteException;
 
     /**
-     *
      * @param client The client who accepted the draw.
      * @throws RemoteException When there is a failure to connect to the server.
      */

@@ -52,6 +52,7 @@ public class Room {
 
     /**
      * Add player to the room. If full thrown exception.
+     *
      * @param player Player to be added.
      * @throws MaximumNumberPlayersInTheRoomException If room is full, throw exception.
      */
@@ -70,6 +71,7 @@ public class Room {
 
     /**
      * Remove the given player of the room.
+     *
      * @param player Player to be removed.
      */
     public void removePlayer(Player player) {
@@ -78,6 +80,7 @@ public class Room {
 
     /**
      * Send move to players.
+     *
      * @param pieceId The piece's id.
      * @param pointId The point's id.
      */
@@ -108,6 +111,7 @@ public class Room {
 
     /**
      * Send winner to players and reset the game.
+     *
      * @param winnerPlayer The winner player.
      */
     public void sendWinner(Player winnerPlayer) throws RemoteException {

@@ -1,6 +1,5 @@
 package com.ifce.ppd.tsoroyematatu;
 
-import com.ifce.ppd.tsoroyematatu.TsoroYematatuApplication;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;

@@ -186,7 +186,7 @@ public class Game {
     }
 
     /**
-     * @param player The player owner of the piece.
+     * @param player       The player owner of the piece.
      * @param pieceBoardId The piece's id.
      * @return The PieceBoard representation of the piece.
      */

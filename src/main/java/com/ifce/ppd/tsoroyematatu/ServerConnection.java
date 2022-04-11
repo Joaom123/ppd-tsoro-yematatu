@@ -9,6 +9,7 @@ import java.rmi.server.UnicastRemoteObject;
  * Start the client, connects to a server.
  */
 public class ServerConnection implements ClientCallback {
+    ClientCallback clientCallback;
     private Controller currentController;
     private Client client;
     private String roomId;
@@ -17,9 +18,9 @@ public class ServerConnection implements ClientCallback {
     private boolean isConnected = false;
     private boolean isFirstPlayer = false;
     private int turn = 0;
-    ClientCallback clientCallback;
 
-    public ServerConnection() {}
+    public ServerConnection() {
+    }
 
     public boolean isConnected() {
         return isConnected;
@@ -109,6 +110,7 @@ public class ServerConnection implements ClientCallback {
 
     /**
      * Send message to server.
+     *
      * @param inputText The content of the message.
      */
     public void sendMessage(String inputText) {
@@ -121,6 +123,7 @@ public class ServerConnection implements ClientCallback {
 
     /**
      * Use the sendThread to send the move to the server.
+     *
      * @param pieceId The pieceId
      * @param pointId The pointId
      */
