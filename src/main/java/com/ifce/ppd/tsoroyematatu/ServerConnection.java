@@ -76,11 +76,10 @@ public class ServerConnection implements ClientCallback {
             UnicastRemoteObject.exportObject(clientCallback, 0);
             Registry registry = LocateRegistry.getRegistry(null, 2002);
             rmiInterfaceStub = (RMIInterface) registry.lookup("RMIInterface");
-
             isConnected = true;
+            System.out.println("Cliente conectado corretamente no servidor");
         } catch (Exception e) {
             isConnected = false;
-            System.err.println("Client exception: " + e);
             e.printStackTrace();
         }
     }
@@ -205,7 +204,7 @@ public class ServerConnection implements ClientCallback {
 
     @Override
     public void sendPlayable() throws RemoteException {
-        System.out.println("Go to game");
+        System.out.println(isFirstPlayer());
         goToGame();
     }
 

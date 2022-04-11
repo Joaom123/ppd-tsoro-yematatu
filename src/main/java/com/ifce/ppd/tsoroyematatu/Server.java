@@ -51,13 +51,13 @@ public class Server implements RMIInterface {
 
     private Player getPlayerByClient(Client client) {
         for (Player player : players)
-            if (player.getClient() == client)
+            if (player.getClient().getId().equals(client.getId()))
                 return player;
         return null;
     }
 
     @Override
-    public synchronized void createClient(Client client, String roomId, ClientCallback clientCallback) throws RemoteException {
+    public void createClient(Client client, String roomId, ClientCallback clientCallback) throws RemoteException {
         System.out.println("Cliente " + client.getName() + " inicializado no servidor");
         Room room = createRoom(roomId); // the reference of the room of the player
         Player newPlayer = new Player(this, client, room, clientCallback);

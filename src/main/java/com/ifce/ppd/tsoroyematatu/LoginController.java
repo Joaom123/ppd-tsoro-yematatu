@@ -7,9 +7,12 @@ import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.rmi.RemoteException;
+
 public class LoginController extends Controller {
     private final ServerConnection serverConnection;
     private final JavaFXService javaFXService = new JavaFXService();
+    private Stage stage;
 
     @FXML
     public TextField playerNameTF;
@@ -23,6 +26,7 @@ public class LoginController extends Controller {
     public LoginController(ServerConnection serverConnection) {
         this.serverConnection = serverConnection;
         this.serverConnection.setCurrentController(this);
+        serverConnection.startConnection();
     }
 
     /**
@@ -32,7 +36,8 @@ public class LoginController extends Controller {
      * @param actionEvent The action's event
      */
     @SuppressWarnings("unused")
-    public void handleLoginButtonClick(ActionEvent actionEvent) {
+    public void handleLoginButtonClick(ActionEvent actionEvent) throws NullClientException, RemoteException {
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         String playerName = playerNameTF.getText();
         String hostName = hostNameTF.getText();
         String roomId = roomIdTF.getText();
@@ -53,29 +58,30 @@ public class LoginController extends Controller {
         }
 
         Client client = new Client(playerName);
-
-        serverConnection.startConnection();
         serverConnection.setClient(client);
         serverConnection.setHostname(hostName);
         serverConnection.setRoomId(roomId);
-        try {
-            serverConnection.createClientOnServer(roomId);
-        } catch (Exception e) {
-            System.out.println("Erro ao criar cliente no servidor");
-            e.printStackTrace();
-        }
+        serverConnection.createClientOnServer(roomId);
+//        try {
+//
+//        } catch (Exception e) {
+//            System.out.println("Erro ao criar cliente no servidor");
+//            e.printStackTrace();
+//            // If not connected: show error message
+//            javaFXService.errorAlert("Conexão não estabelecida!",
+//                    "Não foi possível criar uma conexão com o servidor, tente novamente.");
+//            return;
+//        }
 
 
         // If connected: Go to awaiting view
-        if (this.serverConnection.isConnected()) {
-            Stage actualStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            javaFXService.goToView("awaiting-view.fxml", actualStage, new AwaitingController(serverConnection, actualStage));
-            return;
-        }
+        if (serverConnection.isConnected())
+            javaFXService.goToView("awaiting-view.fxml", stage, new AwaitingController(serverConnection, stage));
+    }
 
-        // If not connected: show error message
-        javaFXService.errorAlert("Conexão não estabelecida!",
-                "Não foi possível criar uma conexão com o servidor, tente novamente.");
+    @Override
+    public void goToGame() {
+        Platform.runLater(() -> javaFXService.goToView("game-view.fxml", stage, new GameController(serverConnection)));
     }
 
     /**
